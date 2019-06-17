@@ -1,11 +1,11 @@
 # front
 
-## Project setup
+## Project setup: 在开始开发之前安装好依赖包
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development: 请在开发时运行
 ```
 npm run serve
 ```
