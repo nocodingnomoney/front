@@ -2,53 +2,27 @@
 
 前端代码库
 
-## 代码风格及规范
+## 0. 开发前须知
+1. 我知道你们不会去看wiki的,所以只能写在README了
+2. 前端开发的技术栈为:`Vue.js` + `Vue-Material-UI` + `Webpack`
+3. 必备开发工具: `Node.js`(V12.4.0)
+4. 可选开发工具: `VSCode`, `WebStorm` 等
+5. 如使用`VSCode`,请使用`Clang Format`扩展对代码进行格式化
+6. 多交流,多学习!
+
+## 1. 代码风格及规范
 详情请参考[谷歌推行的代码规范](https://google.github.io/styleguide/jsguide.html)
 
-## 代码风格及规范(翻译)
-1. 使用VSCode进行编码的话,安装Clang-Formatter进行代码的格式化~
-2. 其他的...还是看链接
-
-## 协作流程
+## 2. 协作流程
 
 GitHub-Flow
 
-## 具体执行
+### 协作流程的具体执行
 
-### 前情提要
+参照在[GitHub上的老教程](https://github.com/nocodingnomoney/back/blob/develop/README.md)
 
-1. 开发时一切皆以develop为主
-2. 本流程不完全遵循GitHub-Flow,但是演变自GitHub-Flow,旨在达到最方便的协作
-
-### 情景假设
-
-1. 分工情况
-   - 代码负责人: Master
-   - 搬砖程序员: Tony, Jack
-   - 理发功能模块负责人: Tony
-   - 绘画功能模块负责人: Jack
-2. 工作流程
-   - Tony在`develop`分支上创建一个分支`develop-haircut`
-   - Jack在`develop`分支上创建一个分支`develop-painting`
-   - Tony在`develop-haircut`上写垃圾代码写得不亦乐乎
-   - Jack在`develop-painting`上写垃圾代码写得不亦乐乎
-   - Tony把自己的代码push上`develop-haircut`
-   - Jack把自己的代码push上`develop-painting`
-   - Tony在GitHub上发起`pull request`,请求合并到`develop`,设定`reviewer`为Master
-   - Jack在GitHub上发起`pull request`,请求合并到`develop`,设定`reviewer`为Master
-
-
-
-## 要点
-
-上面的工作流程中, 无论Jack怎么改自己的代码, 什么时候改代码, 都不会与Tony冲突, 反之对Tony而言也是如此, 但是两个人的代码始终会有冲突, 那么解决冲突就由上层的Master来决定.
-
-如果代码写得太垃圾, Master也是可以拒绝合并的, 直接修改到Master满意为止
-
-~~如果Jack和Tony设置Reviewer为彼此的话那就可以狼狈为奸了~~
-
-#### 下面是运行、开发、部署该项目的要点
-***
+## 3. 运行、开发、部署该项目的时会用到的命令
+本项目使用vue-生成,下面是该项目初始的README内容
 
 ## Project setup: 在开始开发之前安装好依赖包
 ```
