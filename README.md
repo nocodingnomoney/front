@@ -2,6 +2,13 @@
 
 前端代码库
 
+## 代码风格及规范
+详情请参考[谷歌推行的代码规范](https://google.github.io/styleguide/jsguide.html)
+
+## 代码风格及规范(翻译)
+1. 使用VSCode进行编码的话,安装Clang-Formatter进行代码的格式化~
+2. 其他的...还是看链接
+
 ## 协作流程
 
 GitHub-Flow
