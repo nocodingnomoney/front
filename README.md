@@ -9,6 +9,7 @@
 4. 可选开发工具: `VSCode`, `WebStorm` 等
 5. 如使用`VSCode`,请使用`Clang Format`扩展对代码进行格式化
 6. 多交流,多学习!
+7. **贡献代码之前,先切换到自己的分支!**
 
 ## 1. 代码风格及规范
 详情请参考[谷歌推行的代码规范](https://google.github.io/styleguide/jsguide.html)
