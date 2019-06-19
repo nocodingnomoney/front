@@ -10,9 +10,31 @@
       </div>
 
       <div class="md-toolbar-section-end">
-        <md-button class="md-icon-button">
-          <md-icon>more_vert</md-icon>
-        </md-button>
+
+        <md-menu md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
+          <!--          这个button是弹出菜单的入口-->
+          <md-button class="md-icon-button" md-menu-trigger>
+            <md-icon>contacts</md-icon>
+          </md-button>
+
+          <!--          下面是菜单的内容-->
+          <md-menu-content>
+            <div class="author-card">
+              <md-avatar class="md-large md-elevation-4">
+                <md-icon>person</md-icon>
+              </md-avatar>
+              <div class="author-card__info">
+                <div class="author-card__info__name">
+                  <span>{{this.staffName}}</span>
+                </div>
+                <div>
+                  <md-button class="md-raised md-accent">退出</md-button>
+                </div>
+              </div>
+            </div>
+          </md-menu-content>
+        </md-menu>
+
       </div>
     </div>
     <div class="md-toolbar-row">
@@ -31,14 +53,22 @@
   import Vue from 'vue'
   import 'vue-material/dist/vue-material.min.css'
   import 'vue-material/dist/theme/default.css'
-  import {MdTabs, MdButton, MdIcon} from 'vue-material/dist/components'
+  import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
   Vue.use(MdIcon)
+  Vue.use(MdMenu)
+  Vue.use(MdAvatar)
 
   export default {
     name: 'Toolbar',
+    data() {
+      return {
+        staffName: '二狗',
+        toggleCard: false
+      }
+    },
     methods: {
       toggleMenu: function () {
         this.$emit('toggle-menu')
@@ -47,8 +77,23 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .toolbar {
     width: 100%;
+  }
+
+
+
+  .author-card {
+    display: flex;
+
+    .author-card__info {
+      display: flex;
+      flex-direction: column;
+
+      .author-card__info__name {
+        text-align: center;
+      }
+    }
   }
 </style>
