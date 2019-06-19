@@ -1,133 +1,65 @@
 <template>
-  <div class="page-container">
+  <div class="app">
     <md-app md-waterfall md-mode="fixed-last">
       <md-app-toolbar class="md-large md-dense md-primary">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-              <md-icon>menu</md-icon>
-            </md-button>
-
-            <span class="md-title">My Title</span>
-          </div>
-
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button">
-              <md-icon>more_vert</md-icon>
-            </md-button>
-          </div>
-        </div>
-
-        <div class="md-toolbar-row">
-          <md-tabs class="md-primary">
-            <md-tab id="tab-home" md-label="Home"></md-tab>
-            <md-tab id="tab-pages" md-label="Pages"></md-tab>
-            <md-tab id="tab-posts" md-label="Posts"></md-tab>
-            <md-tab id="tab-favorites" md-label="Favorites"></md-tab>
-          </md-tabs>
-        </div>
+        <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible">
-        <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
-
-        <md-list>
-          <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
-          </md-list-item>
-        </md-list>
+        <Drawer></Drawer>
       </md-app-drawer>
 
       <md-app-content>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
-        <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+        <!--        这里放置内容-->
       </md-app-content>
     </md-app>
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
-
 <script>
-// 部分加载组件
-import Vue from 'vue'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-import {
-  MdApp,
-  MdDrawer,
-  MdToolbar,
-  MdList,
-  MdIcon,
-  MdButton,
-  MdContent,
-  MdTabs
-} from 'vue-material/dist/components'
-Vue.use(MdApp)
-Vue.use(MdDrawer)
-Vue.use(MdToolbar)
-Vue.use(MdList)
-Vue.use(MdIcon)
-Vue.use(MdButton)
-Vue.use(MdContent)
-Vue.use(MdTabs)
+  // 部分加载组件
+  import Vue from 'vue'
+  import 'vue-material/dist/vue-material.min.css'
+  import 'vue-material/dist/theme/default.css'
+  import Drawer from './components/Drawer.vue'
+  import Toolbar from './components/Toolbar'
+  import {
+    MdApp,
+  } from 'vue-material/dist/components'
 
-export default {
-  name: 'app',
-  data: () => ({
-    menuVisible: false
-  })
-}
+  // Vue-Material的组件引入用Vue.use语句
+  Vue.use(MdApp)
+
+
+  export default {
+    name: 'app',
+    // 自定义组价在父组件中以下面的形式注册
+    components: {
+      Drawer,
+      Toolbar
+    },
+    data() {
+      return {
+        menuVisible: false
+      }
+    },
+    methods: {
+      toggleMenuVisibility: function () {
+        this.menuVisible = !this.menuVisible
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .app {
+    font-family: 'Noto Sans', 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-.md-app {
-  max-height: 400px;
-  border: 1px solid rgba(#000, 0.12);
-}
-
-// Demo purposes only
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-}
+  .md-app {
+    min-height: 100vh;
+    border: 1px solid rgba(#000, 0.12);
+  }
 </style>
