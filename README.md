@@ -6,7 +6,7 @@
 1. 我知道你们不会去看wiki的,所以只能写在README了
 2. 前端开发的技术栈为:`Vue.js` + `Vue-Material-UI` + `Webpack`
 3. 必备开发工具: `Node.js`(V12.4.0)
-4. 可选开发工具: `VSCode`, `WebStorm` 等
+4. 可选开发工具: `VSCode`, `WebStorm` 等, 推荐使用Jetbrains系列的`Intellij IDEA`
 5. 多交流,多学习!
 6. **贡献代码之前,先切换到自己的分支!**
 
