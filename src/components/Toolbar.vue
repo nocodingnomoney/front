@@ -39,11 +39,7 @@
     </div>
     <div class="md-toolbar-row">
       <md-tabs class="md-primary">
-        <md-tab md-label="系统管理"></md-tab>
-        <md-tab md-label="财务中心"></md-tab>
-        <md-tab md-label="产品中心"></md-tab>
-        <md-tab md-label="订单中心"></md-tab>
-        <md-tab md-label="数据统计"></md-tab>
+        <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName"></md-tab>
       </md-tabs>
     </div>
   </div>
@@ -66,7 +62,20 @@
     data() {
       return {
         staffName: '二狗',
-        toggleCard: false
+        toggleCard: false, // 员工的card
+        role: '1',
+        tabs: {
+          // 专供供应商渠道岗
+          '0': ['资料管理', '用户认证', '黑白名单'],
+          // 专供产品录入岗
+          '1': ['产品录入', '产品预选库'],
+          // 专供产品审核岗
+          '2': ['产品审核', '产品评估', '入库审批', '产品标准库'],
+          // 专供产品配置岗
+          '3': ['产品配置', '入库审批列表', '产品配置库'],
+          // 专供系统管理员
+          '4': ['用户管理', '产品库', '配置库']
+        }
       }
     },
     methods: {
@@ -81,7 +90,6 @@
   .toolbar {
     width: 100%;
   }
-
 
 
   .author-card {

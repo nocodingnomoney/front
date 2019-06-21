@@ -54,7 +54,12 @@
     name: 'Drawer',
     data() {
       return {
-        toggleSnackbar: false
+        toggleSnackbar: false,
+        // 以下本应该是全局变量
+        logged: false,
+        role: '0',
+        // 以上本应该是全局变量
+
       }
     },
     methods: {
