@@ -24,6 +24,9 @@ GitHub-Flow
 ## 3. 运行、开发、部署该项目的时会用到的命令
 本项目使用vue-cli生成,下面是该项目初始的README内容
 
+## 4. 约定俗成的一些东西
+@ 代表 `/src` 的别名
+
 ## Project setup: 在开始开发之前安装好依赖包
 ```
 npm install

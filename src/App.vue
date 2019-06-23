@@ -1,16 +1,18 @@
 <template>
   <div class="app">
-    <md-app md-waterfall md-mode="fixed-last">
+    <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
       <md-app-toolbar class="md-large md-dense md-primary">
         <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible">
-        <Drawer></Drawer>
+        <Drawer @click-item="handleClickDrawerItem"></Drawer>
       </md-app-drawer>
 
       <md-app-content>
         <!--        这里放置内容-->
+        <router-view></router-view>
+        <router-view name="pageSettings"></router-view>
       </md-app-content>
     </md-app>
   </div>
@@ -20,7 +22,11 @@
   // 部分加载组件
   import Vue from 'vue'
   import 'vue-material/dist/vue-material.min.css'
-  import 'vue-material/dist/theme/default.css'
+
+  // 使用样式切换的话就不需要这个了
+  // import 'vue-material/dist/theme/deSfault.css'
+  // import 'vue-material/dist/theme/default-dark.css'
+
   import Drawer from './components/Drawer.vue'
   import Toolbar from './components/Toolbar'
   import {
@@ -41,18 +47,29 @@
     },
     data() {
       return {
-        menuVisible: false
+        menuVisible: false,
+        theme: 'classical'
       }
     },
     methods: {
       toggleMenuVisibility: function () {
         this.menuVisible = !this.menuVisible
+      },
+      handleClickDrawerItem: function (params) {
+        if (params === 'personalSettings') {
+          this.menuVisible = false
+        }
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+  /*切换主题样式*/
+  /*@import "~vue-material/dist/theme/prebuilt/default";*/
+  @import "@assets/theme.scss";
+
   .md-app {
     min-height: 100vh;
     border: 1px solid rgba(#000, 0.12);

@@ -11,7 +11,7 @@
 
       <div class="md-toolbar-section-end">
 
-        <md-menu md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
+        <md-menu class="md-primary" md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
           <!--          这个button是弹出菜单的入口-->
           <md-button class="md-icon-button" md-menu-trigger>
             <md-icon>contacts</md-icon>
@@ -87,10 +87,10 @@
 </script>
 
 <style lang="scss" scoped>
+
   .toolbar {
     width: 100%;
   }
-
 
   .author-card {
     display: flex;

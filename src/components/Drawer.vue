@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <md-toolbar class="md-transparent" md-elevation="0">其他 ...</md-toolbar>
+  <div class="md-primary">
+    <md-toolbar md-elevation="0">其他 ...</md-toolbar>
     <md-list>
       <md-list-item @click="showSnackbar">
         <md-icon>settings</md-icon>
@@ -21,6 +21,14 @@
       <md-list-item @click="showSnackbar">
         <md-icon>bar_chart</md-icon>
         <span class="md-list-item-text">数据统计</span>
+      </md-list-item>
+      <md-list-item @click="showSnackbar">
+        <md-icon>web</md-icon>
+        <span class="md-list-item-text">页面设置</span>
+      </md-list-item>
+      <md-list-item @click="goToPersonalSettings">
+        <md-icon>perm_identity</md-icon>
+        <span class="md-list-item-text">个人设置</span>
       </md-list-item>
     </md-list>
     <md-snackbar :md-active.sync="toggleSnackbar" md-persistent>
@@ -66,10 +74,14 @@
       // 统一错误提示动作
       showSnackbar: function () {
         this.toggleSnackbar = true
+      },
+      goToPersonalSettings: function () {
+        this.$emit('click-item', 'personalSettings')
+        this.$router.push('/settings')
       }
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>
