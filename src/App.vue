@@ -11,8 +11,9 @@
 
       <md-app-content>
         <!--        这里放置内容-->
-        <router-view></router-view>
-        <router-view name="pageSettings"></router-view>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </md-app-content>
     </md-app>
   </div>
@@ -55,10 +56,8 @@
       toggleMenuVisibility: function () {
         this.menuVisible = !this.menuVisible
       },
-      handleClickDrawerItem: function (params) {
-        if (params === 'personalSettings') {
-          this.menuVisible = false
-        }
+      handleClickDrawerItem: function (close) {
+        this.menuVisible = !close
       }
     }
   }
@@ -85,5 +84,17 @@
 
   .md-app-content {
     background: #efefefde;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
   }
 </style>

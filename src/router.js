@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import PageSettings from './views/PageSettings.vue'
 import WrongPath from './views/WrongPath'
+import PersonalSettings from './views/PersonalSettings'
 
 Vue.use(Router)
 
@@ -14,11 +15,17 @@ export default new Router({
       }
     },
     {
-      path: '/settings',
+      path: '/settings/page',
       components: {
-        pageSettings: PageSettings
+        default: PageSettings
       }
     },
+    {
+      path: '/settings/personal',
+      components: {
+        default: PersonalSettings
+      }
+    }
 // {
 //   path: '/about',
 //   name: 'about',

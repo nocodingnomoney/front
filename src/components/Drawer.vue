@@ -22,11 +22,11 @@
         <md-icon>bar_chart</md-icon>
         <span class="md-list-item-text">数据统计</span>
       </md-list-item>
-      <md-list-item @click="showSnackbar">
+      <md-list-item @click="goToAnotherPart('page')">
         <md-icon>web</md-icon>
         <span class="md-list-item-text">页面设置</span>
       </md-list-item>
-      <md-list-item @click="goToPersonalSettings">
+      <md-list-item @click="goToAnotherPart('personal')">
         <md-icon>perm_identity</md-icon>
         <span class="md-list-item-text">个人设置</span>
       </md-list-item>
@@ -75,9 +75,21 @@
       showSnackbar: function () {
         this.toggleSnackbar = true
       },
-      goToPersonalSettings: function () {
-        this.$emit('click-item', 'personalSettings')
-        this.$router.push('/settings')
+      goToAnotherPart: function (name) {
+        // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
+        let close = true
+        switch (name) {
+          case 'personal':
+            this.$router.push('/settings/personal')
+            break
+          case 'page':
+            this.$router.push('/settings/page')
+            break
+          default:
+            close = false
+            break
+        }
+        this.$emit('click-item', close)
       }
     }
   }
