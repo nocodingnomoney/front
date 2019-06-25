@@ -28,14 +28,6 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
-  import 'vue-material/dist/theme/default.css'
-  import {MdTabs, MdButton, MdIcon} from 'vue-material/dist/components'
-
-  Vue.use(MdTabs)
-  Vue.use(MdButton)
-  Vue.use(MdIcon)
 
   export default {
     name: 'Toolbar',

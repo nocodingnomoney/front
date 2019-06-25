@@ -31,39 +31,21 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
-  import 'vue-material/dist/theme/default.css'
-  import {
-    MdDrawer,
-    MdToolbar,
-    MdList,
-    MdIcon,
-    MdButton,
-    MdSnackbar
-  } from 'vue-material/dist/components'
 
-  Vue.use(MdDrawer)
-  Vue.use(MdToolbar)
-  Vue.use(MdList)
-  Vue.use(MdIcon)
-  Vue.use(MdButton)
-  Vue.use(MdSnackbar)
-
-  export default {
-    name: 'Drawer',
-    data() {
-      return {
-        toggleSnackbar: false
-      }
-    },
-    methods: {
-      // 统一错误提示动作
-      showSnackbar: function () {
-        this.toggleSnackbar = true
-      }
+export default {
+  name: 'Drawer',
+  data() {
+    return {
+      toggleSnackbar: false
+    }
+  },
+  methods: {
+    // 统一错误提示动作
+    showSnackbar: function () {
+      this.toggleSnackbar = true
     }
   }
+}
 </script>
 
 <style scoped>
