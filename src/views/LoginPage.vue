@@ -9,7 +9,7 @@
       <md-card-content>
         <md-field md-clearable>
           <label>账号</label>
-          <md-input v-model="initial"></md-input>
+          <md-input v-model="username"></md-input>
         </md-field>
 
         <md-field :md-toggle-password="false">
@@ -19,9 +19,9 @@
       </md-card-content>
 
       <md-card-actions id="">
-        <md-button id="btn" @click="login">登录</md-button>
+        <md-button class="btn" @click="login">登录</md-button>
       </md-card-actions>
-    </md-card>  
+    </md-card>
   </div>
 </template>
 
@@ -32,19 +32,34 @@
     margin-right: auto;
     margin-top: 100px;
   }
-  #btn{
-    color:white;
+
+  .btn {
+    color: white;
     background-color: #00BFFF;
-  } 
+  }
 </style>
 
 <script>
-export default {
-  name: 'RegularCards',
-  methods: {
-    login : function(){
-      this.$router.push({path:'/main'});
+  import Vue from 'vue'
+  import 'vue-material/dist/vue-material.min.css'
+
+  import {MdCard, MdField} from 'vue-material/dist/components'
+
+  Vue.use(MdField)
+  Vue.use(MdCard)
+
+  export default {
+    name: 'LoginPage',
+    data() {
+      return {
+        username: '',
+        password: ''
+      }
+    },
+    methods: {
+      login: function () {
+        this.$router.push({path: '/main'})
+      }
     }
   }
-}
 </script>

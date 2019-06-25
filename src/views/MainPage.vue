@@ -1,22 +1,22 @@
 <template>
   <div class="app">
-      <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
-        <md-app-toolbar class="md-large md-dense md-primary">
-          <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
-        </md-app-toolbar>
+    <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
+      <md-app-toolbar class="md-large md-dense md-primary">
+        <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
+      </md-app-toolbar>
 
-        <md-app-drawer :md-active.sync="menuVisible">
-          <Drawer @click-item="handleClickDrawerItem"></Drawer>
-        </md-app-drawer>
+      <md-app-drawer :md-active.sync="menuVisible">
+        <Drawer @click-item="handleClickDrawerItem"></Drawer>
+      </md-app-drawer>
 
-        <md-app-content>
-          <!--        这里放置内容-->
-          <transition name="fade" mode="out-in">
-            <router-view></router-view>
-          </transition>
-        </md-app-content>
-      </md-app>
-    </div>
+      <md-app-content>
+        <!--        这里放置内容-->
+        <transition name="fade" mode="out-in">
+          <router-view name="main"></router-view>
+        </transition>
+      </md-app-content>
+    </md-app>
+  </div>
 </template>
 
 
@@ -26,11 +26,11 @@
   import 'vue-material/dist/vue-material.min.css'
 
   // 使用样式切换的话就不需要这个了
-  // import 'vue-material/dist/theme/deSfault.css'
+  // import 'vue-material/dist/theme/default.css'
   // import 'vue-material/dist/theme/default-dark.css'
 
-  import Drawer from './components/Drawer.vue'
-  import Toolbar from './components/Toolbar'
+  import Drawer from '@/components/Drawer.vue'
+  import Toolbar from '@/components/Toolbar'
   import {
     MdApp, MdContent
   } from 'vue-material/dist/components'
@@ -68,7 +68,7 @@
 
   /*切换主题样式*/
   /*@import "~vue-material/dist/theme/prebuilt/default";*/
-  @import "@assets/theme.scss";
+  @import "@/assets/theme.scss";
 
   .md-app {
     min-height: 100vh;

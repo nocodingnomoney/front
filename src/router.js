@@ -3,36 +3,45 @@ import Router from 'vue-router'
 import PageSettings from './views/PageSettings.vue'
 import WrongPath from './views/WrongPath'
 import PersonalSettings from './views/PersonalSettings'
+import LoginPage from './views/LoginPage'
+import MainPage from './views/MainPage'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/login',
       components: {
-        default: WrongPath
-      }
+        default: LoginPage
+      },
+
     },
     {
-      path: '/settings/page',
+      path: '/main',
       components: {
-        default: PageSettings
-      }
+        default: MainPage
+      },
+      children: [{
+        path: 'settings/page',
+        components: {main: PageSettings}
+      }, {
+        path: 'settings/personal',
+        components: {main: PersonalSettings}
+      }]
     },
+    // 下面这个匹配必须在routes的最后一个元素
     {
-      path: '/settings/personal',
+      path: '*',
       components: {
-        default: PersonalSettings
-      }
+        default: MainPage,
+
+      },
+      children: [{
+        path: '*',
+        components: {main: WrongPath}
+      }]
     }
-// {
-//   path: '/about',
-//   name: 'about',
-//   // route level code-splitting
-//   // this generates a separate chunk (about.[hash].js) for this route
-//   // which is lazy-loaded when the route is visited.
-//   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-// }
   ]
 })
