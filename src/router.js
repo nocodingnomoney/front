@@ -5,6 +5,8 @@ import WrongPath from './views/WrongPath'
 import PersonalSettings from './views/PersonalSettings'
 import LoginPage from './views/LoginPage'
 import MainPage from './views/MainPage'
+import ProductCenter from './views/ProductCenter'
+import ProductMall from './views/ProductMall'
 
 Vue.use(Router)
 
@@ -17,6 +19,18 @@ export default new Router({
         default: LoginPage
       },
 
+    },
+    {
+      path: '/product',
+      components: {
+        default: ProductCenter
+      }
+    },
+    {
+      path: '/mall',
+      components: {
+        default: ProductMall
+      }
     },
     {
       path: '/main',

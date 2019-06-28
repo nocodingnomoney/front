@@ -1,12 +1,10 @@
 <template>
-  <div>
-    This is Product Mall
-  </div>
+  <div>Hello World ! I am ScrollProducts.</div>
 </template>
 
 <script>
   export default {
-    name: 'ProductMall'
+    name: 'ScrollProducts'
   }
 </script>
 
