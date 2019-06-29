@@ -2,7 +2,7 @@
   <!--  只负责一类产品的展示-->
   <div class="products">
     <template v-for="(product, index) in products">
-      <div class="product">
+      <div class="product" :key="index">
         <div class="product__icon">
           <img :src="product.imageUrl"/>
         </div>
@@ -12,7 +12,7 @@
         </div>
         <md-button class="md-primary md-raised" @click="goToDetail(product.id)">查看详情</md-button>
       </div>
-      <div v-if="products.length != 1 && index % 2 == 0" class="products__gap">
+      <div v-if="products.length != 1 && index % 2 == 0" :key="index" class="products__gap">
         <div class="products__gap__padding"></div>
         <div class="products__gap__line"></div>
         <div class="products__gap__padding"></div>
@@ -38,22 +38,13 @@
     props: ['products'],
     data() {
       return {
-        toggleSnackbar: false,
-        urls: [
-          'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
-          'https://s2.ax1x.com/2019/06/29/ZQR476.png',
-          'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'],
+        toggleSnackbar: false
       }
 
     },
     methods: {
       // 跳转到相对应的产品详情
-      goToDetail(index) {
+      goToDetail() {
         this.toggleSnackbar = true
       }
     }

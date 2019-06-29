@@ -8,11 +8,12 @@
             :duration="800"
             bezier-easing-value=".5,0,.35,1"
     >
-      <a class="scrollactive-item scrollactive-btn" v-for="(product, index) in products" :key="index"
-         :href="'#product'+index">{{product.catalog}}</a>
+      <a class="scrollactive-item scrollactive-btn" :class="{'scrollactive-btn_selected': index == selectedCatalog}"
+         v-for="(product, index) in products" :key="index"
+         :href="'#catalog'+index" @click="selectedCatalog = index">{{product.catalog}}</a>
     </scrollactive>
 
-    <div class="product-block" v-for="(product, index) in products" :key="index" :id="'product'+index">
+    <div class="product-block" v-for="(product, index) in products" :key="index" :id="'catalog'+index">
       <product-type>{{product.catalog}}</product-type>
       <!--      products-outline 缺少 products 属性-->
       <products-outline :products="product.list"></products-outline>
@@ -37,6 +38,7 @@
     data() {
       return {
         services: ['资讯类产品', '投研类产品', '服务类产品'],
+        selectedCatalog: -1,
         products: [
           {
             catalog: '证券理财',
@@ -48,14 +50,14 @@
                 imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
               }, {
                 id: 2,
-                name: '证券理财号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png'
+                name: '证券理财二号',
+                outline: '二号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
               }, {
                 id: 3,
-                name: '理财产品证券理财一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                name: '证券理财三号',
+                outline: '三号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
               },
             ]
           }, {
@@ -63,54 +65,84 @@
             list: [
               {
                 id: 4,
-                name: '理财产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png'
+                name: '私募基金1号',
+                outline: '1号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
               }, {
                 id: 5,
-                name: '理财产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                name: '私募基金2号',
+                outline: '2号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
               }, {
                 id: 6,
-                name: '理财产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                name: '私募基金3号',
+                outline: '3号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
               },
             ]
           }, {
             catalog: '公募基金',
             list: [
               {
-                id: 7,
-                name: '理财产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                id: 6,
+                name: '公募基金1号',
+                outline: '1号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
               }, {
                 id: 8,
-                name: '理财产品一号',
-                outline: '一号产品,仅用于测试',
+                name: '公募基金2号',
+                outline: '2号产品,仅用于测试',
                 imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
               }, {
                 id: 9,
-                name: '理财产品一号',
+                name: '公募基金一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
               }, {
                 id: 10,
-                name: '理财产品一号',
+                name: '公募基金一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
               }, {
                 id: 11,
-                name: '理财产品一号',
+                name: '公募基金一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
               }, {
                 id: 12,
-                name: '理财产品一号',
+                name: '公募基金一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
+              }, {
+                id: 6,
+                name: '公募基金1号',
+                outline: '1号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
+              }, {
+                id: 8,
+                name: '公募基金2号',
+                outline: '2号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
+              }, {
+                id: 9,
+                name: '公募基金一号',
+                outline: '一号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
+              }, {
+                id: 10,
+                name: '公募基金一号',
+                outline: '一号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
+              }, {
+                id: 11,
+                name: '公募基金一号',
+                outline: '一号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
+              }, {
+                id: 12,
+                name: '公募基金一号',
+                outline: '一号产品,仅用于测试',
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
               },
             ]
           }, {
@@ -118,19 +150,19 @@
             list: [
               {
                 id: 13,
-                name: '理财产品一号',
+                name: '银行理财一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
               }, {
                 id: 14,
-                name: '理财产品一号',
+                name: '银行理财一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
               }, {
                 id: 15,
-                name: '理财产品一号',
+                name: '银行理财一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
               },
             ]
           }, {
@@ -138,24 +170,24 @@
             list: [
               {
                 id: 16,
-                name: '理财产品一号',
+                name: '信托产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
               }
             ]
           }, {
             catalog: '债券产品',
             list: [
               {
-                id: 17,
-                name: '理财产品一号',
+                id: 16,
+                name: '债券产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
               }, {
                 id: 18,
-                name: '理财产品一号',
+                name: '债券产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
               }
             ]
           }, {
@@ -163,19 +195,19 @@
             list: [
               {
                 id: 19,
-                name: '理财产品一号',
+                name: '保险产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
               }, {
                 id: 20,
-                name: '理财产品一号',
+                name: '保险产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
               }, {
                 id: 21,
-                name: '理财产品一号',
+                name: '保险产品一号',
                 outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
+                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
               },
             ]
           },
@@ -198,6 +230,8 @@
     transition: 0.3s color;
     position: sticky;
     top: 0px;
+    /*如果不够高的话, 会被md-button的字挡到...*/
+    z-index: 7;
 
     .scrollactive-btn {
       font-size: 18px;
@@ -234,12 +268,19 @@
       }
     }
 
+    .scrollactive-btn_selected {
+      color: #0f97ff;
+
+      &:after {
+        width: 100%;
+      }
+    }
+
   }
 
   .product-block {
-    height: 500px;
     max-width: 1200px;
     /*补15px,顶部留一些白*/
-    margin: 15px auto 0px auto;
+    margin: 15px auto 150px auto;
   }
 </style>

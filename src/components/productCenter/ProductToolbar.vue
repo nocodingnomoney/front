@@ -61,6 +61,8 @@
     transition: 0.3s background;
     display: flex;
     justify-content: space-around;
+    min-width: fit-content;
+    width: 100%;
 
     &:hover {
       background: #0f97ff;
@@ -109,6 +111,7 @@
         align-items: center;
         height: calc(100% - 2px);
         cursor: pointer;
+        word-break: keep-all;
       }
 
       .navs__button__bottom {
