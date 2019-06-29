@@ -67,7 +67,7 @@
     height: 400px;
     display: flex;
     justify-content: center;
-    background-size: 100% 100%;
+    background-size: auto 100%;
     background-repeat: repeat-x;
     position: relative;
     z-index: 0;
@@ -79,7 +79,7 @@
       position: absolute;
       background: inherit;
       z-index: 1;
-      filter: blur(5px);
+      filter: blur(5px) brightness(0.5);
       top: 0;
       left: 0;
     }
