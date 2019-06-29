@@ -42,6 +42,7 @@
             break
           case 2: // 跳转到商城
             this.$router.push('/mall')
+            break
           default: // 未开放
             this.toggleSnackbar = true
         }
@@ -53,17 +54,16 @@
 <style lang="scss" scoped>
   .product-toolbar {
     user-select: none;
-    position: absolute;
     z-index: 2;
     width: 100%;
     height: 65px;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, .7);
     transition: 0.3s background;
     display: flex;
     justify-content: space-around;
 
     &:hover {
-      background: rgba(0, 0, 0, .8);
+      background: #0f97ff;
       transition: 0.3s background;
     }
   }
