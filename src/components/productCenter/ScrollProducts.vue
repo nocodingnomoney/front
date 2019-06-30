@@ -27,6 +27,8 @@
   import ProductType from './ProductType'
   import ProductsOutline from './ProductsOutline'
 
+  import apis from '@/apis/apis.js'
+
   Vue.use(VueScrollactive)
 
   export default {
@@ -34,6 +36,13 @@
     components: {
       ProductType: ProductType,
       ProductsOutline: ProductsOutline
+    },
+    mounted() {
+      apis.products.getAll({}, (res) => {
+        // eslint-disable-next-line
+        console.log(res)
+        // res中的data就是我们需要的数据, 由于现在返回的数据乱得一比, 没法用, 还是用mock出来的数据
+      })
     },
     data() {
       return {

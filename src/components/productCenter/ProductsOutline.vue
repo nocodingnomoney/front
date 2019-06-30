@@ -12,7 +12,7 @@
         </div>
         <md-button class="md-primary md-raised" @click="goToDetail(product.id)">查看详情</md-button>
       </div>
-      <div v-if="products.length != 1 && index % 2 == 0" :key="index" class="products__gap">
+      <div v-if="products.length != 1 && index % 2 == 0" :key="index+'gap'" class="products__gap">
         <div class="products__gap__padding"></div>
         <div class="products__gap__line"></div>
         <div class="products__gap__padding"></div>

@@ -1,6 +1,6 @@
 <template>
   <div class="carousel">
-    <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+    <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide v-for="(url, index) in posters" :key="index">
         <div class="poster-container" :style='"background-image:url("+url+")"'>
@@ -48,6 +48,10 @@
           pagination: {
             el: '.swiper-pagination',
             clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
           }
         }
       }
