@@ -18,9 +18,6 @@
     <md-table v-model="currentList" md-card id="tableCard">
       <md-table-toolbar>
         <h1 class="md-title" id="listLabel">黑/白名单</h1>
-        <md-button>添加</md-button>
-        <md-button v-if="showWhite">添加白</md-button>
-        <md-button v-if="showBlack" >添加黑</md-button>
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }"> 
