@@ -23,6 +23,18 @@ export default new Router({
 
     },
     {
+      path: '/product',
+      components: {
+        default: ProductCenter
+      }
+    },
+    {
+      path: '/mall',
+      components: {
+        default: ProductMall
+      }
+    },
+    {
       path: '/main',
       components: {
         default: MainPage
