@@ -5,8 +5,10 @@ import WrongPath from './views/WrongPath'
 import PersonalSettings from './views/PersonalSettings'
 import LoginPage from './views/LoginPage'
 import MainPage from './views/MainPage'
-import ProductCenter from './views/ProductCenter'
-import ProductMall from './views/ProductMall'
+import DataManage from './views/DataManage'
+import WhiteBlackList from './views/WhiteBlackList'
+import ProductAdmit from './views/productAdmit'
+import ProductPreselect from './views/productPreselect'
 
 Vue.use(Router)
 
@@ -43,6 +45,18 @@ export default new Router({
       }, {
         path: 'settings/personal',
         components: {main: PersonalSettings}
+      }, {
+        path: 'supplier/dataManage',
+        components: {main: DataManage}
+      }, {
+        path: 'supplier/whiteBlackList',
+        components: {main: WhiteBlackList}
+      }, {
+        path: 'product/admit',
+        components: {main: ProductAdmit}
+      }, {
+        path: 'product/preselect',
+        components: {main: ProductPreselect}
       }]
     },
     // 下面这个匹配必须在routes的最后一个元素

@@ -8,7 +8,6 @@
 
 <script>
   import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
   import {MdEmptyState} from 'vue-material/dist/components'
 
   Vue.use(MdEmptyState)

@@ -23,7 +23,6 @@
 <script>
   // 部分加载组件
   import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
 
   // 使用样式切换的话就不需要这个了
   // import 'vue-material/dist/theme/default.css'
@@ -38,6 +37,7 @@
   // Vue-Material的组件引入用Vue.use语句
   Vue.use(MdApp)
   Vue.use(MdContent)
+
 
 
   export default {
@@ -76,15 +76,12 @@
 
     .md-app-content {
       background: #efefefde;
+      padding-left: 0;
     }
 
     .md-app-drawer {
       width: 250px;
     }
-  }
-
-  .md-app-content {
-    background: #efefefde;
   }
 
   .fade-enter-active,
