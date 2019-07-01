@@ -38,8 +38,8 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs class="md-primary">
-        <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName"></md-tab>
+      <md-tabs class="md-primary" md-s  ync-route>
+        <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName" @click="switchTab(tabName)"></md-tab>
       </md-tabs>
     </div>
   </div>
@@ -47,8 +47,6 @@
 
 <script>
   import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
-  import 'vue-material/dist/theme/default.css'
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
 
   Vue.use(MdTabs)
@@ -63,10 +61,10 @@
       return {
         staffName: '二狗',
         toggleCard: false, // 员工的card
-        role: '1',
+        role: '0',
         tabs: {
           // 专供供应商渠道岗
-          '0': ['资料管理', '用户认证', '黑白名单'],
+          '0': ['资料管理',  '黑白名单'],
           // 专供产品录入岗
           '1': ['产品录入', '产品预选库'],
           // 专供产品审核岗
@@ -81,6 +79,22 @@
     methods: {
       toggleMenu: function () {
         this.$emit('toggle-menu')
+      },
+      switchTab: function(tabName) {
+        switch(tabName){
+          case '资料管理':
+            this.$router.push('/main/supplier/dataManage')
+            break
+          case '黑白名单':
+            this.$router.push('/main/supplier/whiteBlackList')
+            break
+          case '产品录入':
+            this.$router.push('/main/product/admit')
+            break
+          case '产品预选库':
+            this.$router.push('/main/product/preselect')
+            break
+        }
       }
     }
   }

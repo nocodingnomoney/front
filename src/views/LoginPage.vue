@@ -3,7 +3,7 @@
     <md-card>
       <md-card-header>
         <div class="md-title">登录系统</div>
-        <div class="md-subhead">sign in with exsiting account</div>
+        <div class="md-subhead">使用已有账号登录</div>
       </md-card-header>
 
       <md-card-content>
@@ -18,7 +18,7 @@
         </md-field>
       </md-card-content>
 
-      <md-card-actions id="">
+      <md-card-actions>
         <md-button class="btn" @click="login">登录</md-button>
       </md-card-actions>
     </md-card>
@@ -33,7 +33,14 @@
     margin-top: 100px;
   }
 
-  .btn {
+  .md-title,.md-subhead{
+    text-align: center;
+  }
+
+  .btn{
+    width:180px;
+    margin-left: auto;
+    margin-right: auto;
     color: white;
     background-color: #00BFFF;
   }
@@ -41,7 +48,6 @@
 
 <script>
   import Vue from 'vue'
-  import 'vue-material/dist/vue-material.min.css'
 
   import {MdCard, MdField} from 'vue-material/dist/components'
 
