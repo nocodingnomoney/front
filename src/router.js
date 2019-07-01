@@ -9,6 +9,7 @@ import DataManage from './views/DataManage'
 import WhiteBlackList from './views/WhiteBlackList'
 import ProductAdmit from './views/productAdmit'
 import ProductPreselect from './views/productPreselect'
+import ProductCenter from './views/ProductCenter'
 
 Vue.use(Router)
 
@@ -26,12 +27,6 @@ export default new Router({
       path: '/product',
       components: {
         default: ProductCenter
-      }
-    },
-    {
-      path: '/mall',
-      components: {
-        default: ProductMall
       }
     },
     {
