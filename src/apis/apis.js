@@ -14,9 +14,10 @@ const wrappedAxios = (config, success, fail) => {
   if (fail) {
     adaptedFail = fail
   }
-  // eslint-disable-next-line
-  console.log(prefix, 'from apis.js')
   return axios({
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
     baseURL: prefix,
     url: config.url,
     method: config.method || 'GET',
@@ -29,6 +30,21 @@ const apis = {
   products: {
     getAll: function (config, success, fail) {
       return wrappedAxios({method: 'GET', url: '/products'}, success, fail)
+    },
+    addOne: function (config, success, fail) {
+      return wrappedAxios(Object.assign(config, {
+        method: 'POST',
+        url: '/enter/product'
+      }), success, fail)
+    },
+    addFile: function (config, success, fail) {
+      let formData = new FormData()
+      formData.append('file', config.file)
+      return wrappedAxios(Object.assign({}, {
+        method: 'POST',
+        url: '/enter/jsonFile',
+        data: formData
+      }), success, fail)
     }
   }
 }

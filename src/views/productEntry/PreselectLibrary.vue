@@ -1,18 +1,17 @@
 <template>
-  <div class="personal-settings">
-      产品录入
+  <div class="preselect-library">
+    This is preselect library.
   </div>
 </template>
 
 <script>
   export default {
-    name: 'PersonalSettings',
-    components: {}
+    name: 'PreselectLibrary'
   }
 </script>
-<style lang="scss" scoped>
 
-  .personal-settings {
+<style scoped>
+  .preselect-library {
     width: 700px;
     margin: 20px auto;
     background: white;
