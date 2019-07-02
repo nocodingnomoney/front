@@ -57,11 +57,19 @@
         </div>
       </div>
       <div v-else class="entry-input__file">
+        <div class="entry-input__file__operation">
+          <md-field>
+            <label>选择文件</label>
+            <md-file v-model="fileName" @md-change="handleFileSelected($event)"></md-file>
+          </md-field>
+          <p v-if="fileName!==''">文件已加载, 准备发射</p>
+          <md-button class="md-primary md-raised" @click="uploadFile">导入</md-button>
+        </div>
+        <div class="entry-input__file__preview"></div>
       </div>
     </transition>
     <div class="entry-input__title">
       <h1 class="md-title">我录入的产品</h1>
-      <md-button class="md-primary" @click="goToPreselect">查看所有录入的产品</md-button>
     </div>
   </div>
 </template>
@@ -69,7 +77,15 @@
 <script>
   import Vue from 'vue'
 
-  import {MdAvatar, MdButton, MdField, MdIcon, MdRipple, MdTooltip, MdSubheader} from 'vue-material/dist/components'
+  import {
+    MdAvatar,
+    MdButton,
+    MdField,
+    MdIcon,
+    MdRipple,
+    MdTooltip,
+    MdSubheader
+  } from 'vue-material/dist/components'
 
   import apis from '@/apis/apis.js'
 
@@ -86,6 +102,7 @@
     data() {
       return {
         inputMethod: 'none',// none, manual, file
+        fileName: '',
         catalogs: {
           'financial': [
             '证券理财',
@@ -105,7 +122,8 @@
           catalog: '',
           intro: ''
         },
-        options: []
+        options: [],
+        importedFile: null
       }
     },
     mounted() {
@@ -121,9 +139,19 @@
             productName: this.product.name,
             catalog: this.product.catalog,
             productIntro: this.product.intro,
+            // todo: 做好风险等级的选择, 否则只能默认低风险
             riskRank: 1
           }
         }, (res) => {
+          // eslint-disable-next-line
+          console.log(res)
+        })
+      },
+      handleFileSelected(e) {
+        this.importedFile = e[0]
+      },
+      uploadFile() {
+        apis.products.addFile({file: this.importedFile}, (res) => {
           // eslint-disable-next-line
           console.log(res)
         })
@@ -180,6 +208,8 @@
     }
 
     .entry-input__manual {
+      margin-bottom: 50px;
+
       .entry-input__manual__form {
         display: flex;
 
@@ -207,6 +237,27 @@
           font-size: 25px;
         }
       }
+    }
+
+    .entry-input__file {
+      margin-bottom: 50px;
+
+      .entry-input__file__operation {
+        box-sizing: border-box;
+        padding: 10px;
+        width: 300px;
+        height: 200px;
+        border-radius: 20px;
+        border: dashed 1px #b7b7b7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .entry-input__file__preview {
+      }
+
     }
   }
 </style>

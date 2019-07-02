@@ -36,6 +36,15 @@ const apis = {
         method: 'POST',
         url: '/enter/product'
       }), success, fail)
+    },
+    addFile: function (config, success, fail) {
+      let formData = new FormData()
+      formData.append('file', config.file)
+      return wrappedAxios(Object.assign({}, {
+        method: 'POST',
+        url: '/enter/jsonFile',
+        data: formData
+      }), success, fail)
     }
   }
 }
