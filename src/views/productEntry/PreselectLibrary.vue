@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="preselect-library">
     This is preselect library.
   </div>
 </template>
@@ -11,5 +11,9 @@
 </script>
 
 <style scoped>
-
+  .preselect-library {
+    width: 700px;
+    margin: 20px auto;
+    background: white;
+  }
 </style>
