@@ -6,12 +6,12 @@
         <md-icon>settings</md-icon>
         <span class="md-list-item-text">系统管理</span>
       </md-list-item>
-      <md-list-item @click="showSnackbar">
-        <md-icon>attach_money</md-icon>
-        <span class="md-list-item-text">财务中心</span>
+      <md-list-item @click="goToAnotherPart('entry')">
+        <md-icon>account_balance</md-icon>
+        <span class="md-list-item-text">录入中心</span>
       </md-list-item>
       <md-list-item @click="showSnackbar">
-        <md-icon>account_balance</md-icon>
+        <md-icon>attach_money</md-icon>
         <span class="md-list-item-text">产品中心</span>
       </md-list-item>
       <md-list-item @click="showSnackbar">
@@ -83,6 +83,9 @@
             break
           case 'page':
             this.$router.push('/main/settings/page')
+            break
+          case 'entry':
+            this.$router.push('/main/entry/input')
             break
           default:
             close = false
