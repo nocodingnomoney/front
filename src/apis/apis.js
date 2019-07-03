@@ -28,9 +28,6 @@ const wrappedAxios = (config, success, fail) => {
 
 const apis = {
   products: {
-    getAll: function (config, success, fail) {
-      return wrappedAxios({method: 'GET', url: '/products'}, success, fail)
-    },
     addOne: function (config, success, fail) {
       return wrappedAxios(Object.assign(config, {
         method: 'POST',
@@ -54,7 +51,7 @@ const apis = {
      */
     assess: {
       getAll: (config, success, fail) => {
-        return wrappedAxios({method: 'GET', url: '/products/evaluating'}, success, fail)
+        return wrappedAxios({method: 'GET', url: '/products/process/2'}, success, fail)
       },
       pass: (config, success, fail) => {
         let adaptedConfig = config
@@ -72,7 +69,7 @@ const apis = {
      */
     approve: {
       getAll: (config, success, fail) => {
-        return wrappedAxios({method: 'GET', url: '/products/checking'}, success, fail)
+        return wrappedAxios({method: 'GET', url: '/products/process/3'}, success, fail)
       },
       pass: (productId, success, fail) => {
         return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
@@ -111,7 +108,8 @@ const apis = {
       getPreselect: () => {
         return wrappedAxios({url: ''})
       },
-      getUploaded: () => {
+      getPresented: (success, fail) => {
+        return wrappedAxios({url: '/products/process/6'}, success, fail)
       }
     }
   }

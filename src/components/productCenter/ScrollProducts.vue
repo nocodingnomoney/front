@@ -38,9 +38,8 @@
       ProductsOutline: ProductsOutline
     },
     mounted() {
-      apis.products.getAll({}, (res) => {
-        // eslint-disable-next-line
-        console.log(res)
+      apis.products.libraries.getPresented({}, (res) => {
+        this.tempProducts = res
         // res中的data就是我们需要的数据, 由于现在返回的数据乱得一比, 没法用, 还是用mock出来的数据
       })
     },
@@ -48,6 +47,7 @@
       return {
         services: ['资讯类产品', '投研类产品', '服务类产品'],
         selectedCatalog: -1,
+        tempProducts: [],
         products: [
           {
             catalog: '证券理财',
