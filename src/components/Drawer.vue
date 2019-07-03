@@ -10,13 +10,13 @@
         <md-icon>account_balance</md-icon>
         <span class="md-list-item-text">录入中心</span>
       </md-list-item>
-      <md-list-item @click="showSnackbar">
+      <md-list-item @click="goToAnotherPart('review')">
         <md-icon>attach_money</md-icon>
-        <span class="md-list-item-text">产品中心</span>
+        <span class="md-list-item-text">审核中心</span>
       </md-list-item>
-      <md-list-item @click="showSnackbar">
+      <md-list-item @click="goToAnotherPart('config')">
         <md-icon>list</md-icon>
-        <span class="md-list-item-text">订单中心</span>
+        <span class="md-list-item-text">配置中心</span>
       </md-list-item>
       <md-list-item @click="showSnackbar">
         <md-icon>bar_chart</md-icon>
@@ -86,6 +86,12 @@
             break
           case 'entry':
             this.$router.push('/main/entry/input')
+            break
+          case 'review':
+            this.$router.push('/main/review/assess')
+            break
+          case 'config':
+            this.$router.push('/main/config/add')
             break
           default:
             close = false

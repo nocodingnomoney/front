@@ -49,6 +49,7 @@
 <script>
   import Vue from 'vue'
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
+  import Globals from '@/global.js'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
@@ -62,18 +63,38 @@
       return {
         staffName: '二狗',
         toggleCard: false, // 员工的card
-        role: '1',
+        role: Globals.role,
         tabs: {
           // 专供供应商渠道岗
           '0': ['资料管理', '黑白名单'],
           // 专供产品录入岗
           '1': ['产品录入', '产品预选库'],
           // 专供产品审核岗
-          '2': ['产品审核', '产品评估', '入库审批', '产品标准库'],
+          '2': ['产品评估', '产品审批', '产品标准库'],
           // 专供产品配置岗
-          '3': ['产品配置', '入库审批列表', '产品配置库'],
+          '3': ['产品配置', '配置审批', '产品配置库'],
           // 专供系统管理员
           '4': ['用户管理', '产品库', '配置库']
+        }
+      }
+    },
+    watch: {
+      $route() {
+        switch (this.$route.path.split('/')[2]) {
+          case 'supplier':
+            this.role = '0'
+            break
+          case 'entry':
+            this.role = '1'
+            break
+          case 'review':
+            this.role = '2'
+            break
+          case 'config':
+            this.role = '3'
+            break
+          case 'admin':
+            this.role = '4'
         }
       }
     },
@@ -93,7 +114,25 @@
             this.$router.push('/main/entry/input')
             break
           case '产品预选库':
-            this.$router.push('/main/entry/preselect')
+            this.$router.push('/main/entry/lib')
+            break
+          case '产品评估':
+            this.$router.push('/main/review/assess')
+            break
+          case '产品审批':
+            this.$router.push('/main/review/approve')
+            break
+          case '产品标准库':
+            this.$router.push('/main/review/lib')
+            break
+          case '产品配置':
+            this.$router.push('/main/config/add')
+            break
+          case '配置审批':
+            this.$router.push('/main/config/approve')
+            break
+          case '产品配置库':
+            this.$router.push('/main/config/lib')
             break
         }
       }

@@ -28,9 +28,6 @@ const wrappedAxios = (config, success, fail) => {
 
 const apis = {
   products: {
-    getAll: function (config, success, fail) {
-      return wrappedAxios({method: 'GET', url: '/products'}, success, fail)
-    },
     addOne: function (config, success, fail) {
       return wrappedAxios(Object.assign(config, {
         method: 'POST',
@@ -45,6 +42,81 @@ const apis = {
         url: '/enter/jsonFile',
         data: formData
       }), success, fail)
+    },
+
+    /**
+     * @Description: 专用于待评估产品
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    assess: {
+      getAll: (config, success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/2'}, success, fail)
+      },
+      pass: (config, success, fail) => {
+        let adaptedConfig = config
+        adaptedConfig.method = 'PUT'
+        adaptedConfig.url = '/evaluating/' + config.data.id
+        adaptedConfig.data = undefined
+        return wrappedAxios(adaptedConfig, success, fail)
+      }
+    },
+
+    /**
+     * @Description: 专用于待审批产品
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    approve: {
+      getAll: (config, success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/3'}, success, fail)
+      },
+      pass: (productId, success, fail) => {
+        return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
+      }
+    },
+
+    /**
+     * @Description:
+     * @Param:
+     * @return:
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    submit: {
+      upload: (productId, success, fail) => {
+        return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
+      }
+    },
+
+    /**
+     * @Description: 获取产品库信息
+     * @return:  Array
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    libraries: {
+      getStandard: (success, fail) => {
+        return wrappedAxios({url: '/products/process/4'}, success, fail)
+      },
+      getPreselect: () => {
+        return wrappedAxios({url: ''})
+      },
+      getPresented: (success, fail) => {
+        return wrappedAxios({url: '/products/process/6'}, success, fail)
+      }
+    },
+
+    /**
+     * @Description: 与产品配置有关
+     * @return:  Array
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    configs: {
+      add: (config, success, fail) => {
+        return wrappedAxios({url: ''}, success, fail)
+      }
     }
   },
   login: function (config, success, fail) {
