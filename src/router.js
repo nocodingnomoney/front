@@ -10,7 +10,8 @@ import WhiteBlackList from './views/WhiteBlackList'
 import ProductAdmit from './views/productAdmit'
 import ProductPreselect from './views/productPreselect'
 import ProductCenter from './views/ProductCenter'
-
+import ProductDetail from './components/productCenter/ProductDetail'
+import SignUp from './views/SignUp'
 Vue.use(Router)
 
 export default new Router({
@@ -20,8 +21,15 @@ export default new Router({
       path: '/login',
       components: {
         default: LoginPage
-      },
+      }
 
+    },
+
+    {
+      path: '/signup',
+      components: {
+        default: SignUp
+      }
     },
     {
       path: '/product',
@@ -29,6 +37,14 @@ export default new Router({
         default: ProductCenter
       }
     },
+
+    {
+      path: '/productDetail/:id',
+      components:{
+        default: ProductDetail
+      }
+    },
+
     {
       path: '/main',
       components: {

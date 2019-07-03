@@ -62,7 +62,6 @@
     display: flex;
     justify-content: space-around;
     min-width: fit-content;
-    width: 100%;
 
     &:hover {
       background: #0f97ff;
