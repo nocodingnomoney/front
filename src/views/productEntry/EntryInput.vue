@@ -131,7 +131,7 @@
     },
     methods: {
       goToPreselect() {
-        this.$router.push('/main/entry/preselect')
+        this.$router.push('/main/entry/lib')
       },
       submitProduct() {
         apis.products.addOne({
