@@ -91,7 +91,7 @@
             this.$router.push('/main/review/assess')
             break
           case 'config':
-            this.$router.push('/main/review/approve')
+            this.$router.push('/main/config/add')
             break
           default:
             close = false

@@ -84,12 +84,6 @@ const apis = {
      * @Date: 2019/7/3
      */
     submit: {
-      // todo: 这个操作由系统自动完成, 即将删除
-      approve: () => {
-      },
-      // todo: 这个操作由系统自动完成, 即将删除
-      assess: () => {
-      },
       upload: (productId, success, fail) => {
         return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
       }
@@ -110,6 +104,18 @@ const apis = {
       },
       getPresented: (success, fail) => {
         return wrappedAxios({url: '/products/process/6'}, success, fail)
+      }
+    },
+
+    /**
+     * @Description: 与产品配置有关
+     * @return:  Array
+     * @Author: littlebugyang
+     * @Date: 2019/7/3
+     */
+    configs: {
+      add: (config, success, fail) => {
+        return wrappedAxios({url: ''}, success, fail)
       }
     }
   }
