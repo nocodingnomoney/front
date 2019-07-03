@@ -14,13 +14,12 @@
       </md-list>
     </md-app-drawer>
 
-
     <md-table v-model="currentList" md-card id="tableCard">
       <md-table-toolbar>
         <h1 class="md-title" id="listLabel">黑/白名单</h1>
       </md-table-toolbar>
 
-      <md-table-row slot="md-table-row" slot-scope="{ item }"> 
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell>
         <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
         <md-table-cell>
@@ -32,82 +31,124 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+import Vue from "vue";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.min.css";
+import apis from "@/apis/apis.js";
 
-  import {
-    MdDrawer,
-    MdToolbar,
-    MdList,
-    MdIcon,
-    MdButton,
-    MdSnackbar,
-    MdTable
-  } from 'vue-material/dist/components'
+Vue.use(VueMaterial);
+// import Vue from 'vue'
 
-  Vue.use(MdDrawer)
-  Vue.use(MdToolbar)
-  Vue.use(MdList)
-  Vue.use(MdIcon)
-  Vue.use(MdButton)
-  Vue.use(MdSnackbar)
-  Vue.use(MdTable)
+// import {
+//   MdDrawer,
+//   MdToolbar,
+//   MdList,
+//   MdIcon,
+//   MdButton,
+//   MdSnackbar,
+//   MdTable
+// } from 'vue-material/dist/components'
 
-  export default {
-    name: 'TableBasic',
-    data(){
-      return{
-        showWhite: false,
-        showBlack: false,
-        currentList: [],
-        whiteList: [
-          {id:1,name:'Lee'},
-          {id:2,name:'Bob'},
-          {id:555,name:'May'}
-        ],
-        blackList: [
-          {id:3,name:'Mike'},
-          {id:4,name:'Lucy'}
-        ]
+// Vue.use(MdDrawer)
+// Vue.use(MdToolbar)
+// Vue.use(MdList)
+// Vue.use(MdIcon)
+// Vue.use(MdButton)
+// Vue.use(MdSnackbar)
+// Vue.use(MdTable)
+
+export default {
+  name: "TableBasic",
+  data() {
+    return {
+      showWhite: false,
+      showBlack: false,
+      currentList: [],
+      whiteList: [],
+      blackList: []
+    };
+  },
+  methods: {
+    showList: function(listName) {
+      let label = document.getElementById("listLabel");
+      label.textContent = listName;
+
+      if (listName == "白名单") {
+        this.showWhite = true;
+        this.showBlack = false;
+
+        apis.getAllWhite(
+          {
+            method: "GET",
+            url: `/provide/getAllWhite`
+          },
+          res => {
+            var list = res.data;
+            for (let item of list) {
+              if (item.certification == "已认证") {
+                item.certification = true;
+              } else {
+                item.certification = false;
+              }
+
+              item.black_list = item.black_list == "黑名单" ? true : false;
+            }
+            this.whiteList = list;
+          },
+          () => {}
+        );
+
+        this.currentList = this.whiteList;
+      }
+
+      if (listName == "黑名单") {
+        this.showWhite = false;
+        this.showBlack = true;
+
+        apis.getAllBlack(
+          {
+            method: "GET",
+            url: `/provide/getAllBlack`
+          },
+          res => {
+            var list = res.data;
+            for (let item of list) {
+              if (item.certification == "已认证") {
+                item.certification = true;
+              } else {
+                item.certification = false;
+              }
+
+              item.black_list = item.black_list == "黑名单" ? true : false;
+            }
+            this.blackList = list;
+          },
+          () => {}
+        );
+
+        this.currentList = this.blackList;
       }
     },
-    methods: {
-      showList: function(listName){
-        let label=document.getElementById('listLabel')
-        label.textContent=listName
 
-        if(listName=="白名单"){
-          this.showWhite=true
-          this.showBlack=false
-          this.currentList=this.whiteList
-        } 
-        if(listName=="黑名单"){
-          this.showWhite=false
-          this.showBlack=true
-          this.currentList=this.blackList
-        }
-      },
-
-      handleRemove: function(id){
-        alert("remove"+id)
-      }
+    handleRemove: function(id) {
+      alert("remove" + id);
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
-#content{
+#content {
   margin-top: 20px;
 }
-.md-app-drawer{
+.md-app-drawer {
   width: 12%;
   float: left;
 }
 
-#tableCard{
+#tableCard {
   margin-left: 15vw;
   margin-right: auto;
   width: 70%;
 }
-
-
 </style>

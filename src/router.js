@@ -8,6 +8,8 @@ import MainPage from './views/MainPage'
 import DataManage from './views/DataManage'
 import WhiteBlackList from './views/WhiteBlackList'
 import ProductCenter from './views/ProductCenter'
+import ProductDetail from './components/productCenter/ProductDetail'
+import SignUp from './views/SignUp'
 import EntryInput from './views/productEntry/EntryInput'
 import PreselectLibrary from './views/productEntry/PreselectLibrary'
 
@@ -20,8 +22,15 @@ export default new Router({
       path: '/login',
       components: {
         default: LoginPage
-      },
+      }
 
+    },
+
+    {
+      path: '/signup',
+      components: {
+        default: SignUp
+      }
     },
     {
       path: '/product',
@@ -29,6 +38,14 @@ export default new Router({
         default: ProductCenter
       }
     },
+
+    {
+      path: '/productDetail/:id',
+      components:{
+        default: ProductDetail
+      }
+    },
+
     {
       path: '/main',
       components: {

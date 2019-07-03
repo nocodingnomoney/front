@@ -44,8 +44,10 @@
     },
     methods: {
       // 跳转到相对应的产品详情
-      goToDetail() {
-        this.toggleSnackbar = true
+      goToDetail(productId) {
+        let path='/productDetail/'+productId
+        this.$router.push(path)
+        
       }
     }
   }

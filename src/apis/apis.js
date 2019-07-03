@@ -46,6 +46,34 @@ const apis = {
         data: formData
       }), success, fail)
     }
+  },
+  login: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+
+  getOneSupplier: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  getAllSupplier: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  addSupplier: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  deleteSupplier: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  updateSupplier: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  getAllBlack: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  getAllWhite: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  signUp: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
   }
 }
 

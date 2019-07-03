@@ -2,26 +2,29 @@
   <div>
     <md-card>
       <md-card-header>
-        <div class="md-title">登录系统</div>
-        <div class="md-subhead">使用已有账号登录</div>
+        <div class="md-title">注册账号</div>
+        <div class="md-subhead"></div>
       </md-card-header>
 
       <md-card-content>
-        <md-field md-clearable>
+        <md-field>
           <label>账号</label>
-          <md-input v-model="username" required></md-input>
-          <!-- <span class="md-error">There is an error</span> -->
+          <md-input type="number" v-model="account"></md-input>
+        </md-field>
+
+        <md-field md-clearable>
+          <label>名称</label>
+          <md-input v-model="name"></md-input>
         </md-field>
 
         <md-field>
           <label>密码</label>
-          <md-input v-model="password" type="password" required></md-input>
+          <md-input type="password" v-model="password"></md-input>
         </md-field>
       </md-card-content>
 
       <md-card-actions>
-        <md-button class="btn" @click="login">登录</md-button>
-        <md-button class="signUp" @click="goToSignup">注册</md-button>
+        <md-button class="btn" @click="handleSignUp">注册</md-button>
       </md-card-actions>
 
       <md-card-content v-if="showHint" class="hint">{{hint}}</md-card-content>
@@ -41,9 +44,8 @@
 .md-subhead {
   text-align: center;
 }
-
 .md-button {
-  width: 120px;
+  width: 150px;
   margin-left: auto !important;
   margin-right: auto !important;
   color: white !important;
@@ -69,22 +71,25 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      username: "",
-      password: "",
-      isNameEmpty: null,
-      hint: "账号或密码错误",
-      showHint: false
+      hint: "两次输入密码不一致",
+      showHint: false,
+      account: null,
+      name: null,
+      password: null,
+      firstPassword: null,
+      secondPassword: null
     };
   },
   methods: {
-    login: function() {
-      apis.login(
+    handleSignUp: function() {
+      apis.signUp(
         {
           method: "POST",
-          url: `/common/login`,
+          url: `/common/register`,
           data: {
-            ID: this.username,
-            password: this.password
+              ID: 125,
+              name: this.name,
+              password: this.password
           }
         },
 
@@ -92,20 +97,8 @@ export default {
         () => {}
       );
 
-      this.$router.push({ path: "/main" });
-    },
-
-    goToSignup: function() {
-      this.$router.push({ path: "/signup" });
+      alert("注册成功")
     }
-  },
-
-  // computed: {
-  //   messageClass() {
-  //     return {
-  //       "md-invalid": this.isNameEmpty
-  //     };
-  //   }
-  // }
+  }
 };
 </script>
