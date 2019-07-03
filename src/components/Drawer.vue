@@ -12,11 +12,11 @@
       </md-list-item>
       <md-list-item @click="showSnackbar">
         <md-icon>attach_money</md-icon>
-        <span class="md-list-item-text">产品中心</span>
+        <span class="md-list-item-text">审核中心</span>
       </md-list-item>
       <md-list-item @click="showSnackbar">
         <md-icon>list</md-icon>
-        <span class="md-list-item-text">订单中心</span>
+        <span class="md-list-item-text">配置中心</span>
       </md-list-item>
       <md-list-item @click="showSnackbar">
         <md-icon>bar_chart</md-icon>

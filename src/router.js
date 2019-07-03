@@ -10,6 +10,9 @@ import WhiteBlackList from './views/WhiteBlackList'
 import ProductCenter from './views/ProductCenter'
 import EntryInput from './views/productEntry/EntryInput'
 import PreselectLibrary from './views/productEntry/PreselectLibrary'
+import AssessProduct from './views/productReview/AssessProduct'
+import ApproveProduct from './views/productReview/ApproveProduct'
+import StandardLibrary from './views/productReview/StandardLibrary'
 
 Vue.use(Router)
 
@@ -42,6 +45,18 @@ export default new Router({
         {
           path: 'entry/preselect',
           components: {main: PreselectLibrary}
+        },
+        {
+          path: 'review/assess',
+          components: {main: AssessProduct}
+        },
+        {
+          path: 'review/approve',
+          components: {main: ApproveProduct}
+        },
+        {
+          path: 'review/standard',
+          components: {main: StandardLibrary}
         },
         {
           path: 'settings/page',

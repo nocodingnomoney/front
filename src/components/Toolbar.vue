@@ -62,14 +62,14 @@
       return {
         staffName: '二狗',
         toggleCard: false, // 员工的card
-        role: '1',
+        role: '2',
         tabs: {
           // 专供供应商渠道岗
           '0': ['资料管理', '黑白名单'],
           // 专供产品录入岗
           '1': ['产品录入', '产品预选库'],
           // 专供产品审核岗
-          '2': ['产品审核', '产品评估', '入库审批', '产品标准库'],
+          '2': ['产品评估', '入库审批', '产品标准库'],
           // 专供产品配置岗
           '3': ['产品配置', '入库审批列表', '产品配置库'],
           // 专供系统管理员
@@ -94,6 +94,15 @@
             break
           case '产品预选库':
             this.$router.push('/main/entry/preselect')
+            break
+          case '产品评估':
+            this.$router.push('/main/review/assess')
+            break
+          case '入库审批':
+            this.$router.push('/main/review/approve')
+            break
+          case '产品标准库':
+            this.$router.push('/main/review/standard')
             break
         }
       }
