@@ -146,6 +146,15 @@ const apis = {
   },
   signUp: function(config, success, fail){
     return wrappedAxios(config, success, fail)
+  },
+  getAllUser: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  updateUser: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  deleteUser: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
   }
 }
 

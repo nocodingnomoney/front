@@ -5,8 +5,8 @@ import WrongPath from './views/WrongPath'
 import PersonalSettings from './views/PersonalSettings'
 import LoginPage from './views/LoginPage'
 import MainPage from './views/MainPage'
-import DataManage from './views/DataManage'
-import WhiteBlackList from './views/WhiteBlackList'
+import DataManage from './views/supplier/DataManage'
+import WhiteBlackList from './views/supplier/WhiteBlackList'
 import ProductCenter from './views/ProductCenter'
 import ProductDetail from './components/productCenter/ProductDetail'
 import SignUp from './views/SignUp'
@@ -18,6 +18,9 @@ import StandardLibrary from './views/productReview/StandardLibrary'
 import AddConfig from './views/productConfig/AddConfig'
 import ApproveConfig from './views/productConfig/ApproveConfig'
 import ConfigLibrary from './views/productConfig/ConfigLibrary'
+import UserManage from './views/administrator/UserManage'
+import ProductHouse from './views/administrator/ProductHouse'
+import ConfigHouse from './views/administrator/ConfigHouse'
 
 Vue.use(Router)
 
@@ -105,6 +108,18 @@ export default new Router({
         {
           path: 'supplier/whiteBlackList',
           components: {main: WhiteBlackList}
+        },
+        {
+          path: 'admin/userManage',
+          components: {main: UserManage}
+        },
+        {
+          path: 'admin/productHouse',
+          components: {main: ProductHouse}
+        },
+        {
+          path: 'admin/configHouse',
+          components: {main: ConfigHouse}
         },
         {
           path: '*',

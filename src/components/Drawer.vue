@@ -2,7 +2,7 @@
   <div class="md-primary">
     <md-toolbar md-elevation="0">其他 ...</md-toolbar>
     <md-list>
-      <md-list-item @click="showSnackbar">
+      <md-list-item @click="goToAnotherPart('admin')">
         <md-icon>settings</md-icon>
         <span class="md-list-item-text">系统管理</span>
       </md-list-item>
@@ -78,6 +78,9 @@
         // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
         let close = true
         switch (name) {
+          case 'admin':
+            this.$router.push('/main/admin/userManage')
+            break
           case 'personal':
             this.$router.push('/main/settings/personal')
             break

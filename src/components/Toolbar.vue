@@ -134,6 +134,15 @@
           case '产品配置库':
             this.$router.push('/main/config/lib')
             break
+          case '用户管理':
+            this.$router.push('/main/admin/userManage')
+            break
+          case '产品库':
+            this.$router.push('/main/admin/productHouse')
+            break
+          case '配置库':
+            this.$router.push('/main/admin/configHouse')
+            break
         }
       }
     }
