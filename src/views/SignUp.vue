@@ -33,72 +33,75 @@
 </template>
 
 <style lang="scss" scoped>
-.md-card {
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-}
+  .md-card {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
 
-.md-title,
-.md-subhead {
-  text-align: center;
-}
-.md-button {
-  width: 150px;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  color: white !important;
-  background-color: #00bfff;
-}
+  .md-title,
+  .md-subhead {
+    text-align: center;
+  }
 
-.hint {
-  color: red;
-}
+  .md-button {
+    width: 150px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: white !important;
+    background-color: #00bfff;
+  }
+
+  .hint {
+    color: red;
+  }
 </style>
 
 <script>
-import Vue from "vue";
+  import Vue from 'vue'
 
-import { MdCard, MdField } from "vue-material/dist/components";
+  import {MdCard, MdField} from 'vue-material/dist/components'
 
-import apis from "@/apis/apis.js";
+  import apis from '@/apis/apis.js'
 
-Vue.use(MdField);
-Vue.use(MdCard);
+  Vue.use(MdField)
+  Vue.use(MdCard)
 
-export default {
-  name: "LoginPage",
-  data() {
-    return {
-      hint: "两次输入密码不一致",
-      showHint: false,
-      account: null,
-      name: null,
-      password: null,
-      firstPassword: null,
-      secondPassword: null
-    };
-  },
-  methods: {
-    handleSignUp: function() {
-      apis.signUp(
-        {
-          method: "POST",
-          url: `/common/register`,
-          data: {
-              ID: 125,
+  export default {
+    name: 'LoginPage',
+    data() {
+      return {
+        hint: '两次输入密码不一致',
+        showHint: false,
+        account: null,
+        name: null,
+        password: null,
+        firstPassword: null,
+        secondPassword: null
+      }
+    },
+    methods: {
+      handleSignUp: function () {
+        apis.signUp(
+          {
+            method: 'POST',
+            url: `/common/register`,
+            data: {
+              id: this.account,
               name: this.name,
               password: this.password
+            }
+          },
+
+          () => {
+          },
+          () => {
           }
-        },
+        )
 
-        () => {},
-        () => {}
-      );
-
-      alert("注册成功")
+        alert('注册成功')
+      }
     }
   }
-};
 </script>

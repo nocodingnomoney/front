@@ -83,7 +83,7 @@ export default {
           method: "POST",
           url: `/common/login`,
           data: {
-            ID: this.username,
+            id: this.username,
             password: this.password
           }
         },

@@ -115,7 +115,10 @@ const apis = {
      */
     configs: {
       add: (config, success, fail) => {
-        return wrappedAxios({url: ''}, success, fail)
+        let adaptedConfig = config
+        adaptedConfig.method = 'POST'
+        adaptedConfig.url = '/config/product/add'
+        return wrappedAxios(adaptedConfig, success, fail)
       }
     }
   },
@@ -123,28 +126,37 @@ const apis = {
     return wrappedAxios(config, success, fail)
   },
 
-  getOneSupplier: function(config, success, fail){
+  getOneSupplier: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  getAllSupplier: function(config, success, fail){
+  getAllSupplier: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  addSupplier: function(config, success, fail){
+  addSupplier: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  deleteSupplier: function(config, success, fail){
+  deleteSupplier: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  updateSupplier: function(config, success, fail){
+  updateSupplier: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  getAllBlack: function(config, success, fail){
+  getAllBlack: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  getAllWhite: function(config, success, fail){
+  getAllWhite: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  signUp: function(config, success, fail){
+  signUp: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+  getAllUser: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  updateUser: function(config, success, fail){
+    return wrappedAxios(config, success, fail)
+  },
+  deleteUser: function(config, success, fail){
     return wrappedAxios(config, success, fail)
   }
 }
