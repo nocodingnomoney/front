@@ -34,7 +34,7 @@
           </md-button>
         </md-table-cell>
         <md-table-cell md-label="确认">
-          <md-button class="md-primary md-raised" @click="confirmConfig(item.productID)" :disabled="!item.modified">
+          <md-button class="md-primary md-raised" @click="submitConfigs(item.productID)" :disabled="!item.modified">
             确认提交配置
           </md-button>
         </md-table-cell>
@@ -65,7 +65,7 @@
 
       <md-dialog-actions>
         <md-button class="md-primary" @click="showConfigEditor = false">取消</md-button>
-        <md-button class="md-primary" @click="confirmConfig">确定</md-button>
+        <md-button class="md-primary" @click="confirmConfigs">确定</md-button>
       </md-dialog-actions>
     </md-dialog>
   </div>
@@ -110,7 +110,7 @@
         this.showConfigEditor = true
         this.editingProduct = product
       },
-      confirmConfig() {
+      confirmConfigs() {
         for (let i = 0; i < this.products.length; ++i) {
           if (this.products[i].productID === this.editingProduct.productID) {
             this.products[i].modified = true
@@ -119,7 +119,33 @@
           }
         }
       },
-      submitConfigs() {
+      submitConfigs(productId) {
+        let targetProduct = null
+        for (let i = 0; i < this.products.length; ++i) {
+          if (this.products[i].productID === productId) {
+            targetProduct = this.products[i]
+            break
+          }
+        }
+        let dataToSend = []
+        for (let i = 0; i < targetProduct.configs.length; ++i) {
+          dataToSend.push({
+            productID: targetProduct.productID,
+            configName: targetProduct.configs[i].configName,
+            configIntro: targetProduct.configs[i].configIntro
+          })
+        }
+        // eslint-disable-next-line
+        console.log(dataToSend, 'hello world')
+        apis.products.configs.add({
+          data: {
+            configList: dataToSend
+          }
+        }, (res) => {
+          // eslint-disable-next-line
+          console.log(res)
+        }, () => {
+        })
       },
       addItem() {
         let configs = this.editingProduct.configs

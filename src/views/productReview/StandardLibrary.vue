@@ -61,7 +61,7 @@
     },
     methods: {
       uploadProduct(id) {
-        apis.submit.upload(id, () => {
+        apis.products.submit.upload(id, () => {
         })
       }
     }
