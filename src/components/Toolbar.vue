@@ -75,6 +75,7 @@
           '3': ['产品配置', '配置审批', '产品配置库'],
           // 专供系统管理员
           '4': ['用户管理', '产品库', '配置库']
+
         }
       }
     },
@@ -133,6 +134,15 @@
             break
           case '产品配置库':
             this.$router.push('/main/config/lib')
+            break
+          case '用户管理':
+            this.$router.push('/main/admin/userManage')
+            break
+          case '产品库':
+            this.$router.push('/main/admin/productHouse')
+            break
+          case '配置库':
+            this.$router.push('/main/admin/configHouse')
             break
         }
       }

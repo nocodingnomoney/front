@@ -18,6 +18,6 @@ module.exports = {
       aggregateTimeout: 500, // delay before reloading
       poll: 1000 // enable polling since fsevents are not supported in docker
     },
-    proxy: 'http://localhost:8080'
+    proxy: 'http://192.168.20.172:8080'
   }
 }
