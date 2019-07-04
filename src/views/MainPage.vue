@@ -12,7 +12,7 @@
       <md-app-content>
         <!--        这里放置内容-->
         <transition name="fade" mode="out-in">
-          <router-view name="main"></router-view>
+          <router-view name="main" @changeTheme="handleThemeChanged"></router-view>
         </transition>
       </md-app-content>
     </md-app>
@@ -39,7 +39,6 @@
   Vue.use(MdContent)
 
 
-
   export default {
     name: 'app',
     // 自定义组价在父组件中以下面的形式注册
@@ -50,7 +49,7 @@
     data() {
       return {
         menuVisible: false,
-        theme: 'classical'
+        theme: 'dark'
       }
     },
     methods: {
@@ -59,6 +58,9 @@
       },
       handleClickDrawerItem: function (close) {
         this.menuVisible = !close
+      },
+      handleThemeChanged: function (toDark) {
+        this.theme = toDark ? 'dark' : 'classical'
       }
     }
   }
