@@ -127,20 +127,22 @@
             break
           }
         }
-        let dataToSend = []
+        let configsToSend = []
         for (let i = 0; i < targetProduct.configs.length; ++i) {
-          dataToSend.push({
+          let tempConfig = {
             productID: targetProduct.productID,
             configName: targetProduct.configs[i].configName,
             configIntro: targetProduct.configs[i].configIntro
-          })
+          }
+          if (targetProduct.configs[i].configID && targetProduct.configs[i].configID != 0) {
+            tempConfig.configID = targetProduct.configs[i].configID
+          }
+          configsToSend.push(tempConfig)
         }
         // eslint-disable-next-line
-        console.log(dataToSend, 'hello world')
+        console.log(configsToSend, 'hello world')
         apis.products.configs.add({
-          data: {
-            configList: dataToSend
-          }
+          data: configsToSend
         }, (res) => {
           // eslint-disable-next-line
           console.log(res)

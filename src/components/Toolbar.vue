@@ -78,8 +78,16 @@
         }
       }
     },
+    mounted() {
+      this.changeTabsThroughPath()
+    },
     watch: {
       $route() {
+        this.changeTabsThroughPath()
+      }
+    },
+    methods: {
+      changeTabsThroughPath() {
         switch (this.$route.path.split('/')[2]) {
           case 'supplier':
             this.role = '0'
@@ -95,10 +103,11 @@
             break
           case 'admin':
             this.role = '4'
+            break
+          default:
+            this.role = '5'
         }
-      }
-    },
-    methods: {
+      },
       toggleMenu: function () {
         this.$emit('toggle-menu')
       },
