@@ -9,14 +9,14 @@
             bezier-easing-value=".5,0,.35,1"
     >
       <a class="scrollactive-item scrollactive-btn" :class="{'scrollactive-btn_selected': index == selectedCatalog}"
-         v-for="(product, index) in products" :key="index"
-         :href="'#catalog'+index" @click="selectedCatalog = index">{{product.catalog}}</a>
+         v-for="(catalog, index) in catalogs" :key="index"
+         :href="'#catalog'+index" @click="selectedCatalog = index">{{catalog}}</a>
     </scrollactive>
 
-    <div class="product-block" v-for="(product, index) in products" :key="index" :id="'catalog'+index">
-      <product-type>{{product.catalog}}</product-type>
+    <div class="product-block" v-for="(productList, index) in productLists" :key="index" :id="'catalog'+index">
+      <product-type>{{catalogs[index]}}</product-type>
       <!--      products-outline 缺少 products 属性-->
-      <products-outline :products="product.list"></products-outline>
+      <products-outline :products="productLists[index]"></products-outline>
     </div>
   </div>
 </template>
@@ -38,192 +38,43 @@
       ProductsOutline: ProductsOutline
     },
     mounted() {
-      apis.products.libraries.getPresented({}, (res) => {
-        this.tempProducts = res
-        // res中的data就是我们需要的数据, 由于现在返回的数据乱得一比, 没法用, 还是用mock出来的数据
+      apis.products.libraries.getPresented((res) => {
+        this.processProductsFromServer(res.data)
       })
     },
     data() {
       return {
-        services: ['资讯类产品', '投研类产品', '服务类产品'],
-        selectedCatalog: -1,
-        tempProducts: [],
-        products: [
-          {
-            catalog: '证券理财',
-            list: [
-              {
-                id: 1,
-                name: '证券理财一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png'
-              }, {
-                id: 2,
-                name: '证券理财二号',
-                outline: '二号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
-              }, {
-                id: 3,
-                name: '证券理财三号',
-                outline: '三号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
-              },
-            ]
-          }, {
-            catalog: '私募基金',
-            list: [
-              {
-                id: 4,
-                name: '私募基金1号',
-                outline: '1号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
-              }, {
-                id: 5,
-                name: '私募基金2号',
-                outline: '2号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
-              }, {
-                id: 6,
-                name: '私募基金3号',
-                outline: '3号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
-              },
-            ]
-          }, {
-            catalog: '公募基金',
-            list: [
-              {
-                id: 6,
-                name: '公募基金1号',
-                outline: '1号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
-              }, {
-                id: 8,
-                name: '公募基金2号',
-                outline: '2号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
-              }, {
-                id: 9,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
-              }, {
-                id: 10,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
-              }, {
-                id: 11,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
-              }, {
-                id: 12,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
-              }, {
-                id: 6,
-                name: '公募基金1号',
-                outline: '1号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
-              }, {
-                id: 8,
-                name: '公募基金2号',
-                outline: '2号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
-              }, {
-                id: 9,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
-              }, {
-                id: 10,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
-              }, {
-                id: 11,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
-              }, {
-                id: 12,
-                name: '公募基金一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
-              },
-            ]
-          }, {
-            catalog: '银行理财',
-            list: [
-              {
-                id: 13,
-                name: '银行理财一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
-              }, {
-                id: 14,
-                name: '银行理财一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
-              }, {
-                id: 15,
-                name: '银行理财一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQR476.png',
-              },
-            ]
-          }, {
-            catalog: '信托产品',
-            list: [
-              {
-                id: 16,
-                name: '信托产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
-              }
-            ]
-          }, {
-            catalog: '债券产品',
-            list: [
-              {
-                id: 16,
-                name: '债券产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
-              }, {
-                id: 18,
-                name: '债券产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
-              }
-            ]
-          }, {
-            catalog: '保险产品',
-            list: [
-              {
-                id: 19,
-                name: '保险产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
-              }, {
-                id: 20,
-                name: '保险产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
-              }, {
-                id: 21,
-                name: '保险产品一号',
-                outline: '一号产品,仅用于测试',
-                imageUrl: 'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
-              },
-            ]
-          },
-        ]
+        catalogs: [],
+        productLists: [],
+        selectedCatalog: -1
       }
     },
-    methods: {}
+    methods: {
+      processProductsFromServer(products) {
+        for (let product of products) {
+          const catalogIndex = this.catalogs.indexOf(product.catalog)
+          if (catalogIndex === -1) {
+            // 创建新的类别
+            let tempCatalogs = this.catalogs
+            tempCatalogs.push(product.catalog)
+            this.catalogs = tempCatalogs
+
+            // 给新的类别添加一个专属的产品列表
+            let newList = []
+            newList.push(product)
+            let tempProductLists = this.productLists
+            tempProductLists.push(newList)
+            this.productLists = tempProductLists
+          } else {
+            let tempProductLists = this.productLists
+            let tempSubList = tempProductLists[catalogIndex]
+            tempSubList.push(product)
+            tempProductLists[catalogIndex] = tempSubList
+            this.productLists = tempProductLists
+          }
+        }
+      }
+    }
   }
 </script>
 

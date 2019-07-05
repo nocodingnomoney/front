@@ -4,13 +4,13 @@
     <template v-for="(product, index) in products">
       <div class="product" :key="index">
         <div class="product__icon">
-          <img :src="product.imageUrl"/>
+          <img :src="imageUrls[product.productID % imageUrls.length]"/>
         </div>
         <div class="product__intro">
-          <div class="product__intro__name">{{product.name}}</div>
-          <div class="product__intro__outline">{{product.outline}}</div>
+          <div class="product__intro__name">{{product.productName}}</div>
+          <div class="product__intro__outline">{{product.productIntro}}</div>
         </div>
-        <md-button class="md-primary md-raised" @click="goToDetail(product.id)">查看详情</md-button>
+        <md-button class="md-primary md-raised" @click="goToDetail(product.productID)">查看详情</md-button>
       </div>
       <div v-if="products.length != 1 && index % 2 == 0" :key="index+'gap'" class="products__gap">
         <div class="products__gap__padding"></div>
@@ -33,7 +33,18 @@
     // 产品信息由父组件提供
     props: ['products'],
     data() {
-      return {}
+      return {
+        imageUrls: [
+          'https://s2.ax1x.com/2019/06/29/ZQRqcd.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRb1H.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRH9e.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRThD.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRotO.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRIAK.png',
+          'https://s2.ax1x.com/2019/06/29/ZQR476.png',
+          'https://s2.ax1x.com/2019/06/29/ZQRh0x.png'
+        ]
+      }
     },
     methods: {
       // 跳转到相对应的产品详情
