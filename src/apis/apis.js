@@ -10,7 +10,7 @@ const wrappedAxios = (config, success, fail) => {
   }
   let adaptedFail = (res) => {
     Vue.prototype.$snackbar({
-      message: res.message
+      message: res.response.data.message
     })
     if (fail) {
       fail()
@@ -90,7 +90,7 @@ const apis = {
      */
     submit: {
       upload: (productId, success, fail) => {
-        return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
+        return wrappedAxios({method: 'PUT', url: `/upload/${productId}`}, success, fail)
       }
     },
 
@@ -101,11 +101,14 @@ const apis = {
      * @Date: 2019/7/3
      */
     libraries: {
-      getStandard: (success, fail) => {
-        return wrappedAxios({url: '/products/process/4'}, success, fail)
+      getPreselect: (success, fail) => {
+        return wrappedAxios({url: '/products/store/1'}, success, fail)
       },
-      getPreselect: () => {
-        return wrappedAxios({url: ''})
+      getStandard: (success, fail) => {
+        return wrappedAxios({url: '/products/store/2'}, success, fail)
+      },
+      getConfigLib: (success, fail) => {
+        return wrappedAxios({url: '/products/store/3'}, success, fail)
       },
       getPresented: (success, fail) => {
         return wrappedAxios({url: '/products/process/6'}, success, fail)
@@ -119,16 +122,32 @@ const apis = {
      * @Date: 2019/7/3
      */
     configs: {
+      /**
+       * @Description: 获取待配置产品
+       * @return:  Array
+       * @Author: littlebugyang
+       * @Date: 2019/7/5
+       */
+      getAll: (success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/4'}, success, fail)
+      },
+
       add: (config, success, fail) => {
         let adaptedConfig = config
         adaptedConfig.method = 'POST'
         adaptedConfig.url = '/config/product/add'
         return wrappedAxios(adaptedConfig, success, fail)
+      },
+      approve: (productId, success, fail) => {
+        return wrappedAxios({method: 'PUT', url: ''}, success, fail)
       }
     }
   },
   login: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
+  },
+  logout: (success, fail) => {
+    return wrappedAxios({method: 'POST', url: '/common/logout'}, success, fail)
   },
 
   getOneSupplier: function (config, success, fail) {

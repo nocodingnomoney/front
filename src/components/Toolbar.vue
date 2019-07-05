@@ -28,7 +28,7 @@
                   <span>{{this.staffName}}</span>
                 </div>
                 <div>
-                  <md-button class="md-raised md-accent">退出</md-button>
+                  <md-button class="md-raised md-accent" @click="logout">退出</md-button>
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs md-s ync-route @md-changed="handleTabSwitched">
+      <md-tabs class="md-primary" md-s ync-route @md-changed="handleTabSwitched">
         <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName" :id="'tab'+index"></md-tab>
       </md-tabs>
     </div>
@@ -49,6 +49,7 @@
   import Vue from 'vue'
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
   import Globals from '@/global.js'
+  import apis from '@/apis/apis.js'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
@@ -60,7 +61,7 @@
     name: 'Toolbar',
     data() {
       return {
-        staffName: '',
+        staffName: Globals.staff.name,
         toggleCard: false, // 员工的card
         role: Globals.role,
         tabs: {
@@ -83,6 +84,10 @@
     watch: {
       $route() {
         this.changeTabsThroughPath()
+      },
+      $theme(theme) {
+        // eslint-disable-next-line
+        console.log(theme)
       }
     },
     methods: {
@@ -110,6 +115,12 @@
       toggleMenu: function () {
         this.$emit('toggle-menu')
       },
+      logout: () => {
+        apis.logout(() => {
+          console.log('登出成功')
+        })
+      }
+      ,
       handleTabSwitched: function (tabId) {
         // 页面刚加载的时候tabId会被触发, 但是值为undefined
         if (tabId) {

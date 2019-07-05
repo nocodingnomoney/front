@@ -168,7 +168,6 @@
   .entry-input {
     width: 1200px;
     margin: 20px auto;
-    background: white;
     box-sizing: border-box;
     padding: 35px;
 

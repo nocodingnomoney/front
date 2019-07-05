@@ -1,6 +1,5 @@
 <template>
-  <div class="content">
-    <h1 class="header">理财产品管理系统</h1>
+  <div>
     <md-card>
       <md-card-header>
         <div class="md-title">登录系统</div>
@@ -132,7 +131,12 @@ export default {
             }
           },
           //这里需要根据返回的结果对登录进行判断，成功或失败（账号不存在，密码错误）
-          () => {
+          (res) => {
+            const staff = JSON.parse(res.data.data)
+            Globals.staff.level = staff.level
+            Globals.staff.type = staff.type
+            Globals.staff.name = staff.name
+            this.$router.push({path: '/main'})
             this.$router.push({ path: "/main" });
           },
           () => {
@@ -146,5 +150,5 @@ export default {
       this.$router.push({ path: "/signup" });
     }
   }
-};
+}
 </script>
