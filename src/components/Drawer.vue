@@ -6,6 +6,10 @@
         <md-icon>settings</md-icon>
         <span class="md-list-item-text">系统管理</span>
       </md-list-item>
+      <md-list-item @click="goToAnotherPart('supplier')">
+        <md-icon>home</md-icon>
+        <span class="md-list-item-text">供应商管理</span>
+      </md-list-item>
       <md-list-item @click="goToAnotherPart('entry')">
         <md-icon>account_balance</md-icon>
         <span class="md-list-item-text">录入中心</span>
@@ -56,14 +60,7 @@
   export default {
     name: 'Drawer',
     data() {
-      return {
-        toggleSnackbar: false,
-        // 以下本应该是全局变量
-        logged: false,
-        role: '0',
-        // 以上本应该是全局变量
-
-      }
+      return {}
     },
     methods: {
       // 统一错误提示动作
@@ -79,6 +76,9 @@
           case 'admin':
             this.$router.push('/main/admin/userManage')
             break
+          case "supplier":
+            this.$router.push("/main/supplier/dataManage");
+            break;
           case 'personal':
             this.$router.push('/main/settings/personal')
             break
