@@ -9,9 +9,11 @@ const wrappedAxios = (config, success, fail) => {
   let adaptedSuccess = () => {
   }
   let adaptedFail = (res) => {
-    Vue.prototype.$snackbar({
-      message: res.response.data.message
-    })
+    if (res.response) {
+      Vue.prototype.$snackbar({
+        message: res.response.data.message
+      })
+    }
     if (fail) {
       fail()
     }
