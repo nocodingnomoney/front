@@ -31,15 +31,17 @@
           </md-field>
         </div>
         <div class="md-layout-item">
-          <md-field>
+          <md-field :class="isUpdateNameEmpty">
             <label>名称</label>
             <md-input v-model="updateUser.name"></md-input>
+            <span class="md-error">账号不能为空</span>
           </md-field>
         </div>
         <div class="md-layout-item">
-          <md-field>
+          <md-field :class="isUpdatePasswordEmpty">
             <label>密码</label>
             <md-input v-model="updateUser.password"></md-input>
+            <span class="md-error">密码不能为空</span>
           </md-field>
         </div>
       </div>
@@ -114,25 +116,35 @@ export default {
   data() {
     //id name passwd type level
     return {
-      userList: [],
+      userList: [
+        {
+          id: 12,
+          name: "lee",
+          password: "1212121",
+          type: 5,
+          level: 2
+        }
+      ],
 
       //游客 供应商管理员 产品录入岗 产品审核岗 产品配置岗 系统管理员
       currentUser: {
         id: null,
-        name: null,
-        password: null,
+        name: "",
+        password: "",
         type: null,
         level: null
       },
       updateUser: {
         id: null,
-        name: null,
-        password: null,
+        name: "",
+        password: "",
         type: null,
         level: null
       },
       showUpdateDialog: false,
-      showDeleteDialog: false
+      showDeleteDialog: false,
+
+      updateTouched: false
     };
   },
 
@@ -151,39 +163,53 @@ export default {
     );
   },
 
+  computed: {
+    isUpdateNameEmpty() {
+      return {
+        "md-invalid": this.updateUser.name == "" && this.updateTouched
+      };
+    },
+    isUpdatePasswordEmpty() {
+      return {
+        "md-invalid": this.updateUser.password == "" && this.updateTouched
+      };
+    }
+  },
+
   methods: {
-    computeType: function(type){
-      let typeName=''
-      switch(type){
+    computeType: function(type) {
+      let typeName = "";
+      switch (type) {
         case 0:
-          typeName='游客'
-          break
+          typeName = "游客";
+          break;
         case 1:
-          typeName='系统管理员'
-          break
+          typeName = "系统管理员";
+          break;
         case 2:
-          typeName='供应商管理员'
-          break
+          typeName = "供应商管理员";
+          break;
         case 3:
-          typeName='产品录入岗'
-          break
+          typeName = "产品录入岗";
+          break;
         case 4:
-          typeName='产品审核岗'
-          break
+          typeName = "产品审核岗";
+          break;
         case 5:
-          typeName='产品配置岗'
-          break
+          typeName = "产品配置岗";
+          break;
         default:
-          typeName='未知类型'
-          break
+          typeName = "未知类型";
+          break;
       }
-      return typeName
+      return typeName;
     },
 
     handleUpdate: function(selectedItem) {
       //弹出修改对话框
+      this.updateTouched = false;
       this.currentUser = selectedItem;
-      this.updateUser = this.currentUser;
+      this.updateUser = JSON.parse(JSON.stringify(this.currentUser));
       this.showUpdateDialog = true;
     },
 
@@ -194,18 +220,21 @@ export default {
     },
 
     verifyUpdate: function() {
-      apis.updateUser(
-        {
-          method: "POST",
-          url: `/manage/update`,
-          data: this.updateUser
-        },
+      this.updateTouched = true;
+      if (this.updateUser.name != "" && this.updateUser.password != "") {
+        apis.updateUser(
+          {
+            method: "POST",
+            url: `/manage/update`,
+            data: this.updateUser
+          },
 
-        () => {},
-        () => {}
-      );
+          () => {},
+          () => {}
+        );
 
-      this.showUpdateDialog = !this.showUpdateDialog;
+        this.showUpdateDialog = !this.showUpdateDialog;
+      }
     },
 
     verifyDelete: function() {

@@ -1,10 +1,14 @@
 <template>
   <div class="md-primary">
-    <md-toolbar md-elevation="0">其他 ...</md-toolbar>
+    <md-toolbar md-elevation="0"><strong>理财产品管理系统</strong></md-toolbar>
     <md-list>
       <md-list-item @click="goToAnotherPart('admin')">
         <md-icon>settings</md-icon>
         <span class="md-list-item-text">系统管理</span>
+      </md-list-item>
+      <md-list-item @click="goToAnotherPart('supplier')">
+        <md-icon>home</md-icon>
+        <span class="md-list-item-text">供应商管理</span>
       </md-list-item>
       <md-list-item @click="goToAnotherPart('entry')">
         <md-icon>account_balance</md-icon>
@@ -39,71 +43,73 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+import Vue from "vue";
 
-  import {
-    MdDrawer,
-    MdToolbar,
-    MdList,
-    MdIcon,
-    MdButton,
-    MdSnackbar
-  } from 'vue-material/dist/components'
+import {
+  MdDrawer,
+  MdToolbar,
+  MdList,
+  MdIcon,
+  MdButton,
+  MdSnackbar
+} from "vue-material/dist/components";
 
-  Vue.use(MdDrawer)
-  Vue.use(MdToolbar)
-  Vue.use(MdList)
-  Vue.use(MdIcon)
-  Vue.use(MdButton)
-  Vue.use(MdSnackbar)
+Vue.use(MdDrawer);
+Vue.use(MdToolbar);
+Vue.use(MdList);
+Vue.use(MdIcon);
+Vue.use(MdButton);
+Vue.use(MdSnackbar);
 
-  export default {
-    name: 'Drawer',
-    data() {
-      return {
-        toggleSnackbar: false,
-        // 以下本应该是全局变量
-        logged: false,
-        role: '0',
-        // 以上本应该是全局变量
-
-      }
+export default {
+  name: "Drawer",
+  data() {
+    return {
+      toggleSnackbar: false,
+      // 以下本应该是全局变量
+      logged: false,
+      role: "0"
+      // 以上本应该是全局变量
+    };
+  },
+  methods: {
+    // 统一错误提示动作
+    showSnackbar: function() {
+      this.toggleSnackbar = true;
     },
-    methods: {
-      // 统一错误提示动作
-      showSnackbar: function () {
-        this.toggleSnackbar = true
-      },
-      goToAnotherPart: function (name) {
-        // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
-        let close = true
-        switch (name) {
-          case 'admin':
-            this.$router.push('/main/admin/userManage')
-            break
-          case 'personal':
-            this.$router.push('/main/settings/personal')
-            break
-          case 'page':
-            this.$router.push('/main/settings/page')
-            break
-          case 'entry':
-            this.$router.push('/main/entry/input')
-            break
-          case 'review':
-            this.$router.push('/main/review/assess')
-            break
-          case 'config':
-            this.$router.push('/main/config/add')
-            break
-          default:
-            close = false
-            break
-        }
-        this.$emit('click-item', close)
+    goToAnotherPart: function(name) {
+      // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
+      let close = true;
+      switch (name) {
+        case "admin":
+          this.$router.push("/main/admin/userManage");
+          break;
+        case "supplier":
+          this.$router.push("/main/supplier/dataManage");
+          break;
+        case "personal":
+          this.$router.push("/main/settings/personal");
+          break;
+        case "page":
+          this.$router.push("/main/settings/page");
+          break;
+        case "entry":
+          this.$router.push("/main/entry/input");
+          break;
+        case "review":
+          this.$router.push("/main/review/assess");
+          break;
+        case "config":
+          this.$router.push("/main/config/add");
+          break;
+        default:
+          close = false;
+          break;
       }
+      this.$emit("click-item", close);
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>

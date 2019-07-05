@@ -4,17 +4,19 @@
     <md-dialog :md-active.sync="showCreateDialog">
       <md-dialog-title>添加供应商</md-dialog-title>
       <div class="md-layout md-gutter dialogInput">
-        <div class="md-layout-item md-size-30">
-          <md-field>
+        <!-- <div class="md-layout-item md-size-30">
+          <md-field :class="isNewIdEmpty">
             <label>账号</label>
             <md-input v-model="newId"></md-input>
+            <span class="md-error">账号不能为空</span>
           </md-field>
-        </div>
+        </div> -->
 
         <div class="md-layout-item md-size-30">
-          <md-field>
+          <md-field :class="isNewNameEmpty">
             <label>名称</label>
             <md-input v-model="newName"></md-input>
+            <span class="md-error">名称不能为空</span>
           </md-field>
         </div>
 
@@ -37,17 +39,19 @@
     <md-dialog :md-active.sync="showUpdateDialog">
       <md-dialog-title>修改信息</md-dialog-title>
       <div class="md-layout md-gutter dialogInput">
-        <div class="md-layout-item md-size-30">
-          <md-field>
+        <!-- <div class="md-layout-item md-size-30">
+          <md-field :class="isUpdateIdEmpty">
             <label>账号</label>
             <md-input v-model="updateId"></md-input>
+            <span class="md-error">账号不能为空</span>
           </md-field>
-        </div>
+        </div> -->
 
         <div class="md-layout-item md-size-30">
-          <md-field>
+          <md-field :class="isUpdateNameEmpty">
             <label>名称</label>
             <md-input v-model="updateName"></md-input>
+            <span class="md-error">名称不能为空</span>
           </md-field>
         </div>
 
@@ -70,25 +74,25 @@
     <md-dialog :md-active.sync="showDeleteDialog">
       <md-dialog-title>删除信息</md-dialog-title>
       <div class="md-layout md-gutter dialogInput">
-        <div class="md-layout-item md-size-30">
+        <!-- <div class="md-layout-item">
           <md-field>
             <label>账号</label>
             <md-input v-model="currentId" readonly></md-input>
           </md-field>
-        </div>
+        </div> -->
 
-        <div class="md-layout-item md-size-30">
+        <div class="md-layout-item">
           <md-field>
             <label>名称</label>
             <md-input v-model="currentName" readonly></md-input>
           </md-field>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item">
           <md-switch v-model="currentCertify" class="md-primary" disabled>是否认证</md-switch>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item">
           <md-switch v-model="currentBlack" class="md-primary" disabled>黑名单</md-switch>
         </div>
       </div>
@@ -107,7 +111,7 @@
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell>
+        <!-- <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell> -->
         <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
         <md-table-cell md-label="认证情况">{{item.certification ? '是':'否'}}</md-table-cell>
         <md-table-cell>
@@ -164,22 +168,25 @@ export default {
       showDeleteDialog: false,
       showCreateDialog: false,
 
-      newId: null,
-      newName: null,
+      newId: "",
+      newName: "",
       newCertify: null,
       newBlack: null,
 
-      currentId: null,
-      currentName: null,
+      currentId: "",
+      currentName: "",
       currentCertify: null,
       currentBlack: null,
 
-      updateId: null,
-      updateName: null,
+      updateId: "",
+      updateName: "",
       updateCertify: null,
       updateBlack: null,
 
-      userList: []
+      userList: [{id: 12,name:'Lee',certification:'已认证',black_list:'黑名单'}],
+
+      createTouched: false,
+      updateTouched: false
     };
   },
 
@@ -209,9 +216,34 @@ export default {
     );
   },
 
+  computed: {
+    isNewIdEmpty() {
+      return {
+        "md-invalid": this.newId == "" && this.createTouched
+      };
+    },
+    isNewNameEmpty() {
+      return {
+        "md-invalid": this.newName == "" && this.createTouched
+      };
+    },
+    isUpdateIdEmpty() {
+      return {
+        "md-invalid": this.updateId == "" && this.updateTouched
+      };
+    },
+    isUpdateNameEmpty() {
+      return {
+        "md-invalid": this.updateName == "" && this.updateTouched
+      };
+    }
+  },
+
   methods: {
     handleUpdate: function(id, name, certify, black) {
       this.showUpdateDialog = !this.showUpdateDialog;
+      this.updateTouched=false;
+
       this.currentId = id;
       this.currentName = name;
       this.currentCertify = certify;
@@ -231,31 +263,40 @@ export default {
     },
 
     handleCreate: function() {
+      this.newId = "";
+      this.newName = "";
+      this.newCertify = false;
+      this.newBlack = false;
+      this.createTouched = false;
       this.showCreateDialog = !this.showCreateDialog;
     },
 
     createSupplier: function() {
-      let nId = this.newId;
-      let nName = this.newName;
-      let nCertify = this.newCertify ? "已认证" : "未认证";
-      let nBlack = this.newBlack ? "黑名单" : "白名单";
+      this.createTouched = true;
 
-      apis.addSupplier(
-        {
-          method: "POST",
-          url: `/provide/add`,
-          data: {
-            id: nId,
-            name: nName,
-            certification: nCertify,
-            black_list: nBlack
-          }
-        },
-        () => {},
-        () => {}
-      );
+      //输入均不为空,则发起请求
+      if (this.newId != "" && this.newName != "") {
+        let nId = this.newId;
+        let nName = this.newName;
+        let nCertify = this.newCertify ? "已认证" : "未认证";
+        let nBlack = this.newBlack ? "黑名单" : "白名单";
 
-      this.showCreateDialog = false;
+        apis.addSupplier(
+          {
+            method: "POST",
+            url: `/provide/add`,
+            data: {
+              id: nId,
+              name: nName,
+              certification: nCertify,
+              black_list: nBlack
+            }
+          },
+          () => {},
+          () => {}
+        );
+        this.showCreateDialog = false;
+      }
     },
 
     vertifyDelete: function() {
@@ -273,23 +314,28 @@ export default {
     },
 
     verifyUpdate: function() {
-      apis.updateSupplier(
-        {
-          method: "PUT",
-          url: `/provide/update`,
-          data: {
-            id: this.updateId,
-            name: this.updateName,
-            certification: this.updateCertify ? '已认证':'未认证',
-            black_list: this.updateBlack ? '黑名单' : '白名单'
-          }
-        },
+      this.updateTouched = true;
 
-        () => {},
-        () => {}
-      );
+      //输入均不为空，则发起请求
+      if (this.updateId != "" && this.updateName != "") {
+        apis.updateSupplier(
+          {
+            method: "PUT",
+            url: `/provide/update`,
+            data: {
+              id: this.updateId,
+              name: this.updateName,
+              certification: this.updateCertify ? "已认证" : "未认证",
+              black_list: this.updateBlack ? "黑名单" : "白名单"
+            }
+          },
 
-      this.showUpdateDialog=false
+          () => {},
+          () => {}
+        );
+
+        this.showUpdateDialog = false;
+      }
     }
   }
 };
@@ -301,7 +347,7 @@ export default {
 #tableCard {
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 50%;
 }
 
 .md-dialog {
