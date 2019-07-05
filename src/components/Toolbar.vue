@@ -38,9 +38,8 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs class="md-primary" md-s ync-route>
-        <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName"
-                @click="switchTab(tabName)"></md-tab>
+      <md-tabs md-s ync-route @md-changed="handleTabSwitched">
+        <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName" :id="'tab'+index"></md-tab>
       </md-tabs>
     </div>
   </div>
@@ -61,7 +60,7 @@
     name: 'Toolbar',
     data() {
       return {
-        staffName: '二狗',
+        staffName: '',
         toggleCard: false, // 员工的card
         role: Globals.role,
         tabs: {
@@ -75,7 +74,6 @@
           '3': ['产品配置', '配置审批', '产品配置库'],
           // 专供系统管理员
           '4': ['用户管理', '产品库', '配置库']
-
         }
       }
     },
@@ -112,47 +110,51 @@
       toggleMenu: function () {
         this.$emit('toggle-menu')
       },
-      switchTab: function (tabName) {
-        switch (tabName) {
-          case '资料管理':
-            this.$router.push('/main/supplier/dataManage')
-            break
-          case '黑白名单':
-            this.$router.push('/main/supplier/whiteBlackList')
-            break
-          case '产品录入':
-            this.$router.push('/main/entry/input')
-            break
-          case '产品预选库':
-            this.$router.push('/main/entry/lib')
-            break
-          case '产品评估':
-            this.$router.push('/main/review/assess')
-            break
-          case '产品审批':
-            this.$router.push('/main/review/approve')
-            break
-          case '产品标准库':
-            this.$router.push('/main/review/lib')
-            break
-          case '产品配置':
-            this.$router.push('/main/config/add')
-            break
-          case '配置审批':
-            this.$router.push('/main/config/approve')
-            break
-          case '产品配置库':
-            this.$router.push('/main/config/lib')
-            break
-          case '用户管理':
-            this.$router.push('/main/admin/userManage')
-            break
-          case '产品库':
-            this.$router.push('/main/admin/productHouse')
-            break
-          case '配置库':
-            this.$router.push('/main/admin/configHouse')
-            break
+      handleTabSwitched: function (tabId) {
+        // 页面刚加载的时候tabId会被触发, 但是值为undefined
+        if (tabId) {
+          const index = parseInt(tabId.slice(3))
+          switch (this.tabs[this.role][index]) {
+            case '资料管理':
+              this.$router.push('/main/supplier/dataManage')
+              break
+            case '黑白名单':
+              this.$router.push('/main/supplier/whiteBlackList')
+              break
+            case '产品录入':
+              this.$router.push('/main/entry/input')
+              break
+            case '产品预选库':
+              this.$router.push('/main/entry/lib')
+              break
+            case '产品评估':
+              this.$router.push('/main/review/assess')
+              break
+            case '产品审批':
+              this.$router.push('/main/review/approve')
+              break
+            case '产品标准库':
+              this.$router.push('/main/review/lib')
+              break
+            case '产品配置':
+              this.$router.push('/main/config/add')
+              break
+            case '配置审批':
+              this.$router.push('/main/config/approve')
+              break
+            case '产品配置库':
+              this.$router.push('/main/config/lib')
+              break
+            case '用户管理':
+              this.$router.push('/main/admin/userManage')
+              break
+            case '产品库':
+              this.$router.push('/main/admin/productHouse')
+              break
+            case '配置库':
+              this.$router.push('/main/admin/configHouse')
+              break
+          }
         }
       }
     }

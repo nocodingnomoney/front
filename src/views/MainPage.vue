@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary">
+      <md-app-toolbar class="md-large md-dense">
         <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
       </md-app-toolbar>
 
@@ -49,7 +49,7 @@
     data() {
       return {
         menuVisible: false,
-        theme: 'dark'
+        theme: 'classical'
       }
     },
     methods: {
@@ -74,7 +74,6 @@
 
   .md-app {
     min-height: 100vh;
-    border: 1px solid rgba(#000, 0.12);
 
     .md-app-content {
       background: #efefefde;

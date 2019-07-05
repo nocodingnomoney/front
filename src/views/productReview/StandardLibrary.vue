@@ -13,7 +13,7 @@
         <md-table-cell md-label="种类" md-sort-by="gender">{{ item.catalog }}</md-table-cell>
         <md-table-cell md-label="风险等级" md-sort-by="title">{{ item.riskRank }}</md-table-cell>
         <md-table-cell md-label="配置">
-          <md-menu md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
+          <md-menu md-size="big" md-direction="top-start">
             <md-button class="md-icon-button" md-menu-trigger>
               <md-icon>apps</md-icon>
             </md-button>
@@ -73,5 +73,10 @@
     width: 1200px;
     margin: 20px auto;
     background: white;
+
+    .md-table {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 </style>

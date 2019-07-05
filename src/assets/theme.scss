@@ -5,7 +5,7 @@
         theme: light
 ));
 @include md-register-theme("dark", (
-        primary: md-get-palette-color(blue, A200),
+        primary: md-get-palette-color(deeppurple, A200),
         accent: md-get-palette-color(red, A200),
         theme: dark
 ));

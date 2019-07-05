@@ -77,5 +77,11 @@
     width: 1200px;
     margin: 20px auto;
     background: white;
+
+    .md-table {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
+
 </style>

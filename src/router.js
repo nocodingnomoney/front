@@ -34,7 +34,6 @@ export default new Router({
       }
 
     },
-
     {
       path: '/signup',
       components: {
@@ -50,7 +49,7 @@ export default new Router({
 
     {
       path: '/productDetail/:id',
-      components:{
+      components: {
         default: ProductDetail
       }
     },

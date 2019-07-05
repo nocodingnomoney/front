@@ -18,10 +18,6 @@
         <div class="products__gap__padding"></div>
       </div>
     </template>
-    <md-snackbar :md-active.sync="toggleSnackbar" md-persistent>
-      <span>暂未开放</span>
-      <md-button class="md-primary" @click="toggleSnackbar = false">好的</md-button>
-    </md-snackbar>
   </div>
 </template>
 
@@ -37,17 +33,13 @@
     // 产品信息由父组件提供
     props: ['products'],
     data() {
-      return {
-        toggleSnackbar: false
-      }
-
+      return {}
     },
     methods: {
       // 跳转到相对应的产品详情
       goToDetail(productId) {
-        let path='/productDetail/'+productId
+        let path = '/productDetail/' + productId
         this.$router.push(path)
-        
       }
     }
   }

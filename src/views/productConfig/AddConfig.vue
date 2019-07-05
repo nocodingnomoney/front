@@ -173,6 +173,11 @@
     background: white;
   }
 
+  .md-table {
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .config-editor {
     padding: 30px;
     box-sizing: border-box;

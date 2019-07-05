@@ -30,82 +30,80 @@
 </template>
 
 <style lang="scss" scoped>
-.md-card {
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-}
+  .md-card {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
 
-.md-title,
-.md-subhead {
-  text-align: center;
-}
+  .md-title,
+  .md-subhead {
+    text-align: center;
+  }
 
-.md-button {
-  width: 120px;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  color: white !important;
-  background-color: #00bfff;
-}
+  .md-button {
+    width: 120px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: white !important;
+    background-color: #00bfff;
+  }
 
-.hint {
-  color: red;
-}
+  .hint {
+    color: red;
+  }
 </style>
 
 <script>
-import Vue from "vue";
+  import Vue from 'vue'
 
-import { MdCard, MdField } from "vue-material/dist/components";
+  import {MdCard, MdField} from 'vue-material/dist/components'
 
-import apis from "@/apis/apis.js";
+  import apis from '@/apis/apis.js'
 
-Vue.use(MdField);
-Vue.use(MdCard);
+  Vue.use(MdField)
+  Vue.use(MdCard)
 
-export default {
-  name: "LoginPage",
-  data() {
-    return {
-      username: "",
-      password: "",
-      isNameEmpty: null,
-      hint: "账号或密码错误",
-      showHint: false
-    };
-  },
-  methods: {
-    login: function() {
-      apis.login(
-        {
-          method: "POST",
-          url: `/common/login`,
-          data: {
-            id: this.username,
-            password: this.password
+  export default {
+    name: 'LoginPage',
+    data() {
+      return {
+        username: '',
+        password: '',
+        isNameEmpty: null,
+        hint: '账号或密码错误',
+        showHint: false
+      }
+    },
+    methods: {
+      login: function () {
+        apis.login(
+          {
+            method: 'POST',
+            url: `/common/login`,
+            data: {
+              id: this.username,
+              password: this.password
+            }
+          },
+          () => {
+            this.$router.push({path: '/main'})
           }
-        },
+        )
+      },
 
-        () => {},
-        () => {}
-      );
-
-      this.$router.push({ path: "/main" });
+      goToSignup: function () {
+        this.$router.push({path: '/signup'})
+      }
     },
 
-    goToSignup: function() {
-      this.$router.push({ path: "/signup" });
-    }
-  },
-
-  // computed: {
-  //   messageClass() {
-  //     return {
-  //       "md-invalid": this.isNameEmpty
-  //     };
-  //   }
-  // }
-};
+    // computed: {
+    //   messageClass() {
+    //     return {
+    //       "md-invalid": this.isNameEmpty
+    //     };
+    //   }
+    // }
+  }
 </script>

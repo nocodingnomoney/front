@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="config-library"></div>
 </template>
 
 <script>
@@ -8,6 +8,11 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .config-library {
+    .md-table {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
 </style>

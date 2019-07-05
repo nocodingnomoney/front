@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const prefix = require(`./api.config.${process.env.NODE_ENV}.js`)
 
 const axios = require('axios')
@@ -6,13 +8,16 @@ const wrappedAxios = (config, success, fail) => {
   // 如果你大头虾没有指明success 和 fail 等回调函数, 那我会给你一个啥都没有的回调函数
   let adaptedSuccess = () => {
   }
-  let adaptedFail = () => {
+  let adaptedFail = (res) => {
+    Vue.prototype.$snackbar({
+      message: res.message
+    })
+    if (fail) {
+      fail()
+    }
   }
   if (success) {
     adaptedSuccess = success
-  }
-  if (fail) {
-    adaptedFail = fail
   }
   return axios({
     headers: {
@@ -150,13 +155,13 @@ const apis = {
   signUp: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  getAllUser: function(config, success, fail){
+  getAllUser: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  updateUser: function(config, success, fail){
+  updateUser: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
-  deleteUser: function(config, success, fail){
+  deleteUser: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   }
 }

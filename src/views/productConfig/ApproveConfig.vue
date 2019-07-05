@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="approve-config"></div>
 </template>
 
 <script>
@@ -8,6 +8,11 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .approve-config {
+    .md-table {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
 </style>

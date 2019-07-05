@@ -11,10 +11,6 @@
         <div class="navs__button__bottom" :class="{navs__button__bottom_selected: index==selectedNav}"></div>
       </div>
     </div>
-    <md-snackbar :md-active.sync="toggleSnackbar" md-persistent>
-      <span>敬请期待</span>
-      <md-button class="md-primary" @click="toggleSnackbar = false">好的</md-button>
-    </md-snackbar>
   </div>
 </template>
 
@@ -30,7 +26,6 @@
     name: 'ProductToolbar',
     data() {
       return {
-        toggleSnackbar: false,
         selectedNav: 1,
         navs: ['首页', '产品中心', '产品商城', '广告服务', '开放平台', '关于我们', '投资者关系']
       }
@@ -40,11 +35,10 @@
         switch (index) {
           case 1: // 原地不动
             break
-          case 2: // 跳转到商城
-            this.$router.push('/mall')
-            break
           default: // 未开放
-            this.toggleSnackbar = true
+            this.$snackbar({
+              message: '敬请期待'
+            })
         }
       }
     }

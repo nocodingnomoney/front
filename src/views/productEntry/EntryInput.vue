@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-input">
+  <md-content class="entry-input">
     <div class="entry-input__title">
       <h1 class="md-title">产品录入</h1>
       <md-button v-if="inputMethod !== 'none'" class="md-primary" @click="inputMethod='none'">
@@ -71,7 +71,7 @@
     <div class="entry-input__title">
       <h1 class="md-title">我录入的产品</h1>
     </div>
-  </div>
+  </md-content>
 </template>
 
 <script>

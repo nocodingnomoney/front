@@ -18,7 +18,7 @@
         <md-icon>list</md-icon>
         <span class="md-list-item-text">配置中心</span>
       </md-list-item>
-      <md-list-item @click="showSnackbar">
+      <md-list-item @click="showError">
         <md-icon>bar_chart</md-icon>
         <span class="md-list-item-text">数据统计</span>
       </md-list-item>
@@ -31,10 +31,6 @@
         <span class="md-list-item-text">个人设置</span>
       </md-list-item>
     </md-list>
-    <md-snackbar :md-active.sync="toggleSnackbar" md-persistent>
-      <span>暂未开放</span>
-      <md-button class="md-primary" @click="toggleSnackbar = false">好的</md-button>
-    </md-snackbar>
   </div>
 </template>
 
@@ -71,8 +67,10 @@
     },
     methods: {
       // 统一错误提示动作
-      showSnackbar: function () {
-        this.toggleSnackbar = true
+      showError: function () {
+        this.$snackbar({
+          message: '暂未开放'
+        })
       },
       goToAnotherPart: function (name) {
         // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
