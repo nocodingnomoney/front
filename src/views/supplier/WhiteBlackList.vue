@@ -20,11 +20,11 @@
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell>
+        <!-- <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell> -->
         <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
-        <md-table-cell>
+        <!-- <md-table-cell>
           <md-button class="md-dense md-primary" @click="handleRemove(item.id)">移除</md-button>
-        </md-table-cell>
+        </md-table-cell> -->
       </md-table-row>
     </md-table>
   </div>
@@ -130,9 +130,9 @@ export default {
       }
     },
 
-    handleRemove: function(id) {
-      alert("remove" + id);
-    }
+    // handleRemove: function(id) {
+    //   alert("remove" + id);
+    // }
   }
 };
 </script>
@@ -149,6 +149,6 @@ export default {
 #tableCard {
   margin-left: 15vw;
   margin-right: auto;
-  width: 70%;
+  width: 50%;
 }
 </style>

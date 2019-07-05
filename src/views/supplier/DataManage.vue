@@ -12,7 +12,7 @@
           </md-field>
         </div> -->
 
-        <div class="md-layout-item md-size-30">
+        <div class="md-layout-item md-size-40">
           <md-field :class="isNewNameEmpty">
             <label>名称</label>
             <md-input v-model="newName"></md-input>
@@ -20,11 +20,11 @@
           </md-field>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="newCertify" class="md-primary">是否认证</md-switch>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="newBlack" class="md-primary">黑名单</md-switch>
         </div>
       </div>
@@ -47,7 +47,7 @@
           </md-field>
         </div> -->
 
-        <div class="md-layout-item md-size-30">
+        <div class="md-layout-item md-size-40">
           <md-field :class="isUpdateNameEmpty">
             <label>名称</label>
             <md-input v-model="updateName"></md-input>
@@ -55,11 +55,11 @@
           </md-field>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="updateCertify" class="md-primary">是否认证</md-switch>
         </div>
 
-        <div class="md-layout-item md-size-20">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="updateBlack" class="md-primary">黑名单</md-switch>
         </div>
       </div>
@@ -81,18 +81,18 @@
           </md-field>
         </div> -->
 
-        <div class="md-layout-item">
+        <div class="md-layout-item md-size-40">
           <md-field>
             <label>名称</label>
             <md-input v-model="currentName" readonly></md-input>
           </md-field>
         </div>
 
-        <div class="md-layout-item">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="currentCertify" class="md-primary" disabled>是否认证</md-switch>
         </div>
 
-        <div class="md-layout-item">
+        <div class="md-layout-item md-size-30">
           <md-switch v-model="currentBlack" class="md-primary" disabled>黑名单</md-switch>
         </div>
       </div>
@@ -183,7 +183,7 @@ export default {
       updateCertify: null,
       updateBlack: null,
 
-      userList: [{id: 12,name:'Lee',certification:'已认证',black_list:'黑名单'}],
+      userList: [],
 
       createTouched: false,
       updateTouched: false
@@ -351,7 +351,7 @@ export default {
 }
 
 .md-dialog {
-  min-width: 60vw;
+  min-width: 50vw;
 }
 
 .dialogInput {
