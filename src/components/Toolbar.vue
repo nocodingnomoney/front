@@ -28,7 +28,7 @@
                   <span>{{this.staffName}}</span>
                 </div>
                 <div>
-                  <md-button class="md-raised md-accent">退出</md-button>
+                  <md-button class="md-raised md-accent" @click="logout">退出</md-button>
                 </div>
               </div>
             </div>
@@ -49,6 +49,7 @@
   import Vue from 'vue'
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
   import Globals from '@/global.js'
+  import apis from '@/apis/apis.js'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
@@ -60,7 +61,7 @@
     name: 'Toolbar',
     data() {
       return {
-        staffName: '',
+        staffName: Globals.staff.name,
         toggleCard: false, // 员工的card
         role: Globals.role,
         tabs: {
@@ -114,6 +115,12 @@
       toggleMenu: function () {
         this.$emit('toggle-menu')
       },
+      logout: () => {
+        apis.logout(() => {
+          console.log('登出成功')
+        })
+      }
+      ,
       handleTabSwitched: function (tabId) {
         // 页面刚加载的时候tabId会被触发, 但是值为undefined
         if (tabId) {

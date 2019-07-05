@@ -61,6 +61,7 @@
   import {MdCard, MdField} from 'vue-material/dist/components'
 
   import apis from '@/apis/apis.js'
+  import Globals from '../global'
 
   Vue.use(MdField)
   Vue.use(MdCard)
@@ -87,10 +88,15 @@
               password: this.password
             }
           },
-          () => {
+          (res) => {
+            // eslint-disable-next-line
+            console.log(res)
+            const staff = JSON.parse(res.data.data)
+            Globals.staff.level = staff.level
+            Globals.staff.type = staff.type
+            Globals.staff.name = staff.name
             this.$router.push({path: '/main'})
-          }
-        )
+          })
       },
 
       goToSignup: function () {

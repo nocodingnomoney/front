@@ -13,7 +13,7 @@
         <md-table-cell md-label="种类" md-sort-by="gender">{{ item.catalog }}</md-table-cell>
         <md-table-cell md-label="风险等级" md-sort-by="title">{{ item.riskRank }}</md-table-cell>
         <md-table-cell md-label="配置">
-          <md-menu md-size="big" md-direction="top-start">
+          <md-menu v-if="item.configs" md-size="big" md-direction="top-start">
             <md-button class="md-icon-button" md-menu-trigger>
               <md-icon>apps</md-icon>
             </md-button>
@@ -99,7 +99,7 @@
        * @Author: littlebugyang
        * @Date: 2019/7/3
        */
-      apis.products.libraries.getStandard((res) => {
+      apis.products.configs.getAll((res) => {
         this.products = res.data.map((product) => {
           return Object.assign(product, {modified: false})
         })
@@ -149,8 +149,17 @@
         }, () => {
         })
       },
+
+      /**
+       * @Description: 和下面的deleteItem, 都是用于在配置编辑器框中的方法
+       * @Author: littlebugyang
+       * @Date: 2019/7/5
+       */
       addItem() {
         let configs = this.editingProduct.configs
+        if (!configs) {
+          configs = []
+        }
         configs.push({
           configName: '',
           configIntro: ''

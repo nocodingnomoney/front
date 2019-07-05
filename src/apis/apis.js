@@ -10,7 +10,7 @@ const wrappedAxios = (config, success, fail) => {
   }
   let adaptedFail = (res) => {
     Vue.prototype.$snackbar({
-      message: res.message
+      message: res.response.data.message
     })
     if (fail) {
       fail()
@@ -101,7 +101,7 @@ const apis = {
      * @Date: 2019/7/3
      */
     libraries: {
-      getPreselect: () => {
+      getPreselect: (success, fail) => {
         return wrappedAxios({url: '/products/store/1'}, success, fail)
       },
       getStandard: (success, fail) => {
@@ -122,6 +122,16 @@ const apis = {
      * @Date: 2019/7/3
      */
     configs: {
+      /**
+       * @Description: 获取待配置产品
+       * @return:  Array
+       * @Author: littlebugyang
+       * @Date: 2019/7/5
+       */
+      getAll: (success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/4'}, success, fail)
+      },
+
       add: (config, success, fail) => {
         let adaptedConfig = config
         adaptedConfig.method = 'POST'
@@ -135,6 +145,9 @@ const apis = {
   },
   login: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
+  },
+  logout: (success, fail) => {
+    return wrappedAxios({method: 'POST', url: '/common/logout'}, success, fail)
   },
 
   getOneSupplier: function (config, success, fail) {
