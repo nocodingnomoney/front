@@ -116,15 +116,7 @@ export default {
   data() {
     //id name passwd type level
     return {
-      userList: [
-        {
-          id: 12,
-          name: "lee",
-          password: "1212121",
-          type: 5,
-          level: 2
-        }
-      ],
+      userList: [],
 
       //游客 供应商管理员 产品录入岗 产品审核岗 产品配置岗 系统管理员
       currentUser: {
