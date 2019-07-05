@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs md-s ync-route @md-changed="handleTabSwitched">
+      <md-tabs class="md-primary" md-s ync-route @md-changed="handleTabSwitched">
         <md-tab v-for="(tabName,index) in tabs[role]" :key="index" :md-label="tabName" :id="'tab'+index"></md-tab>
       </md-tabs>
     </div>
@@ -83,6 +83,10 @@
     watch: {
       $route() {
         this.changeTabsThroughPath()
+      },
+      $theme(theme) {
+        // eslint-disable-next-line
+        console.log(theme)
       }
     },
     methods: {

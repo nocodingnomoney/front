@@ -9,6 +9,7 @@
 <script>
   import Vue from 'vue'
   import {MdField} from 'vue-material/dist/components'
+  import Globals from '@/global.js'
 
   Vue.use(MdField)
   export default {
@@ -26,6 +27,7 @@
        * @Date: 2019/7/4
        */
       dark(newDark) {
+        this.$theme = newDark ? 'dark' : 'light'
         this.$emit('changeTheme', newDark)
       }
     }

@@ -90,7 +90,7 @@ const apis = {
      */
     submit: {
       upload: (productId, success, fail) => {
-        return wrappedAxios({method: 'PUT', url: `/checking/${productId}`}, success, fail)
+        return wrappedAxios({method: 'PUT', url: `/upload/${productId}`}, success, fail)
       }
     },
 
@@ -101,11 +101,14 @@ const apis = {
      * @Date: 2019/7/3
      */
     libraries: {
-      getStandard: (success, fail) => {
-        return wrappedAxios({url: '/products/process/4'}, success, fail)
-      },
       getPreselect: () => {
-        return wrappedAxios({url: ''})
+        return wrappedAxios({url: '/products/store/1'}, success, fail)
+      },
+      getStandard: (success, fail) => {
+        return wrappedAxios({url: '/products/store/2'}, success, fail)
+      },
+      getConfigLib: (success, fail) => {
+        return wrappedAxios({url: '/products/store/3'}, success, fail)
       },
       getPresented: (success, fail) => {
         return wrappedAxios({url: '/products/process/6'}, success, fail)
@@ -124,6 +127,9 @@ const apis = {
         adaptedConfig.method = 'POST'
         adaptedConfig.url = '/config/product/add'
         return wrappedAxios(adaptedConfig, success, fail)
+      },
+      approve: (productId, success, fail) => {
+        return wrappedAxios({method: 'PUT', url: ''}, success, fail)
       }
     }
   },

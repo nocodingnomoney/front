@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense">
+      <md-app-toolbar class="md-large md-dense md-primary">
         <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
       </md-app-toolbar>
 
@@ -33,6 +33,7 @@
   import {
     MdApp, MdContent
   } from 'vue-material/dist/components'
+  import Globals from '@/global.js'
 
   // Vue-Material的组件引入用Vue.use语句
   Vue.use(MdApp)
@@ -40,6 +41,9 @@
 
 
   export default {
+    mounted() {
+      Vue.prototype.$theme = 'light'
+    },
     name: 'app',
     // 自定义组价在父组件中以下面的形式注册
     components: {
@@ -49,7 +53,7 @@
     data() {
       return {
         menuVisible: false,
-        theme: 'classical'
+        theme: 'light'
       }
     },
     methods: {
@@ -60,7 +64,7 @@
         this.menuVisible = !close
       },
       handleThemeChanged: function (toDark) {
-        this.theme = toDark ? 'dark' : 'classical'
+        this.theme = toDark ? 'dark' : 'light'
       }
     }
   }
