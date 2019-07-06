@@ -44,6 +44,10 @@
                 </md-optgroup>
               </md-select>
             </md-field>
+            <div class="entry-input__manual__form__half__risk">
+              <md-radio v-model="product.riskRank" value="1" class="md-primary">低风险</md-radio>
+              <md-radio v-model="product.riskRank" value="2">高风险</md-radio>
+            </div>
             <md-field>
               <label>对产品的介绍</label>
               <md-textarea v-model="product.intro" md-counter="200"></md-textarea>
@@ -120,7 +124,8 @@
         product: {
           name: '',
           catalog: '',
-          intro: ''
+          intro: '',
+          riskRank: ''
         },
         options: [],
         importedFile: null
@@ -140,7 +145,7 @@
             catalog: this.product.catalog,
             productIntro: this.product.intro,
             // todo: 做好风险等级的选择, 否则只能默认低风险
-            riskRank: 1
+            riskRank: this.product.riskRank
           }
         }, () => {
           this.$snackbar({
@@ -225,6 +230,11 @@
 
           &:first-child {
             margin-right: 2%;
+          }
+
+          .entry-input__manual__form__half__risk {
+            display: flex;
+            justify-content: space-around;
           }
         }
       }
