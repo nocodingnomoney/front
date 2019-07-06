@@ -130,10 +130,9 @@ const apis = {
        * @Author: littlebugyang
        * @Date: 2019/7/5
        */
-      getAll: (success, fail) => {
+      getAvailable: (success, fail) => {
         return wrappedAxios({method: 'GET', url: '/products/process/4'}, success, fail)
       },
-
       add: (config, success, fail) => {
         let adaptedConfig = config
         adaptedConfig.method = 'POST'
@@ -141,7 +140,10 @@ const apis = {
         return wrappedAxios(adaptedConfig, success, fail)
       },
       approve: (productId, success, fail) => {
-        return wrappedAxios({method: 'PUT', url: ''}, success, fail)
+        return wrappedAxios({method: 'PUT', url: `/config/product/check/${productId}`}, success, fail)
+      },
+      configuring: (success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/5'}, success, fail)
       }
     }
   },

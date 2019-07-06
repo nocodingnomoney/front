@@ -37,46 +37,47 @@
 </template>
 
 <style lang="scss" scoped>
-.content{
-  min-height: 100vh;
-  background-image: url('../backgroundImage/backImage1.jpg') !important;
-}
+  .content {
+    min-height: 100vh;
+    background-image: url('../backgroundImage/backImage1.jpg') !important;
+  }
 
-.header{
-  font-size: 40px;
-  margin: 0;
-  color: white;
-  text-align: center;
-  position: relative;
-  left: 0;
-  top:50px;
-}
-.md-card {
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  position:relative;
-  left: 0;
-  top : 100px;
-  background-color: rgba(255, 255, 255, 0.95);
-}
+  .header {
+    font-size: 40px;
+    margin: 0;
+    color: white;
+    text-align: center;
+    position: relative;
+    left: 0;
+    top: 50px;
+  }
 
-.md-title,
-.md-subhead {
-  text-align: center;
-}
+  .md-card {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: 0;
+    top: 100px;
+    background-color: rgba(255, 255, 255, 0.95);
+  }
 
-.md-button {
-  width: 120px;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  color: white !important;
-  background-color: #00bfff;
-}
+  .md-title,
+  .md-subhead {
+    text-align: center;
+  }
 
-.hint {
-  color: red;
-}
+  .md-button {
+    width: 120px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: white !important;
+    background-color: #00bfff;
+  }
+
+  .hint {
+    color: red;
+  }
 </style>
 
 <script>
@@ -86,70 +87,72 @@
 
   import apis from '@/apis/apis.js'
 
+  import Globals from '@/global.js'
+
   Vue.use(MdField)
   Vue.use(MdCard)
 
-export default {
-  name: "LoginPage",
-  data() {
-    return {
-      username: "",
-      password: "",
-
-      //hint是错误信息
-      // hint: "账号或密码错误",
-      // showHint: false,
-
-      touched: false
-    };
-  },
-
-  computed: {
-    whetherIdEmpty() {
+  export default {
+    name: 'LoginPage',
+    data() {
       return {
-        "md-invalid": this.username == "" && this.touched
-      };
-    },
-    whetherPasswordEmpty() {
-      return {
-        "md-invalid": this.password == "" && this.touched
-      };
-    }
-  },
+        username: '',
+        password: '',
 
-  methods: {
-    login: function() {
-      this.touched = true;
+        //hint是错误信息
+        // hint: "账号或密码错误",
+        // showHint: false,
 
-      if (this.username != "" && this.password != "") {
-        apis.login(
-          {
-            method: "POST",
-            url: `/common/login`,
-            data: {
-              id: this.username,
-              password: this.password
-            }
-          },
-          //这里需要根据返回的结果对登录进行判断，成功或失败（账号不存在，密码错误）
-          (res) => {
-            const staff = JSON.parse(res.data.data)
-            Globals.staff.level = staff.level
-            Globals.staff.type = staff.type
-            Globals.staff.name = staff.name
-            this.$router.push({path: '/main'})
-            this.$router.push({ path: "/main" });
-          },
-          () => {
-            //根据具体错误信息，修改 this.hint 并将this.showHint设为true
-          }
-        );
+        touched: false
       }
     },
 
-    goToSignup: function() {
-      this.$router.push({ path: "/signup" });
+    computed: {
+      whetherIdEmpty() {
+        return {
+          'md-invalid': this.username == '' && this.touched
+        }
+      },
+      whetherPasswordEmpty() {
+        return {
+          'md-invalid': this.password == '' && this.touched
+        }
+      }
+    },
+
+    methods: {
+      login: function () {
+        this.touched = true
+
+        if (this.username != '' && this.password != '') {
+          apis.login(
+            {
+              method: 'POST',
+              url: `/common/login`,
+              data: {
+                id: this.username,
+                password: this.password
+              }
+            },
+            //这里需要根据返回的结果对登录进行判断，成功或失败（账号不存在，密码错误）
+            (res) => {
+              const staff = JSON.parse(res.data.data)
+              Globals.staff.level = staff.level
+              Globals.staff.type = staff.type
+              Globals.staff.name = staff.name
+              this.$router.push({path: '/main'})
+              this.$router.push({path: '/main'})
+            },
+            () => {
+              //根据具体错误信息，修改 this.hint 并将this.showHint设为true
+            }
+          )
+        }
+      },
+
+      goToSignup: function () {
+        this.$router.push({path: '/signup'})
+      }
     }
   }
-}
 </script>

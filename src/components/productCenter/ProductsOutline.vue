@@ -7,7 +7,7 @@
           <img :src="imageUrls[product.productID % imageUrls.length]"/>
         </div>
         <div class="product__intro">
-          <div class="product__intro__name">{{product.productName}}</div>
+          <div class="product__intro__name" :title="product.productName">{{product.productName}}</div>
           <div class="product__intro__outline">{{product.productIntro}}</div>
         </div>
         <md-button class="md-primary md-raised" @click="goToDetail(product.productID)">查看详情</md-button>
@@ -88,6 +88,7 @@
 
       .product__icon {
         height: 100%;
+        flex-shrink: 0;
 
         img {
           height: 100%;
@@ -104,6 +105,10 @@
 
         .product__intro__name {
           font-size: 22px;
+          max-width: 300px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
 
         .product__intro__outline {
