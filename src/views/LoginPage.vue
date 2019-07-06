@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="content">
+    <h1 class="header">理财产品管理系统</h1>
     <md-card>
       <md-card-header>
         <div class="md-title">登录系统</div>
