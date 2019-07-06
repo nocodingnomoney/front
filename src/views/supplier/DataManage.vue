@@ -116,15 +116,17 @@
         <md-table-cell md-label="认证情况">{{item.certification ? '是':'否'}}</md-table-cell>
         <md-table-cell>
           <md-button
-            class="md-dense md-primary"
-            @click="handleUpdate(item.id, item.name, item.certification, item.black_list)"
-          >修改信息</md-button>
+                  class="md-dense md-primary"
+                  @click="handleUpdate(item.id, item.name, item.certification, item.black_list)"
+          >修改信息
+          </md-button>
         </md-table-cell>
         <md-table-cell>
           <md-button
-            class="md-dense md-primary"
-            @click="handleDelete(item.id, item.name, item.certification, item.black_list)"
-          >删除</md-button>
+                  class="md-dense md-primary"
+                  @click="handleDelete(item.id, item.name, item.certification, item.black_list)"
+          >删除
+          </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
@@ -132,270 +134,278 @@
 </template>
 
 <script>
-import Vue from "vue";
-import VueMaterial from "vue-material";
-import "vue-material/dist/vue-material.min.css";
+  import Vue from 'vue'
+  import VueMaterial from 'vue-material'
+  import 'vue-material/dist/vue-material.min.css'
 
-import apis from "@/apis/apis.js";
+  import apis from '@/apis/apis.js'
 
-Vue.use(VueMaterial);
-// import Vue from 'vue'
+  Vue.use(VueMaterial)
+  // import Vue from 'vue'
 
-// import {
-//   MdDialog,
-//   MdList,
-//   MdIcon,
-//   MdButton,
-//   MdTable,
-//   MdSwitch,
-//   MdDrawer
-// } from 'vue-material/dist/components'
+  // import {
+  //   MdDialog,
+  //   MdList,
+  //   MdIcon,
+  //   MdButton,
+  //   MdTable,
+  //   MdSwitch,
+  //   MdDrawer
+  // } from 'vue-material/dist/components'
 
-// Vue.use(MdDialog)
-// Vue.use(MdList)
-// Vue.use(MdIcon)
-// Vue.use(MdButton)
-// Vue.use(MdTable)
-// Vue.use(MdSwitch)
-// Vue.use(MdDrawer)
+  // Vue.use(MdDialog)
+  // Vue.use(MdList)
+  // Vue.use(MdIcon)
+  // Vue.use(MdButton)
+  // Vue.use(MdTable)
+  // Vue.use(MdSwitch)
+  // Vue.use(MdDrawer)
 
-export default {
-  name: "DataManage",
-  components: {},
-  data() {
-    return {
-      showUpdateDialog: false,
-      showDeleteDialog: false,
-      showCreateDialog: false,
-
-      newId: "",
-      newName: "",
-      newCertify: null,
-      newBlack: null,
-
-      currentId: "",
-      currentName: "",
-      currentCertify: null,
-      currentBlack: null,
-
-      updateId: "",
-      updateName: "",
-      updateCertify: null,
-      updateBlack: null,
-
-      userList: [],
-
-      createTouched: false,
-      updateTouched: false
-    };
-  },
-
-  mounted: function() {
-    // Code that will run only after the
-    // entire view has been rendered
-    apis.getAllSupplier(
-      {
-        method: "GET",
-        url: `/provide/getAll`
-      },
-      res => {
-        var list = res.data;
-        for (let item of list) {
-          if (item.certification == "已认证") {
-            item.certification = true;
-          } else {
-            item.certification = false;
-          }
-
-          item.black_list = item.black_list == "黑名单" ? true : false;
-        }
-
-        this.userList = list;
-      },
-      () => {}
-    );
-  },
-
-  computed: {
-    isNewIdEmpty() {
+  export default {
+    name: 'DataManage',
+    components: {},
+    data() {
       return {
-        "md-invalid": this.newId == "" && this.createTouched
-      };
+        showUpdateDialog: false,
+        showDeleteDialog: false,
+        showCreateDialog: false,
+
+        newId: '',
+        newName: '',
+        newCertify: null,
+        newBlack: null,
+
+        currentId: '',
+        currentName: '',
+        currentCertify: null,
+        currentBlack: null,
+
+        updateId: '',
+        updateName: '',
+        updateCertify: null,
+        updateBlack: null,
+
+        userList: [],
+
+        createTouched: false,
+        updateTouched: false
+      }
     },
-    isNewNameEmpty() {
-      return {
-        "md-invalid": this.newName == "" && this.createTouched
-      };
-    },
-    isUpdateIdEmpty() {
-      return {
-        "md-invalid": this.updateId == "" && this.updateTouched
-      };
-    },
-    isUpdateNameEmpty() {
-      return {
-        "md-invalid": this.updateName == "" && this.updateTouched
-      };
-    }
-  },
 
-  methods: {
-    //新增，修改之后再次获取所有供应商，让界面实时更新
-    fetchAllSupplier: function() {
+    mounted: function () {
+      // Code that will run only after the
+      // entire view has been rendered
       apis.getAllSupplier(
         {
-          method: "GET",
+          method: 'GET',
           url: `/provide/getAll`
         },
         res => {
-          var list = res.data;
+          var list = res.data
           for (let item of list) {
-            if (item.certification == "已认证") {
-              item.certification = true;
+            if (item.certification == '已认证') {
+              item.certification = true
             } else {
-              item.certification = false;
+              item.certification = false
             }
 
-            item.black_list = item.black_list == "黑名单" ? true : false;
+            item.black_list = item.black_list == '黑名单' ? true : false
           }
 
-          this.userList = list;
+          this.userList = list
         },
-        () => {}
-      );
+        () => {
+        }
+      )
     },
 
-    handleUpdate: function(id, name, certify, black) {
-      this.showUpdateDialog = !this.showUpdateDialog;
-      this.updateTouched = false;
-
-      this.currentId = id;
-      this.currentName = name;
-      this.currentCertify = certify;
-      this.currentBlack = black;
-      this.updateId = this.currentId;
-      this.updateName = this.currentName;
-      this.updateCertify = this.currentCertify;
-      this.updateBlack = this.currentBlack;
-    },
-
-    handleDelete: function(id, name, certify, black) {
-      this.showDeleteDialog = !this.showDeleteDialog;
-      this.currentName = name;
-      this.currentCertify = certify;
-      this.currentBlack = black;
-      this.currentId = id;
-    },
-
-    handleCreate: function() {
-      this.newId = "";
-      this.newName = "";
-      this.newCertify = false;
-      this.newBlack = false;
-      this.createTouched = false;
-      this.showCreateDialog = !this.showCreateDialog;
-    },
-
-    createSupplier: function() {
-      this.createTouched = true;
-
-      //输入均不为空,则发起请求
-      if (this.newId != "" && this.newName != "") {
-        let nId = this.newId;
-        let nName = this.newName;
-        let nCertify = this.newCertify ? "已认证" : "未认证";
-        let nBlack = this.newBlack ? "黑名单" : "白名单";
-
-        apis.addSupplier(
-          {
-            method: "POST",
-            url: `/provide/add`,
-            data: {
-              id: nId,
-              name: nName,
-              certification: nCertify,
-              black_list: nBlack
-            }
-          },
-          () => {
-            this.$snackbar({
-              message: "添加成功"
-            });
-            this.fetchAllSupplier();
-          },
-          () => {}
-        );
-        this.showCreateDialog = false;
+    computed: {
+      isNewIdEmpty() {
+        return {
+          'md-invalid': this.newId == '' && this.createTouched
+        }
+      },
+      isNewNameEmpty() {
+        return {
+          'md-invalid': this.newName == '' && this.createTouched
+        }
+      },
+      isUpdateIdEmpty() {
+        return {
+          'md-invalid': this.updateId == '' && this.updateTouched
+        }
+      },
+      isUpdateNameEmpty() {
+        return {
+          'md-invalid': this.updateName == '' && this.updateTouched
+        }
       }
     },
 
-    vertifyDelete: function() {
-      apis.deleteSupplier(
-        {
-          method: "GET",
-          url: `/provide/delete/${this.currentId}`
-        },
-
-        () => {
-          this.$snackbar({
-            message: "删除成功"
-          });
-          this.fetchAllSupplier();
-        },
-        () => {}
-      );
-
-      this.showDeleteDialog = false;
-    },
-
-    verifyUpdate: function() {
-      this.updateTouched = true;
-
-      //输入均不为空，则发起请求
-      if (this.updateId != "" && this.updateName != "") {
-        apis.updateSupplier(
+    methods: {
+      //新增，修改之后再次获取所有供应商，让界面实时更新
+      fetchAllSupplier: function () {
+        apis.getAllSupplier(
           {
-            method: "PUT",
-            url: `/provide/update`,
-            data: {
-              id: this.updateId,
-              name: this.updateName,
-              certification: this.updateCertify ? "已认证" : "未认证",
-              black_list: this.updateBlack ? "黑名单" : "白名单"
+            method: 'GET',
+            url: `/provide/getAll`
+          },
+          res => {
+            var list = res.data
+            for (let item of list) {
+              if (item.certification == '已认证') {
+                item.certification = true
+              } else {
+                item.certification = false
+              }
+
+              item.black_list = item.black_list == '黑名单' ? true : false
             }
+
+            this.userList = list
+          },
+          () => {
+          }
+        )
+      },
+
+      handleUpdate: function (id, name, certify, black) {
+        this.showUpdateDialog = !this.showUpdateDialog
+        this.updateTouched = false
+
+        this.currentId = id
+        this.currentName = name
+        this.currentCertify = certify
+        this.currentBlack = black
+        this.updateId = this.currentId
+        this.updateName = this.currentName
+        this.updateCertify = this.currentCertify
+        this.updateBlack = this.currentBlack
+      },
+
+      handleDelete: function (id, name, certify, black) {
+        this.showDeleteDialog = !this.showDeleteDialog
+        this.currentName = name
+        this.currentCertify = certify
+        this.currentBlack = black
+        this.currentId = id
+      },
+
+      handleCreate: function () {
+        this.newId = ''
+        this.newName = ''
+        this.newCertify = false
+        this.newBlack = false
+        this.createTouched = false
+        this.showCreateDialog = !this.showCreateDialog
+      },
+
+      createSupplier: function () {
+        this.createTouched = true
+
+        // 输入均不为空,则发起请求
+        if (this.newName != '') {
+          let nId = this.newId
+          let nName = this.newName
+          let nCertify = this.newCertify ? '已认证' : '未认证'
+          let nBlack = this.newBlack ? '黑名单' : '白名单'
+
+          apis.addSupplier(
+            {
+              method: 'POST',
+              url: `/provide/add`,
+              data: {
+                id: nId,
+                name: nName,
+                certification: nCertify,
+                black_list: nBlack
+              }
+            },
+            () => {
+              this.$snackbar({
+                message: '添加成功'
+              })
+              this.fetchAllSupplier()
+            },
+            () => {
+            }
+          )
+          this.showCreateDialog = false
+        } else {
+          console.log('Hello world')
+        }
+      },
+
+      vertifyDelete: function () {
+        apis.deleteSupplier(
+          {
+            method: 'GET',
+            url: `/provide/delete/${this.currentId}`
           },
 
           () => {
             this.$snackbar({
-              message: "修改成功"
-            });
-            this.fetchAllSupplier();
+              message: '删除成功'
+            })
+            this.fetchAllSupplier()
           },
-          () => {}
-        );
+          () => {
+          }
+        )
 
-        this.showUpdateDialog = false;
+        this.showDeleteDialog = false
+      },
+
+      verifyUpdate: function () {
+        this.updateTouched = true
+
+        //输入均不为空，则发起请求
+        if (this.updateId != '' && this.updateName != '') {
+          apis.updateSupplier(
+            {
+              method: 'PUT',
+              url: `/provide/update`,
+              data: {
+                id: this.updateId,
+                name: this.updateName,
+                certification: this.updateCertify ? '已认证' : '未认证',
+                black_list: this.updateBlack ? '黑名单' : '白名单'
+              }
+            },
+
+            () => {
+              this.$snackbar({
+                message: '修改成功'
+              })
+              this.fetchAllSupplier()
+            },
+            () => {
+            }
+          )
+
+          this.showUpdateDialog = false
+        }
       }
     }
   }
-};
 </script>
 <style lang="scss" scoped>
-#content {
-  margin-top: 20px;
-}
-#tableCard {
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
+  #content {
+    margin-top: 20px;
+  }
 
-.md-dialog {
-  min-width: 50vw;
-}
+  #tableCard {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
 
-.dialogInput {
-  margin-left: auto;
-  margin-right: auto;
-}
+  .md-dialog {
+    min-width: 50vw;
+  }
+
+  .dialogInput {
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>
