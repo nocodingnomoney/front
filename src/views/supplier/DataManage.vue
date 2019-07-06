@@ -10,7 +10,7 @@
             <md-input v-model="newId"></md-input>
             <span class="md-error">账号不能为空</span>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field :class="isNewNameEmpty">
@@ -45,7 +45,7 @@
             <md-input v-model="updateId"></md-input>
             <span class="md-error">账号不能为空</span>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field :class="isUpdateNameEmpty">
@@ -79,7 +79,7 @@
             <label>账号</label>
             <md-input v-model="currentId" readonly></md-input>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field>
@@ -240,9 +240,34 @@ export default {
   },
 
   methods: {
+    //新增，修改之后再次获取所有供应商，让界面实时更新
+    fetchAllSupplier: function() {
+      apis.getAllSupplier(
+        {
+          method: "GET",
+          url: `/provide/getAll`
+        },
+        res => {
+          var list = res.data;
+          for (let item of list) {
+            if (item.certification == "已认证") {
+              item.certification = true;
+            } else {
+              item.certification = false;
+            }
+
+            item.black_list = item.black_list == "黑名单" ? true : false;
+          }
+
+          this.userList = list;
+        },
+        () => {}
+      );
+    },
+
     handleUpdate: function(id, name, certify, black) {
       this.showUpdateDialog = !this.showUpdateDialog;
-      this.updateTouched=false;
+      this.updateTouched = false;
 
       this.currentId = id;
       this.currentName = name;
@@ -292,7 +317,12 @@ export default {
               black_list: nBlack
             }
           },
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "添加成功"
+            });
+            this.fetchAllSupplier();
+          },
           () => {}
         );
         this.showCreateDialog = false;
@@ -306,7 +336,12 @@ export default {
           url: `/provide/delete/${this.currentId}`
         },
 
-        () => {},
+        () => {
+          this.$snackbar({
+            message: "删除成功"
+          });
+          this.fetchAllSupplier();
+        },
         () => {}
       );
 
@@ -330,7 +365,12 @@ export default {
             }
           },
 
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "修改成功"
+            });
+            this.fetchAllSupplier();
+          },
           () => {}
         );
 

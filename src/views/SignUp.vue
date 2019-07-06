@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-        <h1 class="header">理财产品管理系统</h1>
+    <h1 class="header">理财产品管理系统</h1>
     <md-card>
       <md-card-header>
         <div class="md-title">注册账号</div>
@@ -50,28 +50,28 @@
 </template>
 
 <style lang="scss" scoped>
-.content{
+.content {
   min-height: 100vh;
-  background-image: url('../backgroundImage/backImage1.jpg') !important;
+  background-image: url("../backgroundImage/backImage1.jpg") !important;
 }
-.header{
+.header {
   font-size: 40px;
   margin: 0;
   color: white;
   text-align: center;
   position: relative;
   left: 0;
-  top:50px;
+  top: 50px;
 }
 
 .md-card {
   width: 400px;
   margin-left: auto;
   margin-right: auto;
-  position:relative;
-  left:0;
-  top:100px;
-  background-color: rgba(255, 255, 255, 0.95)
+  position: relative;
+  left: 0;
+  top: 100px;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .md-title,
@@ -156,7 +156,7 @@ export default {
           //两次密码不一致
         } else {
           //输入均不为空且两次密码一致
-          this.password=this.firstPassword
+          this.password = this.firstPassword;
           apis.signUp(
             {
               method: "POST",
@@ -168,7 +168,13 @@ export default {
               }
             },
 
-            () => {},
+            () => {
+              //弹出提示框 等待2秒后回到登录页
+              this.$snackbar({
+                message: "注册成功"
+              });
+              setTimeout("this.$router.push({ path: '/login' })",2000);
+            },
             () => {}
           );
         }

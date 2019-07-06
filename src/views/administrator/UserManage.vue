@@ -142,7 +142,7 @@ export default {
 
   mounted: function() {
     //获取用户列表，更新this.userList
-    apis.getAllSupplier(
+    apis.getAllUser(
       {
         method: "POST",
         url: `/manage/getAll`
@@ -169,6 +169,19 @@ export default {
   },
 
   methods: {
+    fetchAllUser: function() {
+      apis.getAllUser(
+        {
+          method: "POST",
+          url: `/manage/getAll`
+        },
+        res => {
+          var list = res.data;
+          this.userList = list;
+        },
+        () => {}
+      );
+    },
     computeType: function(type) {
       let typeName = "";
       switch (type) {
@@ -221,7 +234,12 @@ export default {
             data: this.updateUser
           },
 
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "修改成功"
+            });
+            this.fetchAllUser();
+          },
           () => {}
         );
 
@@ -236,7 +254,12 @@ export default {
           url: `/manage/delete/${this.currentUser.id}`
         },
 
-        () => {},
+        () => {
+          this.$snackbar({
+            message: "删除成功"
+          });
+          this.fetchAllUser();
+        },
         () => {}
       );
 
