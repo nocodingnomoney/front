@@ -1,9 +1,9 @@
 <template>
-  <!--  配置库的内容在这里, 实际上内容与标准库一致-->
-  <div class="preselect-library">
+  <!--  配置库的内容在这里-->
+  <div class="config-library">
     <md-table v-model="products" md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
-        <h1 class="md-title">预选库产品</h1>
+        <h1 class="md-title">配置库产品</h1>
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
@@ -28,6 +28,11 @@
             </md-menu-content>
           </md-menu>
         </md-table-cell>
+        <md-table-cell md-label="操作">
+          <md-button class="md-primary md-raised" @click="uploadProduct(item.productID)" :disabled="item.uploaded">
+            {{item.uploaded ? '已上架': '上架商品'}}
+          </md-button>
+        </md-table-cell>
       </md-table-row>
     </md-table>
   </div>
@@ -44,23 +49,39 @@
   Vue.use(MdIcon)
 
   export default {
-    name: 'PreselectLibrary',
+    name: 'ConfigLibrary',
     data() {
       return {
         products: []
       }
     },
     mounted() {
-      apis.products.libraries.getPreselect((res) => {
-        this.products = res.data
+      apis.products.libraries.getConfigLib((res) => {
+        this.products = res.data.map((product) => {
+          return Object.assign(product, {uploaded: false})
+        })
       }, () => {
       })
+    },
+    methods: {
+      uploadProduct(id) {
+        apis.products.submit.upload(id, () => {
+          for (let i = 0; i < this.products.length; ++i) {
+            if (this.products[i].productID === id) {
+              let tempProducts = this.products
+              tempProducts[i].uploaded = true
+              break
+            }
+          }
+          this.$snackbar({message: '上架商品成功'})
+        })
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .preselect-library {
+  .config-library {
     width: 1200px;
     margin: 20px auto;
     background: white;

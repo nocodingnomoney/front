@@ -142,18 +142,22 @@
             // todo: 做好风险等级的选择, 否则只能默认低风险
             riskRank: 1
           }
-        }, (res) => {
-          // eslint-disable-next-line
-          console.log(res)
+        }, () => {
+          this.$snackbar({
+            message: '录入成功'
+          })
+          this.$router.push('/main/entry/input')
         })
       },
       handleFileSelected(e) {
         this.importedFile = e[0]
       },
       uploadFile() {
-        apis.products.addFile({file: this.importedFile}, (res) => {
-          // eslint-disable-next-line
-          console.log(res)
+        apis.products.addFile({file: this.importedFile}, () => {
+          this.$snackbar({
+            message: '导入成功'
+          })
+          this.$router.push('/main/entry/input')
         })
       }
     }
