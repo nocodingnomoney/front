@@ -173,7 +173,7 @@ export default {
               this.$snackbar({
                 message: "注册成功"
               });
-              setTimeout("this.$router.push({ path: '/login' })",2000);
+              this.$router.push({ path: '/login' });
             },
             () => {}
           );
