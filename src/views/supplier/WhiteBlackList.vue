@@ -22,9 +22,12 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <!-- <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell> -->
         <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
-        <!-- <md-table-cell>
-          <md-button class="md-dense md-primary" @click="handleRemove(item.id)">移除</md-button>
-        </md-table-cell> -->
+        <md-table-cell>
+          <md-button
+            class="md-primary md-raised"
+            @click="handleRemove(item.id,item.name,item.certification,item.black_list)"
+          >{{showBlack?'移除':'拉黑'}}</md-button>
+        </md-table-cell>
       </md-table-row>
     </md-table>
   </div>
@@ -63,12 +66,61 @@ export default {
     return {
       showWhite: false,
       showBlack: false,
+
+      buttonText: "移除",
       currentList: [],
       whiteList: [],
       blackList: []
     };
   },
   methods: {
+    fetchAllWhite: function() {
+      apis.getAllWhite(
+        {
+          method: "GET",
+          url: `/provide/getAllWhite`
+        },
+        res => {
+          var list = res.data;
+          for (let item of list) {
+            if (item.certification == "已认证") {
+              item.certification = true;
+            } else {
+              item.certification = false;
+            }
+
+            item.black_list = item.black_list == "黑名单" ? true : false;
+          }
+          this.whiteList = list;
+          this.currentList = this.whiteList;
+        },
+        () => {}
+      );
+    },
+    fetchAllBlack: function() {
+      apis.getAllBlack(
+        {
+          method: "GET",
+          url: `/provide/getAllBlack`
+        },
+        res => {
+          var list = res.data;
+          for (let item of list) {
+            if (item.certification == "已认证") {
+              item.certification = true;
+            } else {
+              item.certification = false;
+            }
+
+            item.black_list = item.black_list == "黑名单" ? true : false;
+          }
+          this.blackList = list;
+          this.currentList = this.blackList;
+        },
+        () => {}
+      );
+    },
+
     showList: function(listName) {
       let label = document.getElementById("listLabel");
       label.textContent = listName;
@@ -76,63 +128,42 @@ export default {
       if (listName == "白名单") {
         this.showWhite = true;
         this.showBlack = false;
-
-        apis.getAllWhite(
-          {
-            method: "GET",
-            url: `/provide/getAllWhite`
-          },
-          res => {
-            var list = res.data;
-            for (let item of list) {
-              if (item.certification == "已认证") {
-                item.certification = true;
-              } else {
-                item.certification = false;
-              }
-
-              item.black_list = item.black_list == "黑名单" ? true : false;
-            }
-            this.whiteList = list;
-          },
-          () => {}
-        );
-
-        this.currentList = this.whiteList;
+        this.fetchAllWhite();
       }
 
       if (listName == "黑名单") {
         this.showWhite = false;
         this.showBlack = true;
-
-        apis.getAllBlack(
-          {
-            method: "GET",
-            url: `/provide/getAllBlack`
-          },
-          res => {
-            var list = res.data;
-            for (let item of list) {
-              if (item.certification == "已认证") {
-                item.certification = true;
-              } else {
-                item.certification = false;
-              }
-
-              item.black_list = item.black_list == "黑名单" ? true : false;
-            }
-            this.blackList = list;
-          },
-          () => {}
-        );
-
-        this.currentList = this.blackList;
+        this.fetchAllBlack();
       }
     },
 
-    // handleRemove: function(id) {
-    //   alert("remove" + id);
-    // }
+    handleRemove: function(id, name, certification, black_list) {
+      apis.updateSupplier(
+        {
+          method: "PUT",
+          url: `/provide/update`,
+          data: {
+            id: id,
+            name: name,
+            certification: certification ? "已认证" : "未认证",
+            black_list: this.showWhite ? "黑名单" : "白名单"
+          }
+        },
+
+        () => {
+          this.$snackbar({
+            message: this.showWhite ? "拉黑成功" : "移出黑名单成功"
+          });
+          if (this.showWhite) {
+            this.fetchAllWhite();
+          } else {
+            this.fetchAllBlack();
+          }
+        },
+        () => {}
+      );
+    }
   }
 };
 </script>

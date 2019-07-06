@@ -50,138 +50,136 @@
 </template>
 
 <style lang="scss" scoped>
-  .content {
-    min-height: 100vh;
-    background-image: url("../backgroundImage/backImage1.jpg") !important;
-  }
+.content {
+  min-height: 100vh;
+  background-image: url("../backgroundImage/backImage1.jpg") !important;
+}
+.header {
+  font-size: 40px;
+  margin: 0;
+  color: white;
+  text-align: center;
+  position: relative;
+  left: 0;
+  top: 50px;
+}
 
-  .header {
-    font-size: 40px;
-    margin: 0;
-    color: white;
-    text-align: center;
-    position: relative;
-    left: 0;
-    top: 50px;
-  }
+.md-card {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  left: 0;
+  top: 100px;
+  background-color: rgba(255, 255, 255, 0.95);
+}
 
-  .md-card {
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    left: 0;
-    top: 100px;
-    background-color: rgba(255, 255, 255, 0.95);
-  }
+.md-title,
+.md-subhead {
+  text-align: center;
+}
 
-  .md-title,
-  .md-subhead {
-    text-align: center;
-  }
+.md-button {
+  width: 150px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: white !important;
+  background-color: #00bfff;
+}
 
-  .md-button {
-    width: 150px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    color: white !important;
-    background-color: #00bfff;
-  }
-
-  .hint {
-    color: red;
-  }
+.hint {
+  color: red;
+}
 </style>
 
 <script>
-  import Vue from 'vue'
+import Vue from "vue";
 
-  import {MdCard, MdField, MdIcon} from 'vue-material/dist/components'
+import { MdCard, MdField, MdIcon } from "vue-material/dist/components";
 
-  import apis from '@/apis/apis.js'
+import apis from "@/apis/apis.js";
 
-  Vue.use(MdField)
-  Vue.use(MdCard)
-  Vue.use(MdIcon)
+Vue.use(MdField);
+Vue.use(MdCard);
+Vue.use(MdIcon);
 
-  export default {
-    name: 'LoginPage',
-    data() {
+export default {
+  name: "LoginPage",
+  data() {
+    return {
+      hint: "两次输入密码不一致",
+
+      id: "",
+      name: "",
+      password: "",
+      firstPassword: "",
+      secondPassword: "",
+
+      touched: false
+    };
+  },
+
+  computed: {
+    isIdEmpty() {
       return {
-        hint: '两次输入密码不一致',
-
-        id: '',
-        name: '',
-        password: '',
-        firstPassword: '',
-        secondPassword: '',
-
-        touched: false
-      }
+        "md-invalid": this.id == "" && this.touched
+      };
     },
-
-    computed: {
-      isIdEmpty() {
-        return {
-          'md-invalid': this.id == '' && this.touched
-        }
-      },
-      isNameEmpty() {
-        return {
-          'md-invalid': this.name == '' && this.touched
-        }
-      },
-      isFirstPasswordEmpty() {
-        return {
-          'md-invalid': this.firstPassword == '' && this.touched
-        }
-      },
-      isSecondPasswordEmpty() {
-        return {
-          'md-invalid': this.secondPassword == '' && this.touched
-        }
-      }
+    isNameEmpty() {
+      return {
+        "md-invalid": this.name == "" && this.touched
+      };
     },
+    isFirstPasswordEmpty() {
+      return {
+        "md-invalid": this.firstPassword == "" && this.touched
+      };
+    },
+    isSecondPasswordEmpty() {
+      return {
+        "md-invalid": this.secondPassword == "" && this.touched
+      };
+    }
+  },
 
-    methods: {
-      handleSignUp: function () {
-        this.touched = true
+  methods: {
+    handleSignUp: function() {
+      this.touched = true;
 
-        if (
-          this.id != '' &&
-          this.name != '' &&
-          this.firstPassword != '' &&
-          this.secondPassword != ''
-        ) {
-          if (this.firstPassword != this.secondPassword) {
-            //两次密码不一致
-          } else {
-            //输入均不为空且两次密码一致
-            this.password = this.firstPassword
-            apis.signUp(
-              {
-                method: 'POST',
-                url: `/common/register`,
-                data: {
-                  id: this.id,
-                  name: this.name,
-                  password: this.password
-                }
-              },
-
-              () => {
-                //弹出提示框 等待2秒后回到登录页
-                this.$snackbar({
-                  message: '注册成功'
-                })
-                this.$router.push({path: '/login'})
-              },
-              () => {
+      if (
+        this.id != "" &&
+        this.name != "" &&
+        this.firstPassword != "" &&
+        this.secondPassword != ""
+      ) {
+        if (this.firstPassword != this.secondPassword) {
+          //两次密码不一致
+        } else {
+          //输入均不为空且两次密码一致
+          this.password = this.firstPassword;
+          apis.signUp(
+            {
+              method: "POST",
+              url: `/common/register`,
+              data: {
+                id: this.id,
+                name: this.name,
+                password: this.password
               }
-            )
-          }
+            },
+
+            () => {
+              //弹出提示框 等待2秒后回到登录页
+              this.$snackbar({
+                message: "注册成功"
+              });
+              this.$router.push({ path: '/login' });
+            },
+            () => {}
+          );
         }
       }
     }
   }
+};
 </script>
