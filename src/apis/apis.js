@@ -23,7 +23,8 @@ const wrappedAxios = (config, success, fail) => {
   }
   return axios({
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*'
     },
     baseURL: prefix,
     url: config.url,
@@ -43,12 +44,12 @@ const apis = {
     },
 
     /**
-    * @Description: 通过文件实现产品导入
-    * @Param:  Object, function, function
-    * @return:  JSON
-    * @Author: littlebugyang
-    * @Date: 2019/7/8
-    */
+     * @Description: 通过文件实现产品导入
+     * @Param:  Object, function, function
+     * @return:  JSON
+     * @Author: littlebugyang
+     * @Date: 2019/7/8
+     */
     addFile: function (config, success, fail) {
       let formData = new FormData()
       formData.append('file', config.file)
