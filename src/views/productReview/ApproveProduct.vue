@@ -13,7 +13,7 @@
         <md-table-cell md-label="种类" md-sort-by="gender">{{ item.catalog }}</md-table-cell>
         <md-table-cell md-label="风险等级" md-sort-by="title">{{ item.riskRank }}</md-table-cell>
         <md-table-cell md-label="配置">
-          <md-menu md-size="big" md-direction="top-start">
+          <md-menu v-if="item.configs" md-size="big" md-direction="top-start">
             <md-button class="md-icon-button" md-menu-trigger>
               <md-icon>apps</md-icon>
             </md-button>
@@ -29,7 +29,9 @@
           </md-menu>
         </md-table-cell>
         <md-table-cell md-label="操作">
-          <md-button class="md-primary md-raised" @click="approvePassed(item.productID)">审批通过</md-button>
+          <md-button class="md-primary md-raised" @click="approvePassed(item.productID)" :disabled="item.approved">
+            {{item.approved ? '已审批' : '通过审批'}}
+          </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
@@ -53,13 +55,22 @@
     }),
     mounted() {
       apis.products.approve.getAll({}, (res) => {
-        this.products = res.data
+        this.products = res.data.map((product) => {
+          return Object.assign(product, {approved: false})
+        })
       })
     },
     methods: {
       approvePassed(id) {
         apis.products.approve.pass(id, () => {
-        }, () => {
+          for (let i = 0; i < this.products.length; ++i) {
+            if (this.products[i].productID === id) {
+              let tempProducts = this.products
+              tempProducts[i].approved = true
+              break
+            }
+          }
+          this.$snackbar({message: '通过产品审批成功'})
         })
       }
     }

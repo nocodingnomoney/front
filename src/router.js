@@ -15,9 +15,10 @@ import PreselectLibrary from './views/productEntry/PreselectLibrary'
 import AssessProduct from './views/productReview/AssessProduct'
 import ApproveProduct from './views/productReview/ApproveProduct'
 import StandardLibrary from './views/productReview/StandardLibrary'
+import ReviewConfigLibrary from './views/productReview/ConfigLibrary'
 import AddConfig from './views/productConfig/AddConfig'
 import ApproveConfig from './views/productConfig/ApproveConfig'
-import ConfigLibrary from './views/productConfig/ConfigLibrary'
+import ConfigConfigLibrary from './views/productConfig/ConfigLibrary'
 import UserManage from './views/administrator/UserManage'
 import ProductHouse from './views/administrator/ProductHouse'
 import ConfigHouse from './views/administrator/ConfigHouse'
@@ -32,7 +33,6 @@ export default new Router({
       components: {
         default: LoginPage
       }
-
     },
     {
       path: '/signup',
@@ -46,14 +46,12 @@ export default new Router({
         default: ProductCenter
       }
     },
-
     {
       path: '/productDetail/:id',
       components: {
         default: ProductDetail
       }
     },
-
     {
       path: '/main',
       components: {
@@ -77,8 +75,12 @@ export default new Router({
           components: {main: ApproveProduct}
         },
         {
-          path: 'review/lib',
+          path: 'review/stdLib',
           components: {main: StandardLibrary}
+        },
+        {
+          path: 'review/confLib',
+          components: {main: ReviewConfigLibrary}
         },
         {
           path: 'config/add',
@@ -90,7 +92,7 @@ export default new Router({
         },
         {
           path: 'config/lib',
-          components: {main: ConfigLibrary}
+          components: {main: ConfigConfigLibrary}
         },
         {
           path: 'settings/page',

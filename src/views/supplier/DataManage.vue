@@ -10,7 +10,7 @@
             <md-input v-model="newId"></md-input>
             <span class="md-error">账号不能为空</span>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field :class="isNewNameEmpty">
@@ -45,7 +45,7 @@
             <md-input v-model="updateId"></md-input>
             <span class="md-error">账号不能为空</span>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field :class="isUpdateNameEmpty">
@@ -79,7 +79,7 @@
             <label>账号</label>
             <md-input v-model="currentId" readonly></md-input>
           </md-field>
-        </div> -->
+        </div>-->
 
         <div class="md-layout-item md-size-40">
           <md-field>
@@ -104,11 +104,22 @@
     </md-dialog>
 
     <!--展示供应商资料的表格 -->
-    <md-table v-model="userList" md-card id="tableCard">
+    <md-table v-model="searched" md-card id="tableCard">
       <md-table-toolbar>
         <h1 class="md-title" id="listLabel">资料管理</h1>
-        <md-button class="md-raised md-primary" @click="handleCreate()">添加供应商</md-button>
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="按名称搜索..." v-model="search" @input="searchOnTable" />
+        </md-field>
+        <md-button
+          class="md-raised md-primary md-toolbar-section-end createBtn"
+          @click="handleCreate()"
+        >添加供应商</md-button>
       </md-table-toolbar>
+
+      <md-table-empty-state
+        md-label="没有匹配的用户"
+        :md-description="`对于'${search}' 这个查询没有匹配的用户。尝试其他的查询`"
+      ></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <!-- <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell> -->
@@ -116,13 +127,13 @@
         <md-table-cell md-label="认证情况">{{item.certification ? '是':'否'}}</md-table-cell>
         <md-table-cell>
           <md-button
-            class="md-dense md-primary"
+            class="md-raised md-primary"
             @click="handleUpdate(item.id, item.name, item.certification, item.black_list)"
           >修改信息</md-button>
         </md-table-cell>
         <md-table-cell>
           <md-button
-            class="md-dense md-primary"
+            class="md-raised md-primary"
             @click="handleDelete(item.id, item.name, item.certification, item.black_list)"
           >删除</md-button>
         </md-table-cell>
@@ -159,6 +170,18 @@ Vue.use(VueMaterial);
 // Vue.use(MdSwitch)
 // Vue.use(MdDrawer)
 
+const toLower = text => {
+  return text.toString().toLowerCase();
+};
+
+const searchByName = (items, term) => {
+  if (term) {
+    return items.filter(item => toLower(item.name).includes(toLower(term)));
+  }
+
+  return items;
+};
+
 export default {
   name: "DataManage",
   components: {},
@@ -184,6 +207,8 @@ export default {
       updateBlack: null,
 
       userList: [],
+      search: null,
+      searched: [],
 
       createTouched: false,
       updateTouched: false
@@ -193,27 +218,7 @@ export default {
   mounted: function() {
     // Code that will run only after the
     // entire view has been rendered
-    apis.getAllSupplier(
-      {
-        method: "GET",
-        url: `/provide/getAll`
-      },
-      res => {
-        var list = res.data;
-        for (let item of list) {
-          if (item.certification == "已认证") {
-            item.certification = true;
-          } else {
-            item.certification = false;
-          }
-
-          item.black_list = item.black_list == "黑名单" ? true : false;
-        }
-
-        this.userList = list;
-      },
-      () => {}
-    );
+    this.fetchAllSupplier();
   },
 
   computed: {
@@ -240,9 +245,40 @@ export default {
   },
 
   methods: {
+    //新增，修改之后再次获取所有供应商，让界面实时更新
+    fetchAllSupplier: function() {
+      apis.getAllSupplier(
+        {
+          method: "GET",
+          url: `/provide/getAll`
+        },
+        res => {
+          var list = res.data;
+          for (let item of list) {
+            if (item.certification == "已认证") {
+              item.certification = true;
+            } else {
+              item.certification = false;
+            }
+
+            item.black_list = item.black_list == "黑名单" ? true : false;
+          }
+
+          this.userList = list;
+          this.searched = this.userList;
+        },
+        () => {}
+      );
+    },
+
+    //搜索函数
+    searchOnTable() {
+      this.searched = searchByName(this.userList, this.search);
+    },
+
     handleUpdate: function(id, name, certify, black) {
       this.showUpdateDialog = !this.showUpdateDialog;
-      this.updateTouched=false;
+      this.updateTouched = false;
 
       this.currentId = id;
       this.currentName = name;
@@ -275,7 +311,7 @@ export default {
       this.createTouched = true;
 
       //输入均不为空,则发起请求
-      if (this.newId != "" && this.newName != "") {
+      if (this.newName != "") {
         let nId = this.newId;
         let nName = this.newName;
         let nCertify = this.newCertify ? "已认证" : "未认证";
@@ -292,7 +328,12 @@ export default {
               black_list: nBlack
             }
           },
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "添加成功"
+            });
+            this.fetchAllSupplier();
+          },
           () => {}
         );
         this.showCreateDialog = false;
@@ -306,7 +347,12 @@ export default {
           url: `/provide/delete/${this.currentId}`
         },
 
-        () => {},
+        () => {
+          this.$snackbar({
+            message: "删除成功"
+          });
+          this.fetchAllSupplier();
+        },
         () => {}
       );
 
@@ -330,7 +376,12 @@ export default {
             }
           },
 
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "修改成功"
+            });
+            this.fetchAllSupplier();
+          },
           () => {}
         );
 
@@ -343,6 +394,13 @@ export default {
 <style lang="scss" scoped>
 #content {
   margin-top: 20px;
+}
+
+.md-field {
+  max-width: 300px;
+}
+.createBtn {
+  max-width: 100px;
 }
 #tableCard {
   margin-left: auto;

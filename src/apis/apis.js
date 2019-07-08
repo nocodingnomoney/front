@@ -41,6 +41,14 @@ const apis = {
         url: '/enter/product'
       }), success, fail)
     },
+
+    /**
+    * @Description: 通过文件实现产品导入
+    * @Param:  Object, function, function
+    * @return:  JSON
+    * @Author: littlebugyang
+    * @Date: 2019/7/8
+    */
     addFile: function (config, success, fail) {
       let formData = new FormData()
       formData.append('file', config.file)
@@ -49,6 +57,10 @@ const apis = {
         url: '/enter/jsonFile',
         data: formData
       }), success, fail)
+    },
+
+    getDetail: (id, success, fail) => {
+      return wrappedAxios({url: `/products/present/${id}`}, success, fail)
     },
 
     /**
@@ -130,10 +142,9 @@ const apis = {
        * @Author: littlebugyang
        * @Date: 2019/7/5
        */
-      getAll: (success, fail) => {
+      getAvailable: (success, fail) => {
         return wrappedAxios({method: 'GET', url: '/products/process/4'}, success, fail)
       },
-
       add: (config, success, fail) => {
         let adaptedConfig = config
         adaptedConfig.method = 'POST'
@@ -141,7 +152,10 @@ const apis = {
         return wrappedAxios(adaptedConfig, success, fail)
       },
       approve: (productId, success, fail) => {
-        return wrappedAxios({method: 'PUT', url: ''}, success, fail)
+        return wrappedAxios({method: 'PUT', url: `/config/product/check/${productId}`}, success, fail)
+      },
+      configuring: (success, fail) => {
+        return wrappedAxios({method: 'GET', url: '/products/process/5'}, success, fail)
       }
     }
   },

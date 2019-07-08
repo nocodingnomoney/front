@@ -99,7 +99,7 @@
        * @Author: littlebugyang
        * @Date: 2019/7/3
        */
-      apis.products.configs.getAll((res) => {
+      apis.products.configs.getAvailable((res) => {
         this.products = res.data.map((product) => {
           return Object.assign(product, {modified: false})
         })
@@ -121,9 +121,11 @@
       },
       submitConfigs(productId) {
         let targetProduct = null
+        let targetIndex = 0
         for (let i = 0; i < this.products.length; ++i) {
           if (this.products[i].productID === productId) {
             targetProduct = this.products[i]
+            targetIndex = i
             break
           }
         }
@@ -146,7 +148,10 @@
         }, (res) => {
           // eslint-disable-next-line
           console.log(res)
-        }, () => {
+          this.$snackbar({
+            message: '提交修改配置成功'
+          })
+          this.products[targetIndex].modified = false
         })
       },
 

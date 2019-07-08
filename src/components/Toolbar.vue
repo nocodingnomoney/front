@@ -70,11 +70,11 @@
           // 专供产品录入岗
           '1': ['产品录入', '产品预选库'],
           // 专供产品审核岗
-          '2': ['产品评估', '产品审批', '产品标准库'],
+          '2': ['产品评估', '产品审批', '产品标准库', '产品配置库(上架)'],
           // 专供产品配置岗
           '3': ['产品配置', '配置审批', '产品配置库'],
           // 专供系统管理员
-          '4': ['用户管理', '产品库', '配置库']
+          '4': ['用户管理']
         }
       }
     },
@@ -86,7 +86,6 @@
         this.changeTabsThroughPath()
       },
       $theme(theme) {
-        // eslint-disable-next-line
         console.log(theme)
       }
     },
@@ -115,12 +114,15 @@
       toggleMenu: function () {
         this.$emit('toggle-menu')
       },
-      logout: () => {
+      logout: function () {
         apis.logout(() => {
-          console.log('登出成功')
+          Globals.staff = {}
+          this.$router.push('/login')
+          this.$snackbar({
+            message: '已登出'
+          })
         })
-      }
-      ,
+      },
       handleTabSwitched: function (tabId) {
         // 页面刚加载的时候tabId会被触发, 但是值为undefined
         if (tabId) {
@@ -145,7 +147,10 @@
               this.$router.push('/main/review/approve')
               break
             case '产品标准库':
-              this.$router.push('/main/review/lib')
+              this.$router.push('/main/review/stdLib')
+              break
+            case '产品配置库(上架)':
+              this.$router.push('/main/review/confLib')
               break
             case '产品配置':
               this.$router.push('/main/config/add')

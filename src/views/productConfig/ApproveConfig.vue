@@ -29,7 +29,9 @@
           </md-menu>
         </md-table-cell>
         <md-table-cell md-label="操作">
-          <md-button class="md-primary md-raised" @click="approveConfig(item.productID)">通过审批</md-button>
+          <md-button class="md-primary md-raised" @click="approveConfig(item.productID)" :disabled="item.approved">
+            {{item.approved ? '已审批' : '通过审批'}}
+          </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
@@ -54,9 +56,37 @@
       }
     },
     mounted() {
+      /**
+       * @Description: 获取正在配置审核阶段的产品
+       * @return:  Array
+       * @Author: littlebugyang
+       * @Date: 2019/7/6
+       */
+      apis.products.configs.configuring((res) => {
+        this.products = res.data.map((product) => {
+          return Object.assign(product, {approved: false})
+        })
+      })
     },
     methods: {
+      /**
+       * @Description: 提交审核产品的请求, 并且在审核成功后向用户提示
+       * @Param:  id
+       * @return: Unknown
+       * @Author: littlebugyang
+       * @Date: 2019/7/6
+       */
       approveConfig(id) {
+        apis.products.configs.approve(id, () => {
+          for (let i = 0; i < this.products.length; ++i) {
+            if (this.products[i].productID === id) {
+              let tempProducts = this.products
+              tempProducts[i].approved = true
+              break
+            }
+          }
+          this.$snackbar({message: '通过配置审批成功'})
+        })
       }
     }
   }

@@ -1,21 +1,29 @@
 <template>
   <div class="content">
-    <md-table class="tableCard" md-card v-model="userList" md-sort="name" md-sort-order="asc">
+    <md-table class="tableCard" md-card v-model="searched">
       <md-table-toolbar>
         <h1 class="md-title">用户管理</h1>
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="按名称搜索..." v-model="search" @input="searchOnTable()" />
+        </md-field>
       </md-table-toolbar>
+
+      <md-table-empty-state
+        md-label="没有匹配的用户"
+        :md-description="`对于'${search}' 这个查询没有匹配的用户。尝试其他的查询`"
+      ></md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell>
-        <md-table-cell md-label="名称" md-sort-by="name">{{item.name}}</md-table-cell>
+        <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
         <md-table-cell md-label="密码">{{item.password}}</md-table-cell>
-        <md-table-cell md-label="类型" md-sort-by="type">{{computeType(item.type)}}</md-table-cell>
-        <md-table-cell md-label="级别" md-sort-by="level">{{item.level}}</md-table-cell>
+        <md-table-cell md-label="类型">{{computeType(item.type)}}</md-table-cell>
+        <md-table-cell md-label="级别">{{item.level}}</md-table-cell>
         <md-table-cell>
-          <md-button class="md-dense md-primary" @click="handleUpdate(item)">修改信息</md-button>
+          <md-button class="md-raised md-primary" @click="handleUpdate(item)">修改信息</md-button>
         </md-table-cell>
         <md-table-cell>
-          <md-button class="md-dense md-primary" @click="handleDelete(item)">删除</md-button>
+          <md-button class="md-raised md-primary" @click="handleDelete(item)">删除</md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
@@ -110,6 +118,18 @@ Vue.use(MdIcon);
 Vue.use(MdField);
 Vue.use(MdContent);
 
+const toLower = text => {
+  return text.toString().toLowerCase();
+};
+
+const searchByName = (items, term) => {
+  if (term) {
+    return items.filter(item => toLower(item.name).includes(toLower(term)));
+  }
+
+  return items;
+};
+
 export default {
   name: "UserManage",
   components: {},
@@ -117,6 +137,8 @@ export default {
     //id name passwd type level
     return {
       userList: [],
+      search: null,
+      searched: [],
 
       //游客 供应商管理员 产品录入岗 产品审核岗 产品配置岗 系统管理员
       currentUser: {
@@ -142,7 +164,7 @@ export default {
 
   mounted: function() {
     //获取用户列表，更新this.userList
-    apis.getAllSupplier(
+    apis.getAllUser(
       {
         method: "POST",
         url: `/manage/getAll`
@@ -150,6 +172,7 @@ export default {
       res => {
         var list = res.data;
         this.userList = list;
+        this.searched = list;
       },
       () => {}
     );
@@ -169,6 +192,20 @@ export default {
   },
 
   methods: {
+    fetchAllUser: function() {
+      apis.getAllUser(
+        {
+          method: "POST",
+          url: `/manage/getAll`
+        },
+        res => {
+          var list = res.data;
+          this.userList = list;
+          this.searched=this.userList;
+        },
+        () => {}
+      );
+    },
     computeType: function(type) {
       let typeName = "";
       switch (type) {
@@ -197,6 +234,11 @@ export default {
       return typeName;
     },
 
+    //搜索函数
+    searchOnTable() {
+      this.searched = searchByName(this.userList, this.search);
+    },
+
     handleUpdate: function(selectedItem) {
       //弹出修改对话框
       this.updateTouched = false;
@@ -221,11 +263,16 @@ export default {
             data: this.updateUser
           },
 
-          () => {},
+          () => {
+            this.$snackbar({
+              message: "修改成功"
+            });
+            this.fetchAllUser();
+            this.searchOnTable();
+            this.showUpdateDialog = !this.showUpdateDialog;
+          },
           () => {}
         );
-
-        this.showUpdateDialog = !this.showUpdateDialog;
       }
     },
 
@@ -236,11 +283,16 @@ export default {
           url: `/manage/delete/${this.currentUser.id}`
         },
 
-        () => {},
+        () => {
+          this.$snackbar({
+            message: "删除成功"
+          });
+          this.fetchAllUser();
+          this.searchOnTable();
+          this.showDeleteDialog = !this.showDeleteDialog;
+        },
         () => {}
       );
-
-      this.showDeleteDialog = !this.showDeleteDialog;
     }
   }
 };
@@ -249,11 +301,17 @@ export default {
 .content {
   margin-top: 20px;
 }
+.md-field {
+  max-width: 300px;
+}
 
 .tableCard {
   margin-left: auto;
   margin-right: auto;
   width: 70%;
+}
+.md-table-empty-state {
+  color: black;
 }
 
 .md-table {
