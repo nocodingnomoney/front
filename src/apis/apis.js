@@ -186,7 +186,13 @@ const apis = {
   },
   deleteUser: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
-  }
+  },
+  getAllProduct: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+  deleteOneProduct: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
 }
 
 export default apis

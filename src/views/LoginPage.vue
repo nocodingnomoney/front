@@ -18,7 +18,7 @@
         <md-field :class="whetherPasswordEmpty">
           <md-icon>lock_outline</md-icon>
           <label>密码</label>
-          <md-input v-model="password" type="password"></md-input>
+          <md-input v-model="password" type="password" @keyup.enter="login()"></md-input>
           <span class="md-error">密码不能为空</span>
         </md-field>
       </md-card-content>
