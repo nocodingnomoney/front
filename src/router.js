@@ -33,7 +33,6 @@ export default new Router({
       components: {
         default: LoginPage
       }
-
     },
     {
       path: '/signup',
@@ -47,14 +46,12 @@ export default new Router({
         default: ProductCenter
       }
     },
-
     {
       path: '/productDetail/:id',
       components: {
         default: ProductDetail
       }
     },
-
     {
       path: '/main',
       components: {
