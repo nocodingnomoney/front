@@ -41,6 +41,14 @@ const apis = {
         url: '/enter/product'
       }), success, fail)
     },
+
+    /**
+    * @Description: 通过文件实现产品导入
+    * @Param:  Object, function, function
+    * @return:  JSON
+    * @Author: littlebugyang
+    * @Date: 2019/7/8
+    */
     addFile: function (config, success, fail) {
       let formData = new FormData()
       formData.append('file', config.file)
@@ -49,6 +57,10 @@ const apis = {
         url: '/enter/jsonFile',
         data: formData
       }), success, fail)
+    },
+
+    getDetail: (id, success, fail) => {
+      return wrappedAxios({url: `/products/present/${id}`}, success, fail)
     },
 
     /**
