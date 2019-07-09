@@ -40,6 +40,7 @@
   .content {
     min-height: 100vh;
     background-image: url('../backgroundImage/backImage1.jpg') !important;
+    background-repeat: no-repeat;
   }
 
   .header {

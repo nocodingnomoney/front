@@ -206,6 +206,16 @@ const apis = {
   deleteOneProduct: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },
+  purchaseProduct: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+  getSelf: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+  changePassword: function (config, success, fail) {
+    return wrappedAxios(config, success, fail)
+  },
+
 }
 
 export default apis
