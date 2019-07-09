@@ -11,7 +11,8 @@
 
       <div class="md-toolbar-section-end">
 
-        <md-menu class="md-primary" md-size="big" md-direction="top-start" :md-active.sync="toggleCard">
+        <md-menu md-size="big" md-direction="top-start"
+                 :md-active.sync="toggleCard">
           <!--          这个button是弹出菜单的入口-->
           <md-button class="md-icon-button" md-menu-trigger>
             <md-icon>contacts</md-icon>
@@ -38,8 +39,9 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs class="md-primary" md-s ync-route @md-changed="handleTabSwitched">
-        <md-tab v-for="(tab,index) in tabs[drawerIndex]" :key="index" :md-label="tab.name" :id="'tab'+index"></md-tab>
+      <md-tabs :class="{'md-primary': theme === 'light' }" md-s ync-route @md-changed="handleTabSwitched">
+        <md-tab v-for="(tab,index) in tabs[drawerIndex-1]" :key="index" :md-label="tab.name"
+                :id="'tab'+index"></md-tab>
       </md-tabs>
     </div>
   </div>
@@ -50,6 +52,7 @@
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
   import Globals from '@/global.js'
   import apis from '@/apis/apis.js'
+  import {mapState} from 'vuex'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
@@ -63,57 +66,8 @@
       return {
         staffName: Globals.staff.name,
         toggleCard: false, // 员工的card
-        drawerIndex: 0,
+        drawerIndex: parseInt(Globals.staff.type),
         tabs: [
-          [
-            {
-              name: '资料管理',
-              url: '/main/supplier/dataManage'
-            },
-            {
-              name: '黑白名单',
-              url: '/main/supplier/whiteBlackList'
-            },
-          ],
-          [
-            {
-              name: '产品录入',
-              url: '/main/entry/input'
-            },
-            {
-              name: '产品预选库',
-              url: '/main/entry/lib'
-            },],
-          [
-            {
-              name: '产品评估',
-              url: '/main/review/assess'
-            },
-            {
-              name: '产品审批',
-              url: '/main/review/approve'
-            },
-            {
-              name: '产品标准库',
-              url: '/main/review/stdLib'
-            },
-            {
-              name: '产品配置库(上架)',
-              url: '/main/review/confLib'
-            },],
-          [
-            {
-              name: '产品配置',
-              url: '/main/config/add'
-            },
-            {
-              name: '配置审批',
-              url: '/main/config/approve'
-            },
-            {
-              name: '产品配置库',
-              url: '/main/config/lib'
-            },],
           [
             {
               name: '用户管理',
@@ -130,6 +84,58 @@
           ],
           [
             {
+              name: '资料管理',
+              url: '/main/supplier/dataManage'
+            },
+            {
+              name: '黑白名单',
+              url: '/main/supplier/whiteBlackList'
+            }
+          ],
+          [
+            {
+              name: '产品录入',
+              url: '/main/entry/input'
+            },
+            {
+              name: '产品预选库',
+              url: '/main/entry/lib'
+            }
+          ],
+          [
+            {
+              name: '产品评估',
+              url: '/main/review/assess'
+            },
+            {
+              name: '产品审批',
+              url: '/main/review/approve'
+            },
+            {
+              name: '产品标准库',
+              url: '/main/review/stdLib'
+            },
+            {
+              name: '产品配置库(上架)',
+              url: '/main/review/confLib'
+            }
+          ],
+          [
+            {
+              name: '产品配置',
+              url: '/main/config/add'
+            },
+            {
+              name: '配置审批',
+              url: '/main/config/approve'
+            },
+            {
+              name: '产品配置库',
+              url: '/main/config/lib'
+            }
+          ],
+          [
+            {
               name: '职员数据',
               url: '/main/data/staff'
             },
@@ -140,23 +146,26 @@
           ]
         ],
         tempTabs: {
-          // 专供供应商渠道岗
-          '0': ['资料管理', '黑白名单'],
-          // 专供产品录入岗
-          '1': ['产品录入', '产品预选库'],
-          // 专供产品审核岗
-          '2': ['产品评估', '产品审批', '产品标准库', '产品配置库(上架)'],
-          // 专供产品配置岗
-          '3': ['产品配置', '配置审批', '产品配置库'],
           // 专供系统管理员
-          '4': ['用户管理', '产品库'],
+          '1': ['用户管理', '产品库'],
+          // 专供供应商渠道岗
+          '2': ['资料管理', '黑白名单'],
+          // 专供产品录入岗
+          '3': ['产品录入', '产品预选库'],
+          // 专供产品审核岗
+          '4': ['产品评估', '产品审批', '产品标准库', '产品配置库(上架)'],
+          // 专供产品配置岗
+          '5': ['产品配置', '配置审批', '产品配置库'],
           // 专供数据分析
-          '5': ['职员数据', '产品销量']
+          '6': ['职员数据', '产品销量']
         }
       }
     },
     mounted() {
       this.changeTabsThroughPath()
+    },
+    computed: {
+      ...mapState('common', ['theme'])
     },
     watch: {
       $route() {
@@ -166,26 +175,25 @@
     methods: {
       changeTabsThroughPath() {
         switch (this.$route.path.split('/')[2]) {
+          case 'admin':
+            this.drawerIndex = 1
+            break
           case 'supplier':
-            this.drawerIndex = '0'
+            this.drawerIndex = 2
             break
           case 'entry':
-            this.drawerIndex = '1'
+            this.drawerIndex = 3
             break
           case 'review':
-            this.drawerIndex = '2'
+            this.drawerIndex = 4
             break
           case 'config':
-            this.drawerIndex = '3'
-            break
-          case 'admin':
-            this.drawerIndex = '4'
+            this.drawerIndex = 5
             break
           case 'data':
-            this.drawerIndex = '5'
+            this.drawerIndex = 6
             break
           default:
-            this.drawerIndex = '5'
         }
       },
       toggleMenu: function () {
@@ -204,7 +212,7 @@
         // 页面刚加载的时候tabId会被触发, 但是值为undefined
         if (tabId) {
           const index = parseInt(tabId.slice(3))
-          this.$router.push(this.tabs[this.drawerIndex][index].url)
+          this.$router.push(this.tabs[this.drawerIndex - 1][index].url)
         }
       }
     }
