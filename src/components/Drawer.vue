@@ -1,6 +1,6 @@
 <template>
   <div class="md-primary">
-    <md-toolbar md-elevation="0" class="md-primary">理财产品管理系统</md-toolbar>
+    <md-toolbar md-elevation="0" :class="{'md-primary': theme === 'light' }">理财产品管理系统</md-toolbar>
     <md-list>
       <md-list-item @click="goToAnotherPart('admin')">
         <md-icon>settings</md-icon>
@@ -51,6 +51,7 @@
   } from 'vue-material/dist/components'
 
   import Globals from '@/global.js'
+  import {mapState} from 'vuex'
 
   Vue.use(MdDrawer)
   Vue.use(MdToolbar)
@@ -64,8 +65,8 @@
     data() {
       return {}
     },
-    mounted() {
-      Globals.staff.type = 1
+    computed: {
+      ...mapState('common', ['theme'])
     },
     methods: {
       // 统一错误提示动作
@@ -89,6 +90,7 @@
       },
       goToAnotherPart: function (name) {
         // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
+        console.log('是我')
         const staffType = parseInt(Globals.staff.type)
         let close = true
         switch (name) {

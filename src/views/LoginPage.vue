@@ -141,8 +141,7 @@
               Globals.staff.level = staff.level
               Globals.staff.type = staff.type
               Globals.staff.name = staff.name
-              this.$router.push({path: '/main'})
-              this.$router.push({path: '/main'})
+              this.$router.push({path: '/main/main'})
             },
             () => {
               //根据具体错误信息，修改 this.hint 并将this.showHint设为true
