@@ -22,6 +22,8 @@ import ConfigConfigLibrary from './views/productConfig/ConfigLibrary'
 import UserManage from './views/administrator/UserManage'
 import ProductHouse from './views/administrator/ProductHouse'
 import ConfigHouse from './views/administrator/ConfigHouse'
+import StaffAnalysis from './views/dataAnalysis/StaffAnalysis'
+import CatalogAnalysis from './views/dataAnalysis/CatalogAnalysis'
 
 Vue.use(Router)
 
@@ -123,6 +125,14 @@ export default new Router({
           components: {main: ConfigHouse}
         },
         {
+          path: 'data/staff',
+          components: {main: StaffAnalysis}
+        },
+        {
+          path: 'data/catalog',
+          components: {main: CatalogAnalysis}
+        },
+        {
           path: '*',
           components: {main: WrongPath}
         }]
@@ -131,8 +141,7 @@ export default new Router({
     {
       path: '*',
       components: {
-        default: MainPage,
-
+        default: MainPage
       },
       children: [{
         path: '*',

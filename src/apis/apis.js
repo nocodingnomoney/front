@@ -160,6 +160,24 @@ const apis = {
       }
     }
   },
+
+  /**
+   * @Description: 与数据统计有关
+   * @return:  Array
+   * @Author: littlebugyang
+   * @Date: 2019/7/9
+   */
+  statistics: {
+    getStaff: (success, fail) => {
+      return wrappedAxios({url: '/statistics/countType'}, success, fail)
+    },
+    getSalesNormal: (success, fail) => {
+      return wrappedAxios({url: '/statistics/catalogSumSales'}, success, fail)
+    },
+    getSalesWithRisks: (success, fail) => {
+      return wrappedAxios({url: '/statistics/catalogRiskRankSumSales'}, success, fail)
+    }
+  },
   login: function (config, success, fail) {
     return wrappedAxios(config, success, fail)
   },

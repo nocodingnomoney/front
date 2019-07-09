@@ -12,7 +12,7 @@
       <md-app-content>
         <!--        这里放置内容-->
         <transition name="fade" mode="out-in">
-          <router-view name="main" @changeTheme="handleThemeChanged"></router-view>
+          <router-view name="main"></router-view>
         </transition>
       </md-app-content>
     </md-app>
@@ -33,7 +33,7 @@
   import {
     MdApp, MdContent
   } from 'vue-material/dist/components'
-  import Globals from '@/global.js'
+  import {mapState} from 'vuex'
 
   // Vue-Material的组件引入用Vue.use语句
   Vue.use(MdApp)
@@ -41,19 +41,21 @@
 
 
   export default {
-    mounted() {
-      Vue.prototype.$theme = 'light'
-    },
     name: 'app',
     // 自定义组价在父组件中以下面的形式注册
     components: {
       Drawer,
       Toolbar
     },
+    computed: {
+      // 来自全局状态树的theme
+      ...mapState({
+        theme: state => state.common.theme
+      })
+    },
     data() {
       return {
-        menuVisible: false,
-        theme: 'light'
+        menuVisible: false
       }
     },
     methods: {
@@ -62,9 +64,6 @@
       },
       handleClickDrawerItem: function (close) {
         this.menuVisible = !close
-      },
-      handleThemeChanged: function (toDark) {
-        this.theme = toDark ? 'dark' : 'light'
       }
     }
   }
