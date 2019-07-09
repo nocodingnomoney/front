@@ -1,15 +1,15 @@
 <template>
-  <div class="page-settings">
+  <md-content class="page-settings">
     <h1 class="md-title">更换主题</h1>
-    <md-switch v-model="dark"></md-switch>
+    <md-switch v-model="dark" @change="handleThemeChange"></md-switch>
     当前: {{dark ? '深色主题' : '浅色主题'}}
-  </div>
+  </md-content>
 </template>
 
 <script>
   import Vue from 'vue'
   import {MdField} from 'vue-material/dist/components'
-  import Globals from '@/global.js'
+  import {mapActions} from 'vuex'
 
   Vue.use(MdField)
   export default {
@@ -20,16 +20,13 @@
         dark: false
       }
     },
-    watch: {
-      /**
-       * @Description: 触发更换主题动作
-       * @Author: littlebugyang
-       * @Date: 2019/7/4
-       */
-      dark(newDark) {
-        this.$theme = newDark ? 'dark' : 'light'
-        this.$emit('changeTheme', newDark)
-      }
+    methods: {
+      handleThemeChange(dark) {
+        this.changeTheme(dark ? 'dark' : 'light')
+      },
+      ...mapActions('common', [
+        'changeTheme'
+      ])
     }
   }
 </script>

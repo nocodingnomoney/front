@@ -1,6 +1,6 @@
 <template>
   <!--  标准库的内容在这里-->
-  <div class="standard-library">
+  <md-content class="standard-library">
     <md-table v-model="products" md-sort="name" md-sort-order="asc" md-card>
       <md-table-toolbar>
         <h1 class="md-title">标准库产品</h1>
@@ -35,7 +35,7 @@
         </md-table-cell>
       </md-table-row>
     </md-table>
-  </div>
+  </md-content>
 </template>
 
 <script>
@@ -58,7 +58,7 @@
     mounted() {
       apis.products.libraries.getStandard((res) => {
         this.products = res.data.map((product) => {
-          return Object.assign(product, {uploaded: false})
+          return Object.assign(product, {uploaded: product.processID === 6})
         })
       })
     },
@@ -83,7 +83,6 @@
   .standard-library {
     width: 1200px;
     margin: 20px auto;
-    background: white;
 
     .md-table {
       width: 100%;

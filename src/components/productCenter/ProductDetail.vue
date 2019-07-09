@@ -1,20 +1,15 @@
 <template>
   <div class="product-detail">
     <div class="header">
-      <div class="title">
-        产品详情——{{product.productName}}
-      </div>
+      <div class="title">产品详情——{{product.productName}}</div>
     </div>
 
     <div class="middle">
-      <div class="imageZone">
-        <img src=https://s2.ax1x.com/2019/06/28/ZKzAvq.jpg width="500px" class="productImage">
+      <div class="imageZone"><img src=https://s2.ax1x.com/2019/06/28/ZKzAvq.jpg width="500px" class="productImage">
       </div>
 
       <div class="product-info">
-        <div class="product-info__subtitle">
-          {{product.productName}}
-        </div>
+        <div class="product-info__subtitle">{{product.productName}}</div>
         <md-table v-if="product.configs" v-model="product.configs" md-card>
           <md-table-toolbar>
             <h1 class="md-title">产品相关信息详情</h1>
@@ -26,23 +21,39 @@
           </md-table-row>
         </md-table>
         <div class="product-info__price">
-          <span class="product-info__price__word">
+          <!-- <span class="product-info__price__word">
             价格：￥{{product.price}}
-          </span>
+          </span>-->
           <span class="product-info__price__button">
-            <md-button class="md-raised md-primary">购买</md-button>
+            <md-button class="md-raised md-primary" @click="handlePurchase()">购买</md-button>
           </span>
         </div>
       </div>
     </div>
 
+    <md-dialog class="verifyDialog" :md-active.sync="showVerifyDialog">
+      <md-dialog-title>确认购买</md-dialog-title>
+      <p class="verify">
+        确定购买
+        <strong>{{product.productName}}</strong>产品吗
+      </p>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="verifyPurchase()">确认</md-button>
+        <md-button class="md-primary" @click="showVerifyDialog = false">取消</md-button>
+      </md-dialog-actions>
+    </md-dialog>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
 
-  import {MdCard, MdContent, MdButton, MdTable} from 'vue-material/dist/components'
+  import {
+    MdCard,
+    MdContent,
+    MdButton,
+    MdTable
+  } from 'vue-material/dist/components'
   import apis from '@/apis/apis.js'
 
   Vue.use(MdCard)
@@ -54,20 +65,41 @@
     name: 'ProductDetail',
     components: {},
     mounted() {
-      const productId = this.$route.path.split('/')[this.$route.path.split('/').length - 1]
-      apis.products.getDetail(productId, (res) => {
+      const productId = this.$route.path.split('/')[
+      this.$route.path.split('/').length - 1
+        ]
+      apis.products.getDetail(productId, res => {
         this.product = res.data
-        this.product.price = 999
       })
     },
     data() {
       return {
-        product: {
-          id: null,
-          name: '理财产品一号',
-          intro: '理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍，理财产品一号的介绍',
-          price: 999
-        }
+        product: {},
+
+        showVerifyDialog: false
+      }
+    },
+
+    methods: {
+      handlePurchase: function () {
+        this.showVerifyDialog = true
+      },
+
+      verifyPurchase: function () {
+        apis.purchaseProduct(
+          {
+            method: 'GET',
+            url: `/products/buy/${this.product.productID}`
+          },
+          () => {
+            this.$snackbar({
+              message: '成功购买该产品'
+            })
+            this.showVerifyDialog = false
+          },
+          () => {
+          }
+        )
       }
     }
   }
@@ -77,7 +109,7 @@
     z-index: 2;
     width: 100%;
     height: 65px;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, 0.7);
     transition: background 0.3s;
 
     &:hover {

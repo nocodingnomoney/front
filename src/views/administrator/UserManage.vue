@@ -16,7 +16,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="ID" md-numeric>{{item.id}}</md-table-cell>
         <md-table-cell md-label="名称">{{item.name}}</md-table-cell>
-        <md-table-cell md-label="密码">{{item.password}}</md-table-cell>
+        <!-- <md-table-cell md-label="密码">{{item.password}}</md-table-cell> -->
         <md-table-cell md-label="类型">{{computeType(item.type)}}</md-table-cell>
         <md-table-cell md-label="级别">{{item.level}}</md-table-cell>
         <md-table-cell>
@@ -33,25 +33,25 @@
       <md-dialog-title>修改信息</md-dialog-title>
       <div class="md-layout md-gutter inputFirstLine">
         <div class="md-layout-item">
-          <md-field>
-            <label>ID</label>
+          <md-field class="inputID">
+            <label>ID(不可修改)</label>
             <md-input v-model="updateUser.id" readonly></md-input>
           </md-field>
         </div>
         <div class="md-layout-item">
-          <md-field :class="isUpdateNameEmpty">
+          <md-field :class="isUpdateNameEmpty" class="inputName">
             <label>名称</label>
             <md-input v-model="updateUser.name"></md-input>
             <span class="md-error">账号不能为空</span>
           </md-field>
         </div>
-        <div class="md-layout-item">
+        <!-- <div class="md-layout-item">
           <md-field :class="isUpdatePasswordEmpty">
-            <label>密码</label>
-            <md-input v-model="updateUser.password"></md-input>
+            <label>密码()</label>
+            <md-input v-model="updateUser.password" readonly></md-input>
             <span class="md-error">密码不能为空</span>
           </md-field>
-        </div>
+        </div> -->
       </div>
 
       <div class="md-layout md-gutter inputSecondLine">
@@ -332,5 +332,9 @@ export default {
 .inputSecondLine {
   margin-left: auto;
   margin-right: auto;
+}
+
+.md-field{
+  min-width: 250px;
 }
 </style>

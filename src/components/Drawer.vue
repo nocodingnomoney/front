@@ -1,6 +1,6 @@
 <template>
   <div class="md-primary">
-    <md-toolbar md-elevation="0">其他 ...</md-toolbar>
+    <md-toolbar md-elevation="0" class="md-primary">理财产品管理系统</md-toolbar>
     <md-list>
       <md-list-item @click="goToAnotherPart('admin')">
         <md-icon>settings</md-icon>
@@ -22,7 +22,7 @@
         <md-icon>list</md-icon>
         <span class="md-list-item-text">配置中心</span>
       </md-list-item>
-      <md-list-item @click="showError">
+      <md-list-item @click="goToAnotherPart('data')">
         <md-icon>bar_chart</md-icon>
         <span class="md-list-item-text">数据统计</span>
       </md-list-item>
@@ -63,6 +63,9 @@
     name: 'Drawer',
     data() {
       return {}
+    },
+    mounted() {
+      Globals.staff.type = 1
     },
     methods: {
       // 统一错误提示动作
@@ -129,6 +132,13 @@
               break
             }
             this.showUnauthorized('产品配置岗')
+            break
+          case 'data':
+            if (staffType === 1) {
+              this.$router.push('/main/data/staff')
+              break
+            }
+            this.showUnauthorized('系统管理员')
             break
           default:
             close = false
