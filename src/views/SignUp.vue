@@ -53,6 +53,7 @@
 .content {
   min-height: 100vh;
   background-image: url("../backgroundImage/backImage1.jpg") !important;
+  background-repeat: no-repeat;
 }
 .header {
   font-size: 40px;
@@ -173,7 +174,7 @@ export default {
               this.$snackbar({
                 message: "注册成功"
               });
-              this.$router.push({ path: '/login' });
+              this.$router.push({ path: "/login" });
             },
             () => {}
           );

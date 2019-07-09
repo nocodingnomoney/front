@@ -1,6 +1,6 @@
 <template>
   <div class="md-primary">
-    <md-toolbar md-elevation="0">其他 ...</md-toolbar>
+    <md-toolbar md-elevation="0" class="md-primary">理财产品管理系统</md-toolbar>
     <md-list>
       <md-list-item @click="goToAnotherPart('admin')">
         <md-icon>settings</md-icon>
