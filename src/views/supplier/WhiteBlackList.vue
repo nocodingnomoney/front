@@ -25,7 +25,7 @@
         <md-table-cell>
           <md-button
             class="md-primary md-raised"
-            @click="handleRemove(item.id,item.name,item.certification,item.black_list)"
+            @click="handleRemove(item.id,item.name,item.certification)"
           >{{showBlack?'移除':'拉黑'}}</md-button>
         </md-table-cell>
       </md-table-row>
@@ -138,7 +138,7 @@ export default {
       }
     },
 
-    handleRemove: function(id, name, certification, black_list) {
+    handleRemove: function(id, name, certification) {
       apis.updateSupplier(
         {
           method: "PUT",
