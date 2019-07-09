@@ -58,7 +58,7 @@
     mounted() {
       apis.products.libraries.getStandard((res) => {
         this.products = res.data.map((product) => {
-          return Object.assign(product, {uploaded: false})
+          return Object.assign(product, {uploaded: product.processID === 6})
         })
       })
     },
