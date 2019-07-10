@@ -6,27 +6,18 @@
       </md-table-toolbar>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-numeric>{{ item.productID }}</md-table-cell>
-        <md-table-cell md-label="名称" md-sort-by="name">{{ item.productName }}</md-table-cell>
-        <md-table-cell md-label="介绍" md-sort-by="email">{{ item.productIntro }}</md-table-cell>
-        <md-table-cell md-label="种类" md-sort-by="gender">{{ item.catalog }}</md-table-cell>
-        <md-table-cell md-label="风险等级" md-sort-by="title">{{ item.riskRank }}</md-table-cell>
-        <md-table-cell md-label="配置">
-          <md-menu v-if="item.configs" md-size="big" md-direction="top-start">
-            <md-button class="md-icon-button" md-menu-trigger>
-              <md-icon>apps</md-icon>
-            </md-button>
-
-            <md-menu-content>
-              <div class="configs">
-                <div v-for="(config, index) in item.configs" :key="index">
-                  <div class="config__name">配置名称: {{config.configName}}</div>
-                  <div class="config__value">配置介绍: {{config.configIntro}}</div>
-                </div>
-              </div>
-            </md-menu-content>
-          </md-menu>
+        <md-table-cell md-label="ID" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="过程">{{ item.process }}</md-table-cell>
+        <md-table-cell md-label="产品名称">{{ item.product.productName }}</md-table-cell>
+        <md-table-cell md-label="产品介绍">{{ item.product.productIntro }}</md-table-cell>
+        <md-table-cell md-label="产品种类">{{ item.product.catalog }}</md-table-cell>
+        <md-table-cell md-label="风险等级">{{ item.product.riskRank === 2 ? '高' : '低' }}</md-table-cell>
+        <md-table-cell md-label="产品所在库">
+          <span v-if="item.store === 1">预选库</span>
+          <span v-else-if="item.store === 2">标准库</span>
+          <span v-else>配置库</span>
         </md-table-cell>
+        <md-table-cell md-label="操作时间">N/A</md-table-cell>
       </md-table-row>
     </md-table>
   </md-content>
@@ -58,7 +49,7 @@
 <style lang="scss" scoped>
 
   .operation-history {
-    width: 700px;
+    width: 1200px;
     margin: 20px auto;
 
     .md-table {

@@ -72,9 +72,6 @@
         <div class="entry-input__file__preview"></div>
       </div>
     </transition>
-    <div class="entry-input__title">
-      <h1 class="md-title">我录入的产品</h1>
-    </div>
   </md-content>
 </template>
 
@@ -139,6 +136,12 @@
         this.$router.push('/main/entry/lib')
       },
       submitProduct() {
+        if (this.product.name === '' || this.product.catalog === '' || this.product.intro === '' || this.product.riskRank === '') {
+          this.$snackbar({
+            message: '录入信息有空值, 请检查!'
+          })
+          return
+        }
         apis.products.addOne({
           data: {
             productName: this.product.name,
