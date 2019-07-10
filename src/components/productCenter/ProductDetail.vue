@@ -10,6 +10,8 @@
 
       <div class="product-info">
         <div class="product-info__subtitle">{{product.productName}}</div>
+        <div class="product-info__intro">产品类别: {{product.catalog}}</div>
+        <div class="product-info__intro">产品风险: {{product.riskRank === 1 ? '低风险' : '高风险'}}</div>
         <div class="product-info__intro">产品简介: {{product.productIntro}}</div>
         <md-table v-if="product.configs" v-model="product.configs" md-card>
           <md-table-toolbar>
