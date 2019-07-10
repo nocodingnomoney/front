@@ -4,12 +4,12 @@ const prefix = require(`./api.config.${process.env.NODE_ENV}.js`)
 
 const axios = require('axios')
 
-const wrappedAxios = (config, success, fail) => {
-  console.log('开启loading在axios')
-  Vue.prototype.$loading(true)
+const wrappedAxios = (config, success, fail) => 
+  if(Vue.prototype.$loading){
+    Vue.prototype.$loading(true)
+  }
   // 如果你大头虾没有指明success 和 fail 等回调函数, 那我会给你一个啥都没有的回调函数
   let adaptedSuccess = (res) => {
-    console.log('关闭loading在success')
     Vue.prototype.$loading(false)
     if (success) {
       success(res)
