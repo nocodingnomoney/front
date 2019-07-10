@@ -21,7 +21,7 @@ import ApproveConfig from './views/productConfig/ApproveConfig'
 import ConfigConfigLibrary from './views/productConfig/ConfigLibrary'
 import UserManage from './views/administrator/UserManage'
 import ProductHouse from './views/administrator/ProductHouse'
-import ConfigHouse from './views/administrator/ConfigHouse'
+import OperationHistory from './views/administrator/OperationHistory'
 import StaffAnalysis from './views/dataAnalysis/StaffAnalysis'
 import CatalogAnalysis from './views/dataAnalysis/CatalogAnalysis'
 
@@ -121,8 +121,8 @@ export default new Router({
           components: {main: ProductHouse}
         },
         {
-          path: 'admin/configHouse',
-          components: {main: ConfigHouse}
+          path: 'admin/operation',
+          components: {main: OperationHistory}
         },
         {
           path: 'data/staff',

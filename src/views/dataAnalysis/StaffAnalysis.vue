@@ -3,16 +3,35 @@
     <md-content class="staff-analysis__header">
       <h1 class="md-title">职员数据</h1>
     </md-content>
-    <div class="chart" id="staff-analysis-chart"></div>
+    <div class="staff-analysis__chart">
+      <div class="staff-analysis__chart__figure" id="staff-analysis-chart"></div>
+      <div class="staff-analysis__chart__table">
+        <md-table v-model="table" md-sort="name" md-card>
+          <md-table-row slot="md-table-row" slot-scope="{ item }">
+            <md-table-cell md-label="职员类型">{{ item.name }}</md-table-cell>
+            <md-table-cell md-label="职员人数">{{ item.value }}</md-table-cell>
+          </md-table-row>
+        </md-table>
+      </div>
+    </div>
   </md-content>
 </template>
 
 <script>
+  import Vue from 'vue'
   import apis from '@/apis/apis.js'
   import echarts from 'echarts'
+  import {MdTable} from 'vue-material/dist/components'
+
+  Vue.use(MdTable)
 
   export default {
     name: 'StaffAnalysis',
+    data() {
+      return {
+        table: []
+      }
+    },
     mounted() {
       let amount = echarts.init(document.getElementById('staff-analysis-chart'))
       apis.statistics.getStaff((res) => {
@@ -50,12 +69,13 @@
             })
           }
         }
+        this.table = staff
         let staffValues = staff.map(obj => {
           return obj.value
         })
         amount.setOption({
           title: {
-            text: '职工类型分布',
+            text: '职员类型分布',
             left: 'center',
             top: 20,
             textStyle: {
@@ -78,7 +98,7 @@
           },
           series: [
             {
-              name: '职工类型人数',
+              name: '职员类型人数',
               type: 'pie',
               radius: '55%',
               center: ['50%', '50%'],
@@ -139,10 +159,25 @@
       }
     }
 
-    .chart {
-      width: 800px;
+    .staff-analysis__chart {
+      display: flex;
+      width: 100%;
       height: 500px;
-      margin: 50px auto;
+
+      .staff-analysis__chart__figure {
+        width: 50%;
+      }
+
+      .staff-analysis__chart__table {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .md-table {
+          width: 100%;
+        }
+      }
     }
   }
 </style>

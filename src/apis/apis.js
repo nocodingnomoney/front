@@ -97,15 +97,17 @@ const apis = {
     },
 
     /**
-     * @Description:
-     * @Param:
-     * @return:
+     * @Description: 面向投资者的提交和下架
+     * @return: Boolean
      * @Author: littlebugyang
      * @Date: 2019/7/3
      */
     submit: {
       upload: (productId, success, fail) => {
         return wrappedAxios({method: 'PUT', url: `/upload/${productId}`}, success, fail)
+      },
+      download: (productId, success, fail) => {
+        return wrappedAxios({method: 'PUT', url: `/download/${productId}`}, success, fail)
       }
     },
 
@@ -119,16 +121,17 @@ const apis = {
       getPreselect: (success, fail) => {
         return wrappedAxios({url: '/products/store/1'}, success, fail)
       },
-      getStandard: (success, fail) => {
-        return wrappedAxios({url: '/products/store/2'}, success, fail)
+      getStandard: (config, success, fail) => {
+        return wrappedAxios(Object.assign(config, {url: '/products/store/2'}), success, fail)
       },
-      getConfigLib: (success, fail) => {
-        return wrappedAxios({url: '/products/store/3'}, success, fail)
+      getConfigLib: (config, success, fail) => {
+        return wrappedAxios(Object.assign(config, {url: '/products/store/3'}), success, fail)
       },
       getPresented: (success, fail) => {
         return wrappedAxios({url: '/products/process/6'}, success, fail)
       }
     },
+
 
     /**
      * @Description: 与产品配置有关
@@ -158,6 +161,17 @@ const apis = {
       configuring: (success, fail) => {
         return wrappedAxios({method: 'GET', url: '/products/process/5'}, success, fail)
       }
+    }
+  },
+
+  /**
+   * @Description: 与系统管理员有关s
+   * @Author: littlebugyang
+   * @Date: 2019/7/10
+   */
+  admin: {
+    getOperation: (success, fail) => {
+      return wrappedAxios({url: '/manage/getAllOp'}, success, fail)
     }
   },
 

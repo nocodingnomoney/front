@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <md-app :md-theme="theme" md-waterfall md-mode="fixed-last">
-      <md-app-toolbar class="md-large md-dense md-primary">
+      <md-app-toolbar class="md-large md-dense" :class="{'md-primary': theme === 'light' }">
         <Toolbar @toggle-menu="toggleMenuVisibility"></Toolbar>
       </md-app-toolbar>
 
@@ -98,5 +98,9 @@
   .fade-enter,
   .fade-leave-active {
     opacity: 0
+  }
+
+  * {
+    transition: background-color 0.5s;
   }
 </style>
