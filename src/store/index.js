@@ -37,6 +37,10 @@ const common = {
      */
     changeTheme({commit}, theme) {
       commit('modifyTheme', theme)
+    },
+
+    changeStaff({commit}, staff) {
+      commit('modifyStaff', staff)
     }
   }
 }

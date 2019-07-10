@@ -88,7 +88,7 @@
 
   import apis from '@/apis/apis.js'
 
-  import Globals from '@/global.js'
+  import {mapActions} from 'vuex'
 
   Vue.use(MdField)
   Vue.use(MdCard)
@@ -138,9 +138,8 @@
             //这里需要根据返回的结果对登录进行判断，成功或失败（账号不存在，密码错误）
             (res) => {
               const staff = JSON.parse(res.data.data)
-              Globals.staff.level = staff.level
-              Globals.staff.type = staff.type
-              Globals.staff.name = staff.name
+              this.changeStaff(staff)
+              this.$session.set('staff', staff)
               this.$router.push({path: '/main/'})
             },
             () => {
@@ -152,7 +151,8 @@
 
       goToSignup: function () {
         this.$router.push({path: '/signup'})
-      }
+      },
+      ...mapActions('common', ['changeStaff'])
     }
   }
 </script>

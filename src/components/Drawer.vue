@@ -50,7 +50,6 @@
     MdSnackbar
   } from 'vue-material/dist/components'
 
-  import Globals from '@/global.js'
   import {mapState} from 'vuex'
 
   Vue.use(MdDrawer)
@@ -66,7 +65,7 @@
       return {}
     },
     computed: {
-      ...mapState('common', ['theme'])
+      ...mapState('common', ['theme', 'staff'])
     },
     methods: {
       // 统一错误提示动作
@@ -85,12 +84,11 @@
           '产品配置岗'
         ]
         this.$snackbar({
-          message: `尚无权限进入 ${occupation} 界面! 当前对应岗位为: ${chineseType[Globals.staff.type]}`
+          message: `尚无权限进入 ${occupation} 界面! 当前对应岗位为: ${chineseType[this.staff.type]}`
         })
       },
       goToAnotherPart: function (name) {
-        // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
-        const staffType = parseInt(Globals.staff.type)
+        const staffType = parseInt(this.staff.type)
         let close = true
         switch (name) {
           case 'admin':
