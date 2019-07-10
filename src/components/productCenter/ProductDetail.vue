@@ -10,6 +10,7 @@
 
       <div class="product-info">
         <div class="product-info__subtitle">{{product.productName}}</div>
+        <div class="product-info__intro">产品简介: {{product.productIntro}}</div>
         <md-table v-if="product.configs" v-model="product.configs" md-card>
           <md-table-toolbar>
             <h1 class="md-title">产品相关信息详情</h1>
@@ -153,6 +154,12 @@
       margin-bottom: 100px;
     }
 
+    .product-info__intro {
+      font-size: 20px;
+      line-height: 20px;
+      margin-bottom: 100px;
+    }
+
     .product-info__price {
       width: 100%;
       margin-top: 50px;
@@ -170,5 +177,9 @@
         }
       }
     }
+  }
+
+  .verify {
+    padding: 0 24px;
   }
 </style>
