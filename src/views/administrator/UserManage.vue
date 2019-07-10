@@ -279,7 +279,7 @@ export default {
     verifyDelete: function() {
       apis.deleteUser(
         {
-          method: "GET",
+          method: "DELETE",
           url: `/manage/delete/${this.currentUser.id}`
         },
 
