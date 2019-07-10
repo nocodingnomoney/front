@@ -132,6 +132,7 @@ const apis = {
       }
     },
 
+
     /**
      * @Description: 与产品配置有关
      * @return:  Array
@@ -160,6 +161,17 @@ const apis = {
       configuring: (success, fail) => {
         return wrappedAxios({method: 'GET', url: '/products/process/5'}, success, fail)
       }
+    }
+  },
+
+  /**
+   * @Description: 与系统管理员有关s
+   * @Author: littlebugyang
+   * @Date: 2019/7/10
+   */
+  admin: {
+    getOperation: (success, fail) => {
+      return wrappedAxios({url: '/manage/getAllOp'}, success, fail)
     }
   },
 

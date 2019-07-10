@@ -76,8 +76,8 @@
               url: '/main/admin/productHouse'
             },
             {
-              name: '配置库',
-              url: '/main/admin/configHouse'
+              name: '操作记录',
+              url: '/main/admin/operation'
             }
           ],
           [
