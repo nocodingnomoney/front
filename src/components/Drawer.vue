@@ -90,7 +90,6 @@
       },
       goToAnotherPart: function (name) {
         // todo: 检验是否有权限进入该part, 如果没有则emit一个参数false
-        console.log('是我')
         const staffType = parseInt(Globals.staff.type)
         let close = true
         switch (name) {

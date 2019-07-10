@@ -39,9 +39,9 @@
       </div>
     </div>
     <div class="md-toolbar-row">
-      <md-tabs :class="{'md-primary': theme === 'light' }" md-s ync-route @md-changed="handleTabSwitched">
+      <md-tabs :class="{'md-primary': theme === 'light' }" md-sync-route>
         <md-tab v-for="(tab,index) in tabs[drawerIndex-1]" :key="index" :md-label="tab.name"
-                :id="'tab'+index"></md-tab>
+                :id="'tab'+index" :to="tab.url"></md-tab>
       </md-tabs>
     </div>
   </div>
@@ -144,21 +144,7 @@
               url: '/main/data/catalog'
             }
           ]
-        ],
-        tempTabs: {
-          // 专供系统管理员
-          '1': ['用户管理', '产品库'],
-          // 专供供应商渠道岗
-          '2': ['资料管理', '黑白名单'],
-          // 专供产品录入岗
-          '3': ['产品录入', '产品预选库'],
-          // 专供产品审核岗
-          '4': ['产品评估', '产品审批', '产品标准库', '产品配置库(上架)'],
-          // 专供产品配置岗
-          '5': ['产品配置', '配置审批', '产品配置库'],
-          // 专供数据分析
-          '6': ['职员数据', '产品销量']
-        }
+        ]
       }
     },
     mounted() {
@@ -193,7 +179,9 @@
           case 'data':
             this.drawerIndex = 6
             break
+          // 下面的index对应什么都没有
           default:
+            this.drawerIndex = 7
         }
       },
       toggleMenu: function () {
@@ -207,13 +195,6 @@
             message: '已登出'
           })
         })
-      },
-      handleTabSwitched: function (tabId) {
-        // 页面刚加载的时候tabId会被触发, 但是值为undefined
-        if (tabId) {
-          const index = parseInt(tabId.slice(3))
-          this.$router.push(this.tabs[this.drawerIndex - 1][index].url)
-        }
       }
     }
   }
