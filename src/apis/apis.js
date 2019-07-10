@@ -4,7 +4,7 @@ const prefix = require(`./api.config.${process.env.NODE_ENV}.js`)
 
 const axios = require('axios')
 
-const wrappedAxios = (config, success, fail) => 
+const wrappedAxios = (config, success, fail) => {
   if(Vue.prototype.$loading){
     Vue.prototype.$loading(true)
   }
