@@ -51,7 +51,7 @@
       }
     },
     mounted() {
-      apis.products.libraries.getConfigLib((res) => {
+      apis.products.libraries.getConfigLib({}, (res) => {
         this.products = res.data
       }, () => {
       })
