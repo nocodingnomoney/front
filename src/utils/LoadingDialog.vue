@@ -1,5 +1,5 @@
 <template>
-  <md-dialog class="loading-dialog" :md-active.sync="showLoading">
+  <md-dialog :md-click-outside-to-close="false" class="loading-dialog" :md-active.sync="showLoading">
     <md-dialog-title>请稍等</md-dialog-title>
     <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
   </md-dialog>
