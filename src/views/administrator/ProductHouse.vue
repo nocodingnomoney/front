@@ -130,4 +130,8 @@
       margin: 0 auto;
     }
   }
+
+  .verify {
+    padding: 0 24px;
+  }
 </style>
