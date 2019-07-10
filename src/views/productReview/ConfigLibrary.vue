@@ -29,8 +29,9 @@
           </md-menu>
         </md-table-cell>
         <md-table-cell md-label="操作">
-          <md-button class="md-primary md-raised" @click="uploadProduct(item.productID)" :disabled="item.uploaded">
-            {{item.uploaded ? '已上架': '上架商品'}}
+          <md-button :class="{'md-primary': !item.uploaded, 'md-accent': item.uploaded}" class="md-raised"
+                     @click="submitProduct(item.productID)">
+            {{item.uploaded ? '下架商品': '上架商品'}}
           </md-button>
         </md-table-cell>
       </md-table-row>
@@ -55,26 +56,44 @@
         products: []
       }
     },
-    mounted() {
-      apis.products.libraries.getConfigLib((res) => {
-        this.products = res.data.map((product) => {
-          return Object.assign(product, {uploaded: product.processID === 6})
+    async mounted() {
+      // 分步获取配置库中已上架和未上架的产品
+      let downloadedProducts = null
+      let uploadedProducts = null
+      await apis.products.libraries.getConfigLib({params: {processID: 4}}, (res) => {
+        downloadedProducts = res.data.map((product) => {
+          return Object.assign(product, {uploaded: false})
         })
-      }, () => {
       })
+      await apis.products.libraries.getConfigLib({params: {processID: 6}}, (res) => {
+        uploadedProducts = res.data.map((product) => {
+          return Object.assign(product, {uploaded: true})
+        })
+      })
+      // 拼接
+      this.products = downloadedProducts.concat(uploadedProducts)
     },
     methods: {
-      uploadProduct(id) {
-        apis.products.submit.upload(id, () => {
-          for (let i = 0; i < this.products.length; ++i) {
-            if (this.products[i].productID === id) {
-              let tempProducts = this.products
-              tempProducts[i].uploaded = true
-              break
+      async submitProduct(id) {
+        for (let i = 0; i < this.products.length; ++i) {
+          if (this.products[i].productID === id) {
+            let tempProducts = this.products
+            // 如果目标产品已经上架, 则将其下架; 否则将目标产品上架
+            if (tempProducts[i].uploaded) {
+              await apis.products.submit.download(id, () => {
+                this.$snackbar({message: '下架商品成功'})
+                tempProducts[i].uploaded = false
+              })
+            } else {
+              await apis.products.submit.upload(id, () => {
+                this.$snackbar({message: '上架商品成功'})
+                tempProducts[i].uploaded = true
+              })
             }
+            this.products = tempProducts
+            break
           }
-          this.$snackbar({message: '上架商品成功'})
-        })
+        }
       }
     }
   }
