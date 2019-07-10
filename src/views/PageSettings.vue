@@ -23,8 +23,9 @@
       }
     },
     mounted() {
-      if (this.theme) {
-        this.dark = this.theme === 'dark'
+      if (this.$session.get('theme')) {
+        this.dark = this.$session.get('theme') === 'dark'
+        this.changeTheme(this.dark ? 'dark' : 'light')
       }
     },
     computed: {
@@ -33,6 +34,7 @@
     methods: {
       handleThemeChange(dark) {
         this.changeTheme(dark ? 'dark' : 'light')
+        this.$session.set('theme', dark ? 'dark' : 'light')
       },
       ...mapActions('common', [
         'changeTheme'

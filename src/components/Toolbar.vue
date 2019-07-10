@@ -26,7 +26,7 @@
               </md-avatar>
               <div class="author-card__info">
                 <div class="author-card__info__name">
-                  <span>{{this.staffName}}</span>
+                  <span>{{this.staff.name}}</span>
                 </div>
                 <div>
                   <md-button class="md-raised md-accent" @click="logout">退出</md-button>
@@ -50,9 +50,8 @@
 <script>
   import Vue from 'vue'
   import {MdTabs, MdButton, MdIcon, MdMenu, MdAvatar} from 'vue-material/dist/components'
-  import Globals from '@/global.js'
   import apis from '@/apis/apis.js'
-  import {mapState} from 'vuex'
+  import {mapState, mapActions} from 'vuex'
 
   Vue.use(MdTabs)
   Vue.use(MdButton)
@@ -64,9 +63,8 @@
     name: 'Toolbar',
     data() {
       return {
-        staffName: Globals.staff.name,
         toggleCard: false, // 员工的card
-        drawerIndex: parseInt(Globals.staff.type),
+        drawerIndex: 7,
         tabs: [
           [
             {
@@ -148,10 +146,14 @@
       }
     },
     mounted() {
+      if (this.$session.get('staff')) {
+        this.changeStaff(this.$session.get('staff'))
+        console.log(this.$session.get('staff'))
+      }
       this.changeTabsThroughPath()
     },
     computed: {
-      ...mapState('common', ['theme'])
+      ...mapState('common', ['theme', 'staff'])
     },
     watch: {
       $route() {
@@ -189,13 +191,15 @@
       },
       logout: function () {
         apis.logout(() => {
-          Globals.staff = {}
+          this.$session.remove('staff')
+          this.changeStaff({name: '', type: '', level: ''})
           this.$router.push('/login')
           this.$snackbar({
             message: '已登出'
           })
         })
-      }
+      },
+      ...mapActions('common', ['changeStaff'])
     }
   }
 </script>
